@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {UploadFileService} from '../../../_services/upload-file.service';
-import {ToastrService} from 'ngx-toastr';
+// import {UploadFileService} from '../../../_services/upload-file.service';
+// import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-update-avatar',
@@ -9,14 +9,14 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class UpdateAvatarComponent implements OnInit {
 
-  imgUploadUrl: string;
+  // imgUploadUrl: string;
   fileUpload: any;
   @Output() avatarUploadUrl = new EventEmitter<any>();
 
-  constructor(
-    private uploadService: UploadFileService,
-    private toast: ToastrService) {
-  }
+  // constructor(
+  //   private uploadService: UploadFileService,
+  //   private toast: ToastrService) {
+  // }
 
   ngOnInit(): void {
   }
@@ -26,7 +26,7 @@ export class UpdateAvatarComponent implements OnInit {
     console.log(this.fileUpload);
   }
 
-  updateAvatar(file) {
-    this.fileUpload = file;
-  }
+  // updateAvatar(file) {
+  //   this.fileUpload = file;
+  // }
 }

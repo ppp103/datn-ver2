@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {UserAccount} from '../../../models/user-account';
-import {UserService} from '../../../_services/user.service';
-import {ToastrService} from 'ngx-toastr';
+// import {UserAccount} from '../../../models/user-account';
+// import {UserService} from '../../../_services/user.service';
+// import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-update-email',
@@ -11,13 +11,27 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class UpdateEmailComponent implements OnInit {
   rfEmail: FormGroup;
-  @Input() userProfile: UserAccount;
+  // @Input() userProfile: UserAccount;
   @Output() emailUpdate = new EventEmitter<any>();
 
   hiddenPwd = true;
 
-  constructor(private userService: UserService, private toast: ToastrService, private fb: FormBuilder) {
+  // constructor(private userService: UserService, private toast: ToastrService, private fb: FormBuilder) {
+  // }
+
+  constructor(
+    private fb: FormBuilder) {
+      this.rfEmail = this.fb.group({
+        email: ['', {
+          validators: [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')],
+          // asyncValidators: [this.userService.validateEmail()],
+          updateOn: 'blur'
+        }],
+        currentPassword: [null, Validators.required],
+  
+      });
   }
+
 
   get email() {
     return this.rfEmail.get('email');
@@ -28,7 +42,7 @@ export class UpdateEmailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initFormUpdateEmail();
+    // this.initFormUpdateEmail();
   }
 
   togglePwd() {
@@ -36,21 +50,21 @@ export class UpdateEmailComponent implements OnInit {
   }
 
   changeEmail() {
-    const data = {email: this.email.value, password: this.currentPassword.value};
-    this.emailUpdate.emit(data);
-    this.rfEmail.reset();
+    // const data = {email: this.email.value, password: this.currentPassword.value};
+    // this.emailUpdate.emit(data);
+    // this.rfEmail.reset();
 
   }
 
-  initFormUpdateEmail() {
-    this.rfEmail = this.fb.group({
-      email: ['', {
-        validators: [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')],
-        asyncValidators: [this.userService.validateEmail()],
-        updateOn: 'blur'
-      }],
-      currentPassword: [null, Validators.required],
+  // initFormUpdateEmail() {
+  //   this.rfEmail = this.fb.group({
+  //     email: ['', {
+  //       validators: [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')],
+  //       // asyncValidators: [this.userService.validateEmail()],
+  //       updateOn: 'blur'
+  //     }],
+  //     currentPassword: [null, Validators.required],
 
-    });
-  }
+  //   });
+  // }
 }

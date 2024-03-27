@@ -1,6 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-
 @Component({
   selector: 'app-update-password',
   templateUrl: './update-password.component.html',
@@ -14,6 +13,11 @@ export class UpdatePasswordComponent implements OnInit {
   hiddenConfirmPwd = true;
 
   constructor(private fb: FormBuilder) {
+    this.rfPassword = new FormGroup({
+      oldPassword: new FormControl(null, Validators.required),
+      newPassword: new FormControl(null, Validators.pattern('^(?=.*[\\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\\w!@#$%^&*]{8,}$')),
+      confirmPassword: new FormControl(null)
+    });
   }
 
   get oldPassword() {
@@ -34,34 +38,39 @@ export class UpdatePasswordComponent implements OnInit {
 
 
   updatePassword() {
-    const data = {currentPassword: this.oldPassword.value, newPassword: this.newPassword.value};
-    this.passwordUpdate.emit(data);
+    // const data = {currentPassword: this.oldPassword.value, newPassword: this.newPassword.value};
+    // this.passwordUpdate.emit(data);
 
   }
 
   initFormChangePwd() {
-    this.rfPassword = new FormGroup({
-      oldPassword: new FormControl(null, Validators.required),
-      newPassword: new FormControl(null, Validators.pattern('^(?=.*[\\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\\w!@#$%^&*]{8,}$')),
-      confirmPassword: new FormControl(null)
-    });
-    this.rfPassword.setValidators([this.passwordConfirming, this.passwordDuplicating]);
+    // this.rfPassword = new FormGroup({
+    //   oldPassword: new FormControl(null, Validators.required),
+    //   newPassword: new FormControl(null, Validators.pattern('^(?=.*[\\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\\w!@#$%^&*]{8,}$')),
+    //   confirmPassword: new FormControl(null)
+    // });
+    // this.rfPassword.setValidators([this.passwordConfirming, this.passwordDuplicating]);
 
   }
 
-  passwordConfirming(c: AbstractControl): { passwordConfirming: boolean } {
-    if (c.get('newPassword').value !== c.get('confirmPassword').value) {
-      return {passwordConfirming: true};
+  // passwordConfirming(c: AbstractControl): { passwordConfirming: boolean } {
+  //   if (c.get('newPassword').value !== c.get('confirmPassword').value) {
+  //     return {passwordConfirming: true};
+  //   }
+  // }
+
+  passwordConfirming(c: AbstractControl) {
     }
+  // passwordDuplicating(c: AbstractControl): { passwordDuplicating: boolean } {
+  //   if (c.get('newPassword').value === c.get('oldPassword').value) {
+  //     return {passwordDuplicating: true};
+  //   }
+  // }
+
+  passwordDuplicating(c: AbstractControl) {
   }
 
-  passwordDuplicating(c: AbstractControl): { passwordDuplicating: boolean } {
-    if (c.get('newPassword').value === c.get('oldPassword').value) {
-      return {passwordDuplicating: true};
-    }
-  }
-
-  togglePwd(type) {
+  togglePwd(type: any) {
     switch (type) {
       case 'hiddenOldPwd': {
         this.hiddenOldPwd = !this.hiddenOldPwd;
@@ -78,5 +87,4 @@ export class UpdatePasswordComponent implements OnInit {
     }
 
   }
-
 }

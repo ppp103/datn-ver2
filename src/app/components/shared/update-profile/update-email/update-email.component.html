@@ -3,18 +3,18 @@
     <div class="md:w-full px-3">
       <label class="block uppercase tracking-wide text-gray-600 text-xs font-bold mb-2"
              for="email">
-        New email
+        Email mới
       </label>
       <input
         class="appearance-none border rounded-md w-full py-2 px-3 my-1 text-gray-600 bg-gray-200 leading-tight outline-none focus:border-blue-500"
         id="email"
         type="email"
-        placeholder="Enter new email!"
+        placeholder="Nhập email mới"
         autocomplete="off"
         formControlName="email"
         required
       >
-      <p class="text-red-500 text-xs italic"
+      <!-- <p class="text-red-500 text-xs italic"
          *ngIf="email?.hasError('required') && (email?.dirty || email?.touched)"
       >This field must be not empty</p>
       <p class="text-red-500 text-xs italic"
@@ -25,12 +25,12 @@
         This email already exists</p>
       <p class="text-red-500 text-xs italic"
          *ngIf="email.value==userProfile.email && (email?.dirty || email?.touched)"
-      >This is old email</p>
+      >This is old email</p> -->
     </div>
     <div class="md:w-full px-3">
       <label class="block uppercase tracking-wide text-gray-600 text-xs font-bold mb-2"
              for="current-pwd">
-        Current password <span class="mx-1 text-lg text-gray-700 cursor-pointer" (click)="togglePwd()">
+        Mật khẩu <span class="mx-1 text-lg text-gray-700 cursor-pointer" (click)="togglePwd()">
         <i [ngClass]="hiddenPwd ? 'fa fa-eye-slash':'fa fa-eye'"></i>
       </span>
       </label>
@@ -38,7 +38,7 @@
         class="appearance-none border rounded-md w-full py-2 px-3 my-1 text-gray-600 bg-gray-200 leading-tight outline-none focus:border-blue-500"
         id="current-pwd"
         [type]="hiddenPwd? 'password':'text'"
-        placeholder="********"
+        placeholder="Mật khẩu"
         autocomplete="off"
         formControlName="currentPassword"
         required
