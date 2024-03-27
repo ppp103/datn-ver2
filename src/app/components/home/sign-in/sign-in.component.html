@@ -1,0 +1,98 @@
+<div class="bg-gray-100 w-screen h-screen flex justify-center items-center">
+    <!-- modal -->
+    <div class="flex fixed max-w-5xl w-5/6 sm:w-4/5 bg-white rounded-sm shadow-2xl">
+      <div class="hidden md:block w-6/12 md:w-5/12">
+        <img src="../../assets/images/bg-login.jpg" alt="hình nền login"
+             class="rounded-sm inset-0 h-full w-full object-cover object-center">
+      </div>
+      <div class="w-full md:w-7/12 text-left">
+        <div class="modal-content px-3 py-2 md:px-4 md:py-1 lg:px-6 lg:py-3">
+          <div class="flex justify-between">
+            <div class="text-xl md:text-2xl lg:text-3xl font-bold">Đăng nhập
+            </div>
+
+            <!-- End close modal button  -->
+          </div>
+          <!-- Form Login -->
+          <form novalidate>
+            <!-- Username input -->
+            <div class="form-group">
+              <div class="flex flex-row justify-between">
+                <label for="username" class="text-label mt-3">Tên đăng
+                  nhập</label>
+                <!-- <div
+                  class="alert alert-danger"
+                  role="alert"
+                >
+                  Ô này không bỏ trống!
+                </div> -->
+              </div>
+    
+              <input
+                class="form-control"
+                id="username" type="text" placeholder="Tên đăng nhập" autocomplete="off"
+                name="username"
+                required
+              />
+  
+            </div>
+            <!-- Password input -->
+            <div class="form-group mt-3">
+              <div class="flex flex-row justify-between">
+                <label for="password" class="text-label">Mật khẩu</label>
+                <!-- <div
+                  class="alert alert-danger"
+                  role="alert"
+                  >
+                  <div>Ô này không bỏ trống!</div>
+  
+                </div> -->
+              </div>
+              <input
+                class="form-control"
+                id="password" type="password" placeholder="Mật khẩu"
+                name="password"
+                required
+                />
+  
+            </div>
+            <div class="mt-3 flex items-center">
+              <input class="mr-1" type="checkbox" id="remember" checked>
+              <label for="remember"
+                class="text-label">Lưu
+                mật khẩu
+              </label>
+              <a [routerLink]="['/forget-password']"
+                class="text-sm cursor-pointer hover:text-black-600 focus:underline font-semibold mr-4 lg:-mr-6 outline-none select-none ml-5"
+                >Quên mật khẩu?</a>
+            </div>
+            <div class="flex justify-start items-center">
+              <button
+                class="btn btn-primary mt-3">
+                Đăng nhập
+              </button>
+              <!-- <ng-template [ngIf]="preLoading">
+                <app-spinner></app-spinner>
+              </ng-template>
+   -->
+            </div>
+  
+            <!-- <div class="form-group">
+              <div
+                class="alert alert-danger ml-8"
+                role="alert"
+              >
+              </div>
+            </div> -->
+          </form>
+          <!-- End Form Login -->
+          <div class="mt-3 mb-4 flex justify-start ">
+            <a [routerLink]="['/home']"
+               class="text-sm text-black-500 hover:text-black-600 cursor-pointer focus:underline font-semibold select-none">&larr; Quay lại
+              trang chủ</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End modal -->
+  </div>
