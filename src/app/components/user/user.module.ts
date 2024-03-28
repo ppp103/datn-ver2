@@ -15,7 +15,8 @@ import { TestResultComponent } from './test-result/test-result.component';
 import { RouterModule } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
 import { UserComponent } from './user.component';
-
+import { TestDetailComponent } from './test-detail/test-detail.component';
+import { FormatTimePipe } from '../../pipes/format-time.pipe';
 
 @NgModule({
   declarations: [
@@ -28,13 +29,10 @@ import { UserComponent } from './user.component';
     TestListComponent,
     TestQuestionComponent,
     TestResultComponent,
-    UserComponent
+    UserComponent,
+    TestDetailComponent,
+    FormatTimePipe,
   ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    RouterModule,
-    RouterOutlet
-  ]
+  imports: [CommonModule, SharedModule, RouterModule, RouterOutlet],
 })
-export class UserModule { }
+export class UserModule {}

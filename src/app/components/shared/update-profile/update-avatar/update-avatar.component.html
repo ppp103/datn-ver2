@@ -6,10 +6,18 @@
         Chọn ảnh
       </label>
       <!-- <app-file-upload (fileUrlOutput)="updateAvatar($event)"></app-file-upload> -->
+      <input
+        class="appearance-none border rounded-md w-full py-2 px-3 my-1 text-gray-600 bg-gray-200 leading-tight outline-none focus:border-blue-500"
+        type="file"
+        accept="image/*, .xlsx, .xls"
+        placeholder="Chọn file"
+        autocomplete="off"
+        required
+      >
     </div>
   </div>
   <div class="my-5 flex justify-end px-6">
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
+    <button class="btn btn-primary"
             type="submit">Lưu
     </button>
   </div>

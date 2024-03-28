@@ -14,6 +14,8 @@ import {switchMap} from 'rxjs/operators';
 export class FileUploadComponent implements OnInit {
   // selectedFiles: FileList;
   // currentFileUpload: File;
+  selectedFiles: any;
+  currentFileUpload: any;
   @Input() fileUrl: any;
 
   @Output() fileUrlOutput = new EventEmitter<any>();
@@ -21,16 +23,20 @@ export class FileUploadComponent implements OnInit {
   // constructor(private uploadService: UploadFileService, private toast: ToastrService, private courseService: CourseService) {
   // }
 
+  constructor() {
+  }
+
+
   ngOnInit() {
   }
 
-  // selectFile(event) {
-  //   this.selectedFiles = event.target.files;
-  //   this.currentFileUpload = this.selectedFiles.item(0);
-  //   this.selectedFiles = undefined;
-  //   this.fileUrlOutput.emit(this.currentFileUpload);
+  selectFile(event: any) {
+    this.selectedFiles = event.target.files;
+    this.currentFileUpload = this.selectedFiles.item(0);
+    this.selectedFiles = undefined;
+    this.fileUrlOutput.emit(this.currentFileUpload);
 
-  // }
+  }
 
   // upload() {
   //   this.currentFileUpload = this.selectedFiles.item(0);

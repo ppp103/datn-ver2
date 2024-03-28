@@ -7,6 +7,8 @@ import { AdminDashboardComponent } from './components/admin/admin-dashboard/admi
 import { UserComponent } from './components/user/user.component';
 import { DashboardComponent } from './components/user/dashboard/dashboard.component';
 import { ProfileComponent } from './components/user/profile/profile.component';
+import { TestDetailComponent } from './components/user/test-detail/test-detail.component';
+import { TestQuestionComponent } from './components/user/test-question/test-question.component';
 
 const routes: Routes = [
   {
@@ -36,7 +38,9 @@ const routes: Routes = [
     children:[
         { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
         { path: 'dashboard', component: DashboardComponent, data: { breadcrumb: 'Dashboard' }},
-        { path: 'profile', component: ProfileComponent, data: { breadcrumb: 'Profile' }},
+        { path: 'profile', component: ProfileComponent, data: { breadcrumb: 'Hồ sơ' }},
+        { path: 'test/detail', component: TestDetailComponent, data: { breadcrumb: 'Chi tiết đề thi' }},
+        { path: 'test/detail/start', component: TestQuestionComponent, data: { breadcrumb: 'Làm bài' }},
 
     ]
 }

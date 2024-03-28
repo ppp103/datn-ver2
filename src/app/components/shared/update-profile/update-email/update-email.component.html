@@ -45,12 +45,17 @@
       >
       <p class="text-red-500 text-xs italic"
          *ngIf="currentPassword?.hasError('required') && currentPassword?.touched"
-      >This field must be not empty</p>
+      >Mật khẩu không được để trống</p>
     </div>
   </div>
-  <div class="my-5 flex justify-end px-6">
+  <!-- <div class="my-5 flex justify-end px-6">
     <button [disabled]="rfEmail.invalid" *ngIf="rfEmail.valid" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
-            type="submit">Update email
+            type="submit">Lưu
+    </button>
+  </div> -->
+  <div class="my-5 flex justify-end px-6">
+    <button [disabled]="rfEmail.invalid" class="btn btn-primary"
+            type="submit">Lưu
     </button>
   </div>
 </form>
