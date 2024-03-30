@@ -16,6 +16,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ManageUserComponent } from './manage-user/manage-user.component';
 import { ManageQuestionComponent } from './manage-question/manage-question.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
+import { MatSelectModule } from '@angular/material/select';
+import { BrowserModule } from '@angular/platform-browser';
+import { GridModule } from '@syncfusion/ej2-angular-grids';
 // import { LineChartComponent } from './line-chart/line-chart.component';
 @NgModule({
   declarations: [
@@ -31,6 +34,7 @@ import { AdminProfileComponent } from './admin-profile/admin-profile.component';
     ManageQuestionComponent,
     AdminProfileComponent,
     CardStatsComponent,
+
     // LineChartComponent,
   ],
   imports: [
@@ -41,6 +45,10 @@ import { AdminProfileComponent } from './admin-profile/admin-profile.component';
     SharedModule,
     ReactiveFormsModule,
     FormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    BrowserModule,
+    GridModule,
   ],
 })
 export class AdminModule {}

@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-manage-user',
@@ -8,12 +13,19 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ManageUserComponent {
   formSearch!: FormGroup;
+  toppings = new FormControl('');
+  listData: any;
+  toppingList: string[] = [
+    'Extra cheese',
+    'Mushroom',
+    'Onion',
+    'Pepperoni',
+    'Sausage',
+    'Tomato',
+  ];
   constructor(private fb: FormBuilder) {
-    // this.formSearch = this.fb.group({
-    //   // Define your form controls here
-    //   // For example:
-    //   keyWord: ['', Validators.required],
-    //   // Add more form controls as needed
-    // });
+    this.formSearch = this.fb.group({
+      keyWord: ['', Validators.required],
+    });
   }
 }
