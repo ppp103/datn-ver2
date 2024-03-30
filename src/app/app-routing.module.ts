@@ -9,45 +9,124 @@ import { DashboardComponent } from './components/user/dashboard/dashboard.compon
 import { ProfileComponent } from './components/user/profile/profile.component';
 import { TestDetailComponent } from './components/user/test-detail/test-detail.component';
 import { TestQuestionComponent } from './components/user/test-question/test-question.component';
+import { TestListComponent } from './components/user/test-list/test-list.component';
+import { TestResultComponent } from './components/user/test-result/test-result.component';
+import { ManageQuestionComponent } from './components/admin/manage-question/manage-question.component';
+import { ManageTestComponent } from './components/admin/manage-test/manage-test.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { ManageUserComponent } from './components/admin/manage-user/manage-user.component';
+import { ManageSubjectComponent } from './components/admin/manage-subject/manage-subject.component';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'home',
-    pathMatch: 'full'
-},
-{
+    pathMatch: 'full',
+  },
+  {
     path: 'home',
-    component: HomeComponent
-},
-{
+    component: HomeComponent,
+  },
+  {
     path: 'sign-in',
-    component: SignInComponent
-},
-{
+    component: SignInComponent,
+  },
+  {
     path: 'forget-password',
-    component: ForgetPasswordComponent
-},
-{
+    component: ForgetPasswordComponent,
+  },
+  {
     path: 'admin',
-    component: AdminDashboardComponent
-},
-{
+    component: AdminComponent,
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      {
+        path: 'dashboard',
+        component: AdminDashboardComponent,
+        data: { breadcrumb: 'Dashboard' },
+      },
+      {
+        path: 'questions',
+        component: ManageQuestionComponent,
+        data: { breadcrumb: 'Quản lý câu hỏi' },
+      },
+      {
+        path: 'tests',
+        component: ManageTestComponent,
+        data: { breadcrumb: 'Quản lý đề thi' },
+      },
+      {
+        path: 'users',
+        component: ManageUserComponent,
+        data: { breadcrumb: 'Quản lý người dùng' },
+      },
+      {
+        path: 'subjects',
+        component: ManageSubjectComponent,
+        data: { breadcrumb: 'Quản lý chủ đề' },
+      },
+
+      // { path: 'test/detail/:id', component: TestDetailComponent, data: { breadcrumb: 'Chi tiết đề thi' } },
+
+      {
+        path: 'test/detail/start',
+        component: TestQuestionComponent,
+        data: { breadcrumb: 'Làm bài' },
+      },
+      // { path: 'test/detail/:id/start', component: TestQuestionComponent, data: { breadcrumb: 'Làm bài' } },
+      {
+        path: 'test/detail/result',
+        component: TestResultComponent,
+        data: { breadcrumb: 'Kết quả' },
+      },
+      // { path: 'test/detail/:id/result', component: TestResultComponent, data: { breadcrumb: 'Kết quả' } },
+    ],
+  },
+  {
     path: 'user',
     component: UserComponent,
-    children:[
-        { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-        { path: 'dashboard', component: DashboardComponent, data: { breadcrumb: 'Dashboard' }},
-        { path: 'profile', component: ProfileComponent, data: { breadcrumb: 'Hồ sơ' }},
-        { path: 'test/detail', component: TestDetailComponent, data: { breadcrumb: 'Chi tiết đề thi' }},
-        { path: 'test/detail/start', component: TestQuestionComponent, data: { breadcrumb: 'Làm bài' }},
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        data: { breadcrumb: 'Dashboard' },
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        data: { breadcrumb: 'Hồ sơ' },
+      },
+      {
+        path: 'test',
+        component: TestListComponent,
+        data: { breadcrumb: 'Danh sách đề thi' },
+      },
+      {
+        path: 'test/detail',
+        component: TestDetailComponent,
+        data: { breadcrumb: 'Chi tiết đề thi' },
+      },
+      // { path: 'test/detail/:id', component: TestDetailComponent, data: { breadcrumb: 'Chi tiết đề thi' } },
 
-    ]
-}
+      {
+        path: 'test/detail/start',
+        component: TestQuestionComponent,
+        data: { breadcrumb: 'Làm bài' },
+      },
+      // { path: 'test/detail/:id/start', component: TestQuestionComponent, data: { breadcrumb: 'Làm bài' } },
+      {
+        path: 'test/detail/result',
+        component: TestResultComponent,
+        data: { breadcrumb: 'Kết quả' },
+      },
+      // { path: 'test/detail/:id/result', component: TestResultComponent, data: { breadcrumb: 'Kết quả' } },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -1,0 +1,24 @@
+.nav-link {
+  padding: 4px 15px;
+  background-color: #f8f9fa;
+  border-radius: 25px;
+  white-space: nowrap;
+  cursor: pointer;
+  color: #1a1a1a;
+}
+
+.nav-link.active {
+  background-color: #4d81c4;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.nav-link.active:hover {
+  background-color: #4d81c4;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  background-color: #e7eaf3;
+}

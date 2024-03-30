@@ -1,71 +1,99 @@
-<div class="overlay">
-  <div class="w-full py-5">
-    <div
-      class="flex justify-between px-4 py-4 bg-white shadow-lg rounded-md sticky z-30"
-      style="top: -8px"
-    >
+<div class="w-full py-5">
+  <div
+    class="px-4 py-4 bg-white shadow-lg rounded-md sticky z-30"
+    style="top: -8px"
+  >
+    <div class="flex justify-between">
       <div>
         Thời gian:
-        <span class="font-bold text-xl">{{ counter | date: 'mm:ss' }}</span>
+        <span class="font-bold text-xl">{{ counter | formatTime }}</span>
       </div>
-      <div class="">
+
+      <div>
         <button class="btn btn-primary" (click)="showModal()">Nộp bài</button>
       </div>
     </div>
-    <ng-container>
-      <div class="my-12 mx-4 flex flex-row">
-        <div
-          class="w-48 bg-gray-300 mx-4 px-2 py-2 h-32 rounded-md ml-0 flex flex-col select-none items-center"
-        >
-          <div class="font-bold text-gray-600 text-xl my-2">Câu 1</div>
-        </div>
-        <div class="bg-gray-300 rounded-md shadow-lg px-8 py-6 w-full">
-          <p class="select-none">Câu hỏi</p>
-          <div class="h-auto">
-            <div class="my-5 font-semibold text-blue-600 select-none">
-              Chọn câu trả lời<span></span>
+    <div class="row">
+      <div class="question-list flex mt-2 flex-wrap">
+        <ng-container>
+          <div class="question-container cursor-pointer">
+            <div
+              class="w-7 mr-2 text-white h-7 bg-blue-500 rounded-full relative flex justify-center items-center"
+            >
+              1
             </div>
-            <div class="flex">
-              <div class="radio-type flex-1">
-                <div class="radio-btn">
-                  <input type="radio" />
-                  <label class="select-none">True</label>
-                </div>
+          </div>
+          <div class="question-container cursor-pointer">
+            <div
+              class="w-7 mr-2 text-white h-7 bg-blue-500 rounded-full relative flex justify-center items-center"
+            >
+              1
+            </div>
+          </div>
+          <div class="question-container cursor-pointer">
+            <div
+              class="w-7 mr-2 text-white h-7 bg-blue-500 rounded-full relative flex justify-center items-center"
+            >
+              1
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <ng-container>
+    <div class="my-12 mx-4 flex flex-row">
+      <div
+        class="w-48 bg-gray-300 mx-4 px-2 py-2 h-16 rounded-md ml-0 flex flex-col select-none items-center"
+      >
+        <div class="font-bold text-gray-600 text-xl my-2">Câu 1</div>
+      </div>
+      <div class="bg-gray-300 rounded-md shadow-lg px-8 py-6 w-full">
+        <p class="select-none">Câu hỏi</p>
+        <div class="h-auto">
+          <div class="my-5 font-semibold text-blue-600 select-none">
+            Chọn câu trả lời<span></span>
+          </div>
+          <div class="flex">
+            <div class="radio-type flex-1">
+              <div class="radio-btn">
+                <input type="radio" />
+                <label class="select-none">True</label>
               </div>
+            </div>
 
-              <div class="radio-type flex-1">
-                <div class="radio-btn">
-                  <input type="radio" />
-                  <label class="select-none">False</label>
-                </div>
+            <div class="radio-type flex-1">
+              <div class="radio-btn">
+                <input type="radio" />
+                <label class="select-none">False</label>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </ng-container>
-    <ng-container>
-      <div class="my-12 mx-4 flex flex-row">
-        <div
-          class="w-48 bg-gray-300 mx-4 px-2 py-2 h-32 rounded-md ml-0 flex flex-col select-none items-center"
-        >
-          <div class="font-bold text-gray-600 text-xl my-2">Câu 2</div>
-        </div>
-        <div class="bg-gray-300 rounded-md shadow-lg px-8 py-6 w-full">
-          <p class="select-none">Câu hỏi</p>
-          <div class="h-auto">
-            <div class="my-5 font-semibold text-blue-600 select-none">
-              Chọn câu trả lời<span></span>
-            </div>
-            <div class="flex">
-              <div class="flex flex-col">
-                <div class="w-full my-1">
-                  <div class="flex">
-                    <div class="radio-type w-full">
-                      <div class="radio-btn">
-                        <input type="radio" />
-                        <label class="select-none">Câu trả lời</label>
-                      </div>
+    </div>
+  </ng-container>
+  <ng-container>
+    <div class="my-12 mx-4 flex flex-row">
+      <div
+        class="w-48 bg-gray-300 mx-4 px-2 py-2 h-16 rounded-md ml-0 flex flex-col select-none items-center"
+      >
+        <div class="font-bold text-gray-600 text-xl my-2">Câu 2</div>
+      </div>
+      <div class="bg-gray-300 rounded-md shadow-lg px-8 py-6 w-full">
+        <p class="select-none">Câu hỏi</p>
+        <div class="h-auto">
+          <div class="my-5 font-semibold text-blue-600 select-none">
+            Chọn câu trả lời<span></span>
+          </div>
+          <div class="flex">
+            <div class="flex flex-col">
+              <div class="w-full my-1">
+                <div class="flex">
+                  <div class="radio-type w-full">
+                    <div class="radio-btn">
+                      <input type="radio" />
+                      <label class="select-none">Câu trả lời</label>
                     </div>
                   </div>
                 </div>
@@ -74,74 +102,44 @@
           </div>
         </div>
       </div>
-    </ng-container>
-    <hr class="w-full my-3" />
-    <p class="text-center font-bold end-text">Kết thúc</p>
-  </div>
+    </div>
+  </ng-container>
+  <hr class="w-full my-3" />
+  <p class="text-center font-bold end-text">Kết thúc</p>
+</div>
 
-  <div *ngIf="toggleModal" class="fixed inset-0 z-40 bg-smoke-light"></div>
-  <div
-    *ngIf="toggleModal"
-    class="fixed inset-0 overflow-auto z-50 outline-none focus:outline-none justify-center flex"
-  >
+<div *ngIf="toggleModal" class="fixed inset-0 z-40 bg-smoke-light"></div>
+<div
+  *ngIf="toggleModal"
+  class="fixed inset-0 overflow-auto z-50 outline-none focus:outline-none justify-center flex"
+>
+  <div class="relative w-4/5 my-5 mx-auto max-w-2xl" style="margin-top: 2.5rem">
+    <!--content-->
     <div
-      class="relative w-4/5 my-5 mx-auto max-w-2xl"
-      style="margin-top: 2.5rem"
+      class="border-0 rounded-lg shadow-lg relative flex flex-col w-full overflow-y-auto my-5 bg-white outline-none focus:outline-none"
+      style="max-height: 90%"
     >
-      <!--content-->
+      <!--header-->
       <div
-        class="border-0 rounded-lg shadow-lg relative flex flex-col w-full overflow-y-auto my-5 bg-white outline-none focus:outline-none"
-        style="max-height: 90%"
+        class="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t"
       >
-        <!--header-->
-        <div
-          class="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t"
+        <h3 class="text-2xl font-semibold">Bạn chắc chắn muốn nộp bài chứ?</h3>
+        <button
+          class="p-1 ml-auto bg-transparent text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+          (click)="closeModal()"
         >
-          <h3 class="text-2xl font-semibold">
-            Bạn chắc chắn muốn nộp bài chứ?
-          </h3>
-          <button
-            class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-            (click)="closeModal()"
+          <span
+            class="bg-transparent text-gray-700 opacity-5 h-3 w-3 text-base block outline-none focus:outline-none"
           >
-            <span
-              class="bg-transparent text-gray-700 opacity-5 h-3 w-3 text-base block outline-none focus:outline-none"
-            >
-              <i class="fa fa-close"></i>
-            </span>
-          </button>
-        </div>
-        <!--body-->
-        <div class="relative">
-          <div
-            class="my-4 px-8 text-gray-600 text-base leading-relaxed text-left flex-row flex flex-wrap lg:justify-start items-center"
-          >
-            <ng-container>
-              <div
-                class="w-12 h-12 rounded-full mx-2 my-2 relative flex justify-center items-center"
-              >
-                <label class="absolute">1</label>
-              </div>
-            </ng-container>
-          </div>
-        </div>
-        <!--footer-->
-        <div
-          class="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b"
-        >
-          <button
-            class="mx-1 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
-            (click)="submit()"
-          >
-            Nộp
-          </button>
-          <button
-            class="mx-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            (click)="closeModal()"
-          >
-            Huỷ
-          </button>
-        </div>
+            <i class="fas fa-times"></i>
+          </span>
+        </button>
+      </div>
+      <!--body-->
+      <!--footer-->
+      <div class="flex items-center justify-end p-6 rounded-b">
+        <button class="btn btn-primary mr-3" (click)="submit()">Nộp</button>
+        <button class="btn btn-primary" (click)="closeModal()">Huỷ</button>
       </div>
     </div>
   </div>

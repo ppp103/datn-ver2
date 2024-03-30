@@ -11,6 +11,8 @@ import { RouterModule } from '@angular/router';
 import { AdminModule } from './components/admin/admin.module';
 import { HomeModule } from './components/home/home.module';
 import { UserModule } from './components/user/user.module';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { SharedModule } from './components/shared/shared.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -21,8 +23,9 @@ import { UserModule } from './components/user/user.module';
     AdminModule,
     HomeModule,
     UserModule,
+    SharedModule,
   ],
-  providers: [provideClientHydration()],
+  providers: [provideClientHydration(), provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

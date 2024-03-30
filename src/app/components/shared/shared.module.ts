@@ -4,22 +4,32 @@ import { UpdateAvatarComponent } from './update-profile/update-avatar/update-ava
 import { UpdateEmailComponent } from './update-profile/update-email/update-email.component';
 import { UpdatePasswordComponent } from './update-profile/update-password/update-password.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { ResultCircleComponent } from './result-circle/result-circle.component';
+import {
+  RoundProgressComponent,
+  RoundProgressModule,
+} from 'angular-svg-round-progressbar';
+import { TooltipPosition, MatTooltipModule } from '@angular/material/tooltip';
 @NgModule({
   declarations: [
     UpdateAvatarComponent,
     UpdateEmailComponent,
-    UpdatePasswordComponent
+    UpdatePasswordComponent,
+    ResultCircleComponent,
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    RoundProgressModule,
+    MatTooltipModule,
   ],
   exports: [
     UpdateAvatarComponent,
     UpdateEmailComponent,
     UpdatePasswordComponent,
-  ]
+    ResultCircleComponent,
+    MatTooltipModule,
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}

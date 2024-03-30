@@ -1,1 +1,43 @@
-<p>test-list works!</p>
+<!-- <div class="search-container">
+  <input class="form-control" type="text" placeholder="Tìm kiếm" />
+  <button class="btn btn-primary mt-2">Tìm kiếm</button>
+</div> -->
+<div class="tag-list">
+  <ul class="nav nav-pills flex-wrap">
+    <li class="nav-item w-auto">
+      <a class="nav-link active mr-2">Tên tag</a>
+    </li>
+    <li class="nav-item w-auto">
+      <a class="nav-link mr-2">Tên tag</a>
+    </li>
+    <li class="nav-item w-auto">
+      <a class="nav-link mr-2">Tên tag</a>
+    </li>
+    <li class="nav-item w-auto">
+      <a class="nav-link mr-2">Tên tag</a>
+    </li>
+  </ul>
+</div>
+<div class="input-group mt-3">
+  <input
+    type="search"
+    class="form-control rounded"
+    placeholder="Tìm kiếm"
+    aria-label="Search"
+    aria-describedby="search-addon"
+  />
+  <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>
+    Tìm kiếm
+  </button>
+</div>
+<div class="list-current-exam flex flex-wrap w-full gap-5 mt-5">
+  <!-- <ng-container *ngFor="let examComing of listComing">
+      <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3" *ngIf="!skeletonLoading">
+        <app-test-card [examUser]="examComing"></app-test-card>
+      </div>
+
+    </ng-container> -->
+  <app-test-card></app-test-card>
+  <app-test-card></app-test-card>
+  <app-test-card></app-test-card>
+</div>
