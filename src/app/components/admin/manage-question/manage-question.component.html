@@ -1,1 +1,11 @@
 <p>manage-question works!</p>
+<ul>
+  <li *ngFor="let question of questions">
+    <span>{{ question.content }}</span>
+    <span>{{ question.option1 }}</span>
+    <span>{{ question.option2 }}</span>
+    <span>{{ question.option3 }}</span>
+    <span>{{ question.option4 }}</span>
+    <span>{{ question.content }}</span>
+  </li>
+</ul>

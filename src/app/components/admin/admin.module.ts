@@ -19,6 +19,7 @@ import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserModule } from '@angular/platform-browser';
 import { GridModule } from '@syncfusion/ej2-angular-grids';
+import { ManageQuestionIoComponent } from './manage-question/manage-question-io/manage-question-io.component';
 // import { LineChartComponent } from './line-chart/line-chart.component';
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { GridModule } from '@syncfusion/ej2-angular-grids';
     ManageQuestionComponent,
     AdminProfileComponent,
     CardStatsComponent,
+    ManageQuestionIoComponent,
 
     // LineChartComponent,
   ],
