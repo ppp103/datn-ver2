@@ -25,7 +25,7 @@ export class ManageUserComponent {
   ];
   constructor(private fb: FormBuilder) {
     this.formSearch = this.fb.group({
-      keyWord: ['', Validators.required],
+      keyWord: [''],
     });
   }
 }

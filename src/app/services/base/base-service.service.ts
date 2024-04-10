@@ -86,22 +86,45 @@ export class RepositoryEloquentService extends Subject<DataStateChangeEventArgs>
    * @returns {Promise}
    */
   public getFetchAll(params = {}) {
-    // try {
-    //   const queryString = this.convertObjectToQueryString(params);
-    //   return this.httpClient.get(
-    //     `${this.apiUrl}?${queryString}`,
-    //     this.getOptions()
-    //   );
-    // } catch (error) {
-    //   // Xử lý lỗi ở đây nếu cần
-    //   console.error('Error:', error);
-    //   // Trả về một observable có giá trị null hoặc undefined nếu xảy ra lỗi
-    //   return of(null);
-    // }
-    const queryString = this.convertObjectToQueryString(params);
-    return this.httpClient.get(
-      `${this.apiUrl}?${queryString}`,
-      this.getOptions()
-    );
+    try {
+      const queryString = this.convertObjectToQueryString(params);
+      return this.httpClient.get(`${this.apiUrl}?${queryString}`, this.getOptions()).toPromise();
+    } catch (error) {
+      console.log(error);
+      return;
+    }
+    }
+
+      /**
+   * Add new item into list data
+   * @param {Object} body The data input.
+   * @returns {Observable}
+   */
+  public addItem(body: any): Observable<typeof inputModelName> {
+    Object.keys(body).map(key => {
+      body[key] = typeof body[key] === 'string' ? body[key].trim() : body[key];
+    });
+    try {
+      return this.httpClient.post<typeof inputModelName>(
+        this.apiUrl,
+        this.clearnBody(body),
+        this.getOptions()
+      );
+    } catch (error) {
+      return of(null);
+    }
   }
+
+    /**
+   * Trim string
+   * @param body Post data
+   * @returns Object
+   */
+    clearnBody(body: any) {
+      Object.keys(body).map(key => {
+        body[key] = (typeof body[key] === 'string') ? body[key].trim() : body[key];
+        return body[key];
+      });
+      return body;
+    }
 }

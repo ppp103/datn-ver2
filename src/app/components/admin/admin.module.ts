@@ -20,6 +20,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { BrowserModule } from '@angular/platform-browser';
 import { GridModule } from '@syncfusion/ej2-angular-grids';
 import { ManageQuestionIoComponent } from './manage-question/manage-question-io/manage-question-io.component';
+import { QuestionDetailComponent } from './manage-question/question-detail/question-detail.component';
+import { MatDialogModule } from '@angular/material/dialog';
 // import { LineChartComponent } from './line-chart/line-chart.component';
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import { ManageQuestionIoComponent } from './manage-question/manage-question-io/
     AdminProfileComponent,
     CardStatsComponent,
     ManageQuestionIoComponent,
+    QuestionDetailComponent,
 
     // LineChartComponent,
   ],
@@ -51,6 +54,7 @@ import { ManageQuestionIoComponent } from './manage-question/manage-question-io/
     MatSelectModule,
     BrowserModule,
     GridModule,
+    MatDialogModule
   ],
 })
 export class AdminModule {}

@@ -1,0 +1,26 @@
+.row-question {
+    width: 50%;
+  }
+  
+  .row-difficulty {
+    width: 15%;
+  }
+  
+  .row-type {
+    width: 15%;
+  }
+  
+  .row-action {
+    width: 10%;
+  }
+  
+  .row-status {
+    width: 10%;
+  }
+  
+  .e-text{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 50ch;
+  }

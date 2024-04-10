@@ -35,53 +35,88 @@ export class QuestionService extends RepositoryEloquentService {
 
 //   constructor(private http: HttpClient) {}
 
-//   public getQuestionListByPart(
-//     page: number,
-//     size: number,
-//     partId: number
-//   ): Observable<PageResult<Question>> {
-//     const pageParams = new HttpParams()
-//       .set('page', page.toString())
-//       .set('size', size.toString());
-//     return this.http.get<PageResult<Question>>(
-//       `${this.baseUrl}/parts/${partId}/questions`,
-//       { params: pageParams }
-//     );
+//   // getDataFromAPI() {
+//   //   this.http.get(`${this.baseUrl}Question`).subscribe({
+//   //     next: (data) => {
+//   //       console.log(data); // Process the data here
+//   //       return data;
+//   //     },
+//   //     error: (error) => {
+//   //       console.error('Error fetching data:', error);
+//   //     }
+//   //   });
+//   // }
+
+//   getDataFromAPI(): Observable<any> {
+//     return this.http.get<Question[]>(`${this.baseUrl}Question`);
 //   }
 
-//   public getQuestionListByPartNotDeleted(
-//     page: number,
-//     size: number,
-//     partId: number
-//   ): Observable<PageResult<Question>> {
-//     const pageParams = new HttpParams()
-//       .set('page', page.toString())
-//       .set('size', size.toString());
-//     return this.http.get<PageResult<Question>>(
-//       `${this.baseUrl}/parts/${partId}/questions/false/deleted`,
-//       { params: pageParams }
-//     );
-//   }
+//     /**
+//    * Add new item into list data
+//    * @param {Object} body The data input.
+//    * @returns {Observable}
+//    */
+//     // public addItem(body: any): Observable<Question> {
+//     //   Object.keys(body).map(key => {
+//     //     body[key] = typeof body[key] === 'string' ? body[key].trim() : body[key];
+//     //   });
+//     //   try {
+//     //     return this.httpClient.post<typeof inputModelName>(
+//     //       this.apiUrl,
+//     //       this.clearnBody(body),
+//     //       this.getOptions()
+//     //     );
+//     //   } catch (error) {
+  
+//     //   }
+//     // }
+  
+
+//   // public getQuestionListByPart(
+//   //   page: number,
+//   //   size: number,
+//   //   partId: number
+//   // ): Observable<PageResult<Question>> {
+//   //   const pageParams = new HttpParams()
+//   //     .set('page', page.toString())
+//   //     .set('size', size.toString());
+//   //   return this.http.get<PageResult<Question>>(
+//   //     `${this.baseUrl}/parts/${partId}/questions`,
+//   //     { params: pageParams }
+//   //   );
+//   // }
+
+//   // public getQuestionListByPartNotDeleted(
+//   //   page: number,
+//   //   size: number,
+//   //   partId: number
+//   // ): Observable<PageResult<Question>> {
+//   //   const pageParams = new HttpParams()
+//   //     .set('page', page.toString())
+//   //     .set('size', size.toString());
+//   //   return this.http.get<PageResult<Question>>(
+//   //     `${this.baseUrl}/parts/${partId}/questions/false/deleted`,
+//   //     { params: pageParams }
+//   //   );
+//   // }
 
 //   public createQuestion(
 //     question: Question,
-//     questionType: string,
-//     partId: number
+//     // questionType: string,
+//     // partId: number
 //   ): Observable<Question> {
-//     const reqParams = new HttpParams()
-//       .set('questionType', questionType.toString())
-//       .set('partId', String(partId));
-//     return this.http.post<Question>(`${this.baseUrl}/questions`, question, {
-//       params: reqParams,
-//     });
+//     // const reqParams = new HttpParams()
+//     //   .set('questionType', questionType.toString())
+//     //   .set('partId', String(partId));
+//     return this.http.post<Question>(`${this.baseUrl}Question`, question);
 //   }
 
-//   public getQuestionById(id: number): Observable<Question> {
-//     return this.http.get<Question>(`${this.baseUrl}/questions/${id}`);
-//   }
+//   // public getQuestionById(id: number): Observable<Question> {
+//   //   return this.http.get<Question>(`${this.baseUrl}/questions/${id}`);
+//   // }
 
-//   deleteQuestion(id: number, deleted: boolean): Observable<any> {
-//     console.log(deleted);
-//     return this.http.get(`${this.baseUrl}/questions/${id}/deleted/${deleted}`);
-//   }
+//   // deleteQuestion(id: number, deleted: boolean): Observable<any> {
+//   //   console.log(deleted);
+//   //   return this.http.get(`${this.baseUrl}/questions/${id}/deleted/${deleted}`);
+//   // }
 // }

@@ -1,5 +1,6 @@
 export class Question {
   id: any;
+  serialNumber: any;
   content: any;
   option1: any;
   option2: any;
@@ -10,5 +11,6 @@ export class Question {
   imageUrl: any;
   chuDeId: any;
   loaiCauDeId: any;
+  deleted: any;
   constructor() {}
 }
