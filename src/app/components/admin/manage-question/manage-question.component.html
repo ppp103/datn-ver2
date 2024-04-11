@@ -106,70 +106,16 @@
             </tr>
           </ng-container>
           </tbody>
-
-
         </table>
-          <!-- <ejs-grid
-            class="table-striped mt-2"
-            [dataSource]="listData"
-            #grid
-            allowPaging="true"
-            [allowSorting]="true"
-            [allowSelection]="true"
-            [allowResizing]="true"
-          >
-            <e-columns>
-              <e-column
-                type="checkbox"
-                freeze="Left"
-                width="70"
-                textAlign="center"
-              >
-              </e-column>
-              <e-column
-                field="serialNumber"
-                headerText="STT"
-                textAlign="Center"
-              ></e-column>
-              <e-column
-                field="ten"
-                headerText="Tên kho lưu trữ"
-                [width]="150"
-                textAlign="Left"
-              ></e-column>
-              <e-column
-                field="tenKhongGianLuuTru"
-                headerText="Không gian lưu trữ"
-                textAlign="Left"
-              ></e-column>
-
-              <e-column
-                field="id"
-                headerText="Thao tác"
-                freeze="Right"
-                textAlign="Center"
-              >
-                <ng-template #template let-data>
-                  <button class="btn btn-sm">
-                    <i class="far fa-edit" style="color: rgb(0, 34, 255)"></i>
-                  </button>
-                  <button class="btn btn-sm" style="color: red">
-                    <i class="far fa-trash"></i>
-                  </button>
-                  <button class="p-2">
-                    <i class="fal fa-eye"></i>
-                  </button>
-                  <button class="p-2">
-                    <i class="fal fa-cog"></i>
-                  </button>
-                </ng-template>
-              </e-column>
-            </e-columns>
-          </ejs-grid> -->
         </div>
       </div>
+      <app-pagging 
+      [listItems]="pagging" 
+      (onChangePage)="onChangePage($event)">
+      </app-pagging>
     </div>
   </div>
 
   <!-- <app-admin-footer></app-admin-footer> -->
+
 </div>

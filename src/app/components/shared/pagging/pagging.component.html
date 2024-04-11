@@ -1,0 +1,81 @@
+  <!-- <nav *ngIf="pagging">
+    <ul class="pagination">
+      <li *ngIf="pagging.pageNumber"
+       [ngClass]="{
+        'disabled' : pagging.pageNumber === 1
+      }" 
+        class="page-item" (click)="changePage(pagging.pageNumber - 1)"
+      >
+        <span class="page-link">Trước</span>
+      </li>
+      <li class="page-item" *ngFor="let n of pageRange">
+        <a href="javascript:void(0)" class="page-link" 
+        *ngIf="((n + 1) == pagging.pageNumber - 3) || ((n + 1) == pagging.pageNumber + 3)"
+        >...</a>
+        <a href="javascript:void(0)" *ngIf="((n + 1) > pagging.pageNumber - 3) && ((n + 1) < pagging.pageNumber + 3)"
+            [ngClass]="{
+              'e-numericitem': true, 
+              'e-currentitem e-active': (pagging.pageNumber === (n + 1))
+            }" (click)="changePage(n + 1)">
+            {{ n + 1 }}
+          </a>
+      </li>
+      <li class="page-item">
+        <a
+        [ngClass]="{
+            'disabled' : pagging.pageNumber === 1
+          }"
+            class="page-link" (click)="changePage(pagging.pageNumber + 1)">Sau</a>
+      </li>
+    </ul>
+  </nav> -->
+
+  <div class="e-gridpager e-control e-pager e-lib" *ngIf="pagging">
+    <div class="e-pagercontainer">
+        <div [ngClass]="{
+            'e-first e-icons e-icon-first e-firstpage': true, 
+            'e-firstpagedisabled': pagging.pageNumber === 1, 
+            'e-pager-default': pagging.pageNumber > 1
+          }" (click)="changePage(1)">
+          </div>
+      <div [ngClass]="{
+        'e-prev e-icons e-icon-prev e-prevpage': true, 
+        'e-prevpagedisabled': pagging.pageNumber === 1, 
+        'e-pager-default': pagging.pageNumber > 1
+      }" (click)="changePage(pagging.pageNumber - 1)">
+      </div>
+      <div class="e-numericcontainer">
+        <div *ngFor="let n of pageRange">
+          <a href="javascript:void(0)" *ngIf="((n + 1) == pagging.pageNumber - 3) || ((n + 1) == pagging.pageNumber + 3)"
+            class="more">...</a>
+          <a href="javascript:void(0)" *ngIf="((n + 1) > pagging.pageNumber - 3) && ((n + 1) < pagging.pageNumber + 3)"
+            [ngClass]="{
+              'e-numericitem': true, 
+              'e-currentitem e-active': (pagging.pageNumber === (n + 1))
+            }" (click)="changePage(n + 1)">
+            {{ n + 1 }}
+          </a>
+        </div>
+      </div>
+      <div [ngClass]="{
+          'e-next e-icons e-icon-next e-nextpage': true, 
+          'e-nextpagedisabled': pagging.pageNumber === pagging.totalPages, 
+          'e-pager-default': pagging.pageNumber < pagging.totalPages
+        }" (click)="changePage(pagging.pageNumber + 1)">
+      </div>
+      <div [ngClass]="{
+          'e-last e-icons e-icon-last e-lastpage': true, 
+          'e-lastpagedisabled': pagging.pageNumber === pagging.totalPages, 
+          'e-pager-default': pagging.pageNumber < pagging.totalPages
+        }" (click)="changePage(pagging.totalPages)">
+      </div>
+    </div>
+    <div class="e-parentmsgbar">
+      <span class="e-pagenomsg" style="text-align: right">
+        {{ pagging.pageNumber }} trên {{ pagging.totalPages }} trang
+      </span>
+      <span class="e-pagecountmsg" style="text-align: right">
+        ({{ pagging.totalItems }} bản ghi)
+      </span>
+    </div>
+  </div>

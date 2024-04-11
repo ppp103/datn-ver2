@@ -10,12 +10,15 @@ import {
   RoundProgressModule,
 } from 'angular-svg-round-progressbar';
 import { TooltipPosition, MatTooltipModule } from '@angular/material/tooltip';
+import { PaggingComponent } from './pagging/pagging.component';
+import { GridModule } from '@syncfusion/ej2-angular-grids';
 @NgModule({
   declarations: [
     UpdateAvatarComponent,
     UpdateEmailComponent,
     UpdatePasswordComponent,
     ResultCircleComponent,
+    PaggingComponent,
   ],
   imports: [
     CommonModule,
@@ -23,6 +26,7 @@ import { TooltipPosition, MatTooltipModule } from '@angular/material/tooltip';
     FormsModule,
     RoundProgressModule,
     MatTooltipModule,
+    GridModule
   ],
   exports: [
     UpdateAvatarComponent,
@@ -30,6 +34,7 @@ import { TooltipPosition, MatTooltipModule } from '@angular/material/tooltip';
     UpdatePasswordComponent,
     ResultCircleComponent,
     MatTooltipModule,
+    PaggingComponent
   ],
 })
 export class SharedModule {}

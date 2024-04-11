@@ -12,7 +12,7 @@ export class QuestionService extends RepositoryEloquentService {
       httpClient,
       inputModelName: null,
       outputModelName: null,
-      apiUrl: `${environment.apiEndPoint}Question`,
+      apiUrl: `${environment.apiEndPoint}Question/Pagging`,
     });
   }
 

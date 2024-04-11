@@ -5,7 +5,7 @@ import { Question } from '../../../models/question';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ManageQuestionIoComponent } from './manage-question-io/manage-question-io.component';
-
+import { Constant } from '../../../constants/constants';
 @Component({
   selector: 'app-manage-question',
   templateUrl: './manage-question.component.html',
@@ -14,6 +14,8 @@ import { ManageQuestionIoComponent } from './manage-question-io/manage-question-
 export class ManageQuestionComponent implements OnInit {
   questions: any;
   formSearch!: FormGroup;
+  public pagging: any;
+
   dialogRef !: MatDialogRef<any>;
   dataList : any;
   constructor(private questionService: QuestionService,
@@ -37,35 +39,48 @@ export class ManageQuestionComponent implements OnInit {
     this.loadData();
   }
 
-  async loadData() {
-    this.dataList = await this.questionService.getFetchAll();
-    this.dataList.map((item: Question, index: number) => {
-      item.serialNumber = index + 1;
-    })
-    this.questions = this.dataList;
-    console.log(this.dataList);
-    // this.questions = this.dataList;
-    // console.log(this.questions);
-    // this.questionService.getDataFromAPI().subscribe({
-    //   next: (data) => {
-    //     console.log(data);
-    //     this.questions = data; // Assign data to the questions property
-    //     this.questions.map((question : Question, index: number)=> {
-    //       question.deleted = false;
-    //       question.serialNumber = index + 1;
-    //     })
-
-    //   },
-    //   error: (error) => {
-    //     console.error('Error fetching data:', error);
-    //   }
-    // });
-
+  onChangePage(args: any) {
+    this.loadData(args.skip, args.take);
   }
 
-  goDeTail(id: any){
-    this.router.navigate(['admin/question-bank/question', id]);
+  async loadData(skip: number = 0, take: number = 10) {
+    let state: any = { skip, take, action: { requestType: 'searching' } };
+    this.questionService.getDataFromServer(state);
+    this.questionService.subscribe((res: any) => {
+      this.pagging = res;
+      console.log(res);
+      if (res.result) {
+        this.questions = res.result;
+        this.clearTabHeadLine(this.questions);
+      }
+    });
+    // this.dataList = await this.questionService.getFetchAll(Constant.PageSetting);
+    // this.dataList.items.map((item: Question, index: number) => {
+    //   item.serialNumber = index + 1;
+    // })
+    // this.questions = this.dataList.items;
+    // console.log(this.dataList);
+  }
 
+  clearTabHeadLine(data: any) {
+    data.forEach((el :any) => {
+      if (el.content) {
+        el.sumaryContent = el.content.replace(/\&nbsp;/g, '');
+      }
+    });
+  }
+
+  // async loadData() {
+  //   this.dataList = await this.questionService.getFetchAll(Constant.PageSetting);
+  //   this.dataList.items.map((item: Question, index: number) => {
+  //     item.serialNumber = index + 1;
+  //   })
+  //   this.questions = this.dataList.items;
+  //   console.log(this.dataList);
+  // }
+
+  goDeTail(id: any){
+    // this.router.navigate(['admin/question-bank/question', id]);
   }
 
   onToggle(e: any){
