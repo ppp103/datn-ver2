@@ -19,6 +19,29 @@ export class QuestionService extends RepositoryEloquentService {
   public checkBeDeleted(id: number) {
     return 'ok';
   }
+
+  public addQuestion(param: any) {
+    this.setServiceInfo({
+      apiUrl: `${environment.apiEndPoint}Question`,
+    });
+
+    return this.addItem(param);
+  }
+
+  public getQuestionById(id: number) {
+    this.setServiceInfo({
+      apiUrl: `${environment.apiEndPoint}Question`,
+    });
+
+    return this.getById(id);
+  }
+
+  public deleteQuestion(id: any) {
+    this.setServiceInfo({
+      apiUrl: `${environment.apiEndPoint}Question`,
+    });
+    return this.deleteItem({ id });
+  }
 }
 
 // import { Injectable } from '@angular/core';
@@ -67,10 +90,9 @@ export class QuestionService extends RepositoryEloquentService {
 //     //       this.getOptions()
 //     //     );
 //     //   } catch (error) {
-  
+
 //     //   }
 //     // }
-  
 
 //   // public getQuestionListByPart(
 //   //   page: number,

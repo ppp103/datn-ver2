@@ -12,6 +12,8 @@ import {
 import { TooltipPosition, MatTooltipModule } from '@angular/material/tooltip';
 import { PaggingComponent } from './pagging/pagging.component';
 import { GridModule } from '@syncfusion/ej2-angular-grids';
+import { MyAlertDialogComponent } from './my-alert-dialog/my-alert-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
   declarations: [
     UpdateAvatarComponent,
@@ -19,6 +21,7 @@ import { GridModule } from '@syncfusion/ej2-angular-grids';
     UpdatePasswordComponent,
     ResultCircleComponent,
     PaggingComponent,
+    MyAlertDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -26,7 +29,8 @@ import { GridModule } from '@syncfusion/ej2-angular-grids';
     FormsModule,
     RoundProgressModule,
     MatTooltipModule,
-    GridModule
+    GridModule,
+    MatDialogModule,
   ],
   exports: [
     UpdateAvatarComponent,
@@ -34,7 +38,7 @@ import { GridModule } from '@syncfusion/ej2-angular-grids';
     UpdatePasswordComponent,
     ResultCircleComponent,
     MatTooltipModule,
-    PaggingComponent
+    PaggingComponent,
   ],
 })
 export class SharedModule {}

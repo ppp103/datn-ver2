@@ -1,6 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { DataResult, DataStateChangeEventArgs } from '@syncfusion/ej2-angular-grids';
+import {
+  DataResult,
+  DataStateChangeEventArgs,
+} from '@syncfusion/ej2-angular-grids';
 import { Observable, throwError, Subject, of } from 'rxjs';
 import { retry, map } from 'rxjs/operators';
 
@@ -83,26 +86,45 @@ export class RepositoryEloquentService extends Subject<DataStateChangeEventArgs>
   }
 
   /**
+   * Update item
+   * @param {Number} id Item id.
+   * @returns {Observable}
+   */
+  public deleteItem(params = {}): Observable<any> {
+    try {
+      const queryString = this.convertObjectToQueryString(params);
+      return this.httpClient.delete<any>(
+        `${this.apiUrl}?${queryString}`,
+        this.getOptions()
+      );
+    } catch (error) {
+      return of(null);
+    }
+  }
+
+  /**
    * Fetch all data
    * @returns {Promise}
    */
   public getFetchAll(params = {}) {
     try {
       const queryString = this.convertObjectToQueryString(params);
-      return this.httpClient.get(`${this.apiUrl}?${queryString}`, this.getOptions()).toPromise();
+      return this.httpClient
+        .get(`${this.apiUrl}?${queryString}`, this.getOptions())
+        .toPromise();
     } catch (error) {
       console.log(error);
       return;
     }
-    }
+  }
 
-      /**
+  /**
    * Add new item into list data
    * @param {Object} body The data input.
    * @returns {Observable}
    */
   public addItem(body: any): Observable<typeof inputModelName> {
-    Object.keys(body).map(key => {
+    Object.keys(body).map((key) => {
       body[key] = typeof body[key] === 'string' ? body[key].trim() : body[key];
     });
     try {
@@ -116,20 +138,20 @@ export class RepositoryEloquentService extends Subject<DataStateChangeEventArgs>
     }
   }
 
-    /**
+  /**
    * Trim string
    * @param body Post data
    * @returns Object
    */
-    clearnBody(body: any) {
-      Object.keys(body).map(key => {
-        body[key] = (typeof body[key] === 'string') ? body[key].trim() : body[key];
-        return body[key];
-      });
-      return body;
-    }
+  clearnBody(body: any) {
+    Object.keys(body).map((key) => {
+      body[key] = typeof body[key] === 'string' ? body[key].trim() : body[key];
+      return body[key];
+    });
+    return body;
+  }
 
-      /**
+  /**
    * Get data from server
    * @param state DataStateChangeEventArgs
    */
@@ -143,69 +165,75 @@ export class RepositoryEloquentService extends Subject<DataStateChangeEventArgs>
     });
   }
 
-    /**
+  /**
    * Get data from server
    * @param state DataStateChangeEventArgs
    * @param params Search data
    */
-    public getData(state: any, params: any, numOfRetry = 0): Observable<DataStateChangeEventArgs> {
-      try {
-        if (state.action) {  
-          // Xử lý tìm kiếm
-          if (state.action.requestType === "searching") {
-            if (state.search && state.search.length > 0) {
-              this.Keyword = state.search[0].key;
-            } else {
-              this.Keyword = "";
-            }
+  public getData(
+    state: any,
+    params: any,
+    numOfRetry = 0
+  ): Observable<DataStateChangeEventArgs> {
+    try {
+      if (state.action) {
+        // Xử lý tìm kiếm
+        if (state.action.requestType === 'searching') {
+          if (state.search && state.search.length > 0) {
+            this.Keyword = state.search[0].key;
+          } else {
+            this.Keyword = '';
           }
         }
-  
-        // Get query string
-        const queryString: any = this.convertObjectToQueryString({
-          ...params,
-          PageSize: state.take,
-          PageNumber: state.skip / state.take + 1,
-          Keyword: this.Keyword ? this.Keyword.trim() : (params.Keyword ? params.Keyword.trim() : ''),
-        });
-  
-        // Get data
-        return this.httpClient
-          .get(`${this.apiUrl}?${queryString}`, this.getOptions())
-          .pipe(retry(numOfRetry))
-          .pipe(
-            map((response: any) => {
-  
-              if (!response) return;
-  
-              // Tính toán để ra số thứ tự đúng theo từng trang
-              // Trang 1 bắt đầu = 1
-              // Trang 2 bắt đầu bằn (2 - 1) * pageZise
-              const sumNumber =
-                (response.paging.pageNumber - 1) * response.paging.pageSize;
-  
-              // Set serial number
-              response.items.map((item:any, index:any) => {
-                item.serialNumber = index + 1 + sumNumber;
-              });
-  
-              // Format data result
-              const dataresult = {
-                all: response,
-                result: response.items,
-                pagging: response.paging,
-                count: response.paging.totalItems
-              } as DataResult;
-  
-              return dataresult;
-            })
-          )
-          .pipe((data: any) => {
-            return data;
-          });
-      } catch (error) {
-        return of();
       }
+
+      // Get query string
+      const queryString: any = this.convertObjectToQueryString({
+        ...params,
+        PageSize: state.take,
+        PageNumber: state.skip / state.take + 1,
+        Keyword: this.Keyword
+          ? this.Keyword.trim()
+          : params.Keyword
+          ? params.Keyword.trim()
+          : '',
+      });
+
+      // Get data
+      return this.httpClient
+        .get(`${this.apiUrl}?${queryString}`, this.getOptions())
+        .pipe(retry(numOfRetry))
+        .pipe(
+          map((response: any) => {
+            if (!response) return;
+
+            // Tính toán để ra số thứ tự đúng theo từng trang
+            // Trang 1 bắt đầu = 1
+            // Trang 2 bắt đầu bằn (2 - 1) * pageZise
+            const sumNumber =
+              (response.paging.pageNumber - 1) * response.paging.pageSize;
+
+            // Set serial number
+            response.items.map((item: any, index: any) => {
+              item.serialNumber = index + 1 + sumNumber;
+            });
+
+            // Format data result
+            const dataresult = {
+              all: response,
+              result: response.items,
+              pagging: response.paging,
+              count: response.paging.totalItems,
+            } as DataResult;
+
+            return dataresult;
+          })
+        )
+        .pipe((data: any) => {
+          return data;
+        });
+    } catch (error) {
+      return of();
     }
-  
+  }
 }

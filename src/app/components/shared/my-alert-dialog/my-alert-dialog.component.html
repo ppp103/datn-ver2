@@ -1,0 +1,51 @@
+<div class="swal-icon swal-icon--warning">
+  <span class="swal-icon--warning__body">
+    <span class="swal-icon--warning__dot"></span>
+  </span>
+</div>
+<div
+  matDialogTitle
+  [innerHTML]="header"
+  style="
+    display: flex;
+    justify-content: center;
+    font-size: 24px;
+    line-height: normal;
+    color: rgba(0, 0, 0, 0.65);
+    padding-top: 50px;
+  "
+></div>
+<mat-dialog-content
+  style="
+    min-width: 478px;
+    min-height: 60px;
+    display: flex;
+    justify-content: center;
+  "
+>
+  <p
+    style="color: rgba(0, 0, 0, 0.64); font-size: 15px"
+    [innerHTML]="content"
+  ></p>
+</mat-dialog-content>
+<mat-dialog-actions align="end" style="padding-bottom: 13px; float: right">
+  <button
+    [ngStyle]="{ display: visibleCancelButton === true ? 'inline' : 'none' }"
+    [innerHTML]="cancelButton"
+    class="btn btn-light btn-lg mr-3"
+    matDialogClose="cancel"
+    style="
+      width: 100px;
+      color: #555;
+      background-color: #efefef;
+      font-size: 14px;
+    "
+  ></button>
+  <button
+    [ngStyle]="{ display: visibleOkButton === true ? 'inline' : 'none' }"
+    [innerHTML]="okeButton"
+    class="btn btn-danger btn-lg"
+    matDialogClose="confirm"
+    style="width: 100px; font-size: 14px"
+  ></button>
+</mat-dialog-actions>
