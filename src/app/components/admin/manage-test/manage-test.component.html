@@ -1,1 +1,111 @@
-<p>manage-test works!</p>
+<div class="bg-blue-600 md:pt-32 pb-32 pt-12">
+  <div class="px-4 md:px-10 mx-auto w-full"></div>
+</div>
+
+<div class="mx-auto w-full -m-24">
+  <div class="flex flex-wrap mt-4 justify-center">
+    <div class="w-full mb-12 xl:mb-0 px-4 max-w-5xl">
+      <div
+        class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
+      >
+        <div class="rounded-t mb-0 px-4 py-3 border-0">
+          <div class="flex flex-wrap items-center">
+            <div
+              class="relative w-full px-4 max-w-full flex-grow leading-8 mb-3"
+            >
+              <h3 class="font-semibold text-2xl text-gray-800">
+                Danh sách bài test
+              </h3>
+            </div>
+            <div class="flex flex-wrap flex-col w-full">
+              <div class="flex flex-wrap flex-row"></div>
+            </div>
+          </div>
+        </div>
+        <div class="block w-full">
+          <!-- Projects table -->
+          <table
+            class="items-center w-full bg-transparent border-collapse whitespace-no-wrap user-list block lg:table overflow-x-auto overflow-y-auto"
+          >
+            <thead>
+              <tr>
+                <th
+                  class="row-title px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                >
+                  STT
+                </th>
+                <th
+                  class="row-title px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                >
+                  Tiêu đề
+                </th>
+
+                <th
+                  class="row-name px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                >
+                  Thời gian
+                </th>
+                <th
+                  class="row-name px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                >
+                  Số câu hỏi
+                </th>
+                <th
+                  class="row-action px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                ></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <ng-container *ngFor="let exam of examList">
+                <tr class="border hover:bg-gray-300">
+                  <td
+                    class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md font-semibold text-gray-800 whitespace-no-wrap p-4"
+                  >
+                    <!-- [routerLink]="[exam.id, 'preview']"
+                  [tooltip]="'Xem chi tiết'" -->
+                    <a class="hover:text-blue-700">{{ exam.title }}</a>
+                  </td>
+                  <td
+                    class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-no-wrap p-4 text-left"
+                  >
+                    <!-- {{ exam.beginExam | date : "dd/MM/yyyy" }} -->
+                  </td>
+
+                  <td
+                    class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4"
+                  ></td>
+                  <td
+                    class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4"
+                  >
+                    {{ exam.intake.name }}
+                  </td>
+                  <td
+                    class="border-t-0 px-6 align-middle flex justify-between border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 w-full"
+                  >
+                    <!-- <a
+                      [routerLink]="[exam.id, 'users']"
+                      *ngIf="!exam.canceled"
+                      [tooltip]="'Kết quả người dùng'"
+                      class="bg-white shadow-md hover:bg-blue-500 hover:text-gray-200 cursor-pointer transition duration-200 ease-in-out text-xs font-bold uppercase rounded outline-none focus:outline-none px-2 py-1"
+                    >
+                      <span><i class="fa fa-users"></i></span>
+                    </a> -->
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+
+        <ng-container *ngIf="examList.length == 0 && !skeleton">
+          <div
+            class="px-4 py-3 bg-white border-t flex flex-row justify-between xs:flex-row items-center xs:justify-between"
+          >
+            <p class="mx-auto text-gray-700 text-sm">Nội dung chưa được tạo</p>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

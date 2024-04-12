@@ -137,10 +137,15 @@
                     class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs p-4 text-left"
                   >
                     <div
-                      [innerHTML]="ques.content"
                       class="cursor-pointer hover:text-blue-800 text-md e-text"
                       (click)="goDeTail(ques.id)"
-                    ></div>
+                    >
+                      <span
+                        [innerHTML]="ques.content"
+                        matTooltip="Xem chi tiết"
+                        matTooltipPosition="above"
+                      ></span>
+                    </div>
                   </td>
                   <td
                     class="border-t-0 text-center px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 w-1/3"

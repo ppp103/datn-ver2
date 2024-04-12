@@ -22,6 +22,10 @@ import { GridModule } from '@syncfusion/ej2-angular-grids';
 import { ManageQuestionIoComponent } from './manage-question/manage-question-io/manage-question-io.component';
 import { QuestionDetailComponent } from './manage-question/question-detail/question-detail.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AddTestComponent } from './manage-test/add-test/add-test.component';
+import { DetailTestComponent } from './manage-test/detail-test/detail-test.component';
+import { UserTestComponent } from './manage-test/user-test/user-test.component';
+import { UserTestResultComponent } from './manage-test/user-test-result/user-test-result.component';
 // import { LineChartComponent } from './line-chart/line-chart.component';
 @NgModule({
   declarations: [
@@ -39,6 +43,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     CardStatsComponent,
     ManageQuestionIoComponent,
     QuestionDetailComponent,
+    AddTestComponent,
+    DetailTestComponent,
+    UserTestComponent,
+    UserTestResultComponent,
 
     // LineChartComponent,
   ],
