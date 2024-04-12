@@ -38,7 +38,7 @@ export class ManageQuestionIoComponent {
       isCorrected: 0,
     },
   ];
-  
+
   formErrors = {
     ChuDeId: '',
     Content: '',
@@ -58,22 +58,34 @@ export class ManageQuestionIoComponent {
     private commonService: CommonServiceShared,
     private questionCategoryService: QuestionCategoryService,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {
-  }
+  ) {}
 
   async ngOnInit() {
     this.formInit();
     console.log(this.createForm.value);
     if (this.data.item != null) {
+      this.currentQuestionType = this.data.item.loaiCauId;
       this.editMode = true;
       this.mapObjToForm();
     }
     this.loadQuestionCategory();
-
   }
 
-  changeQuestionType(id: number){
+  changeQuestionType(id: number) {
+    // 1: MC / 2: T/F
     this.currentQuestionType = id;
+    if (id == 2) {
+      this.multipleChoice = [
+        {
+          choiceText: 'True',
+          isCorrected: 1,
+        },
+        {
+          choiceText: 'False',
+          isCorrected: 0,
+        },
+      ];
+    }
   }
 
   formInit() {
@@ -84,7 +96,7 @@ export class ManageQuestionIoComponent {
       Explaination: [''],
     });
   }
-  
+
   async loadQuestionCategory() {
     this.questionCategories = await this.questionCategoryService.getFetchAll();
     console.log(this.questionCategories);
@@ -97,17 +109,17 @@ export class ManageQuestionIoComponent {
       LoaiCauId: this.data.item.loaiCauId,
       Explaination: this.data.item.explaination,
     });
-    this.multipleChoice = []
+    this.multipleChoice = [];
     for (let i = 1; i <= 4; i++) {
       const optionKey = `option${i}`;
       if (this.data.item[optionKey] !== null) {
         this.multipleChoice.push({
           choiceText: this.data.item[optionKey],
-          isCorrected: this.data.item[optionKey] === this.data.item.correctOption ? 1 : 0
+          isCorrected:
+            this.data.item[optionKey] === this.data.item.correctOption ? 1 : 0,
         });
       }
     }
-            
   }
 
   onSaveAndClose() {}
@@ -207,7 +219,7 @@ export class ManageQuestionIoComponent {
       }
     });
     if (!this.validate()) return;
-    if(this.editMode){
+    if (this.editMode) {
       this.inputModel = this.createForm.value;
       this.inputModel.id = this.data.item.id;
       this.questionService.updateQuestion(this.inputModel).subscribe({
@@ -226,7 +238,7 @@ export class ManageQuestionIoComponent {
           this.closeModal();
         },
       });
-    }else{
+    } else {
       this.inputModel = this.createForm.value;
       this.questionService.addQuestion(this.inputModel).subscribe({
         next: (res) => {
@@ -239,7 +251,7 @@ export class ManageQuestionIoComponent {
           );
         },
         complete: () => {
-          this.commonService.showeNotiResult('Thêm mới thành công',  2000);
+          this.commonService.showeNotiResult('Thêm mới thành công', 2000);
           this.dataChanged = true;
           this.closeModal();
         },

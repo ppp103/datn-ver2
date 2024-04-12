@@ -8,10 +8,10 @@ import { firstValueFrom } from 'rxjs';
 @Component({
   selector: 'app-question-detail',
   templateUrl: './question-detail.component.html',
-  styleUrl: './question-detail.component.scss'
+  styleUrl: './question-detail.component.scss',
 })
-export class QuestionDetailComponent implements OnInit{
-  createForm !: FormGroup
+export class QuestionDetailComponent implements OnInit {
+  createForm!: FormGroup;
   itemId: any;
   question: any;
   multipleChoice: any = [];
@@ -20,24 +20,23 @@ export class QuestionDetailComponent implements OnInit{
     private fb: FormBuilder,
     private dialog: MatDialog,
     private router: Router,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {
-    this.createForm = this.fb.group({
-    });
+    this.createForm = this.fb.group({});
   }
 
   async ngOnInit() {
-    this.itemId = this.route.snapshot.paramMap.get("id");  
+    this.itemId = this.route.snapshot.paramMap.get('id');
     this.question = await firstValueFrom(
       this.questionService.getQuestionById(this.itemId)
     );
-
     for (let i = 1; i <= 4; i++) {
       const optionKey = `option${i}`;
       if (this.question[optionKey] !== null) {
         this.multipleChoice.push({
           choiceText: this.question[optionKey],
-          isCorrected: this.question[optionKey] === this.question.correctOption ? 1 : 0
+          isCorrected:
+            this.question[optionKey] === this.question.correctOption ? 1 : 0,
         });
       }
     }
@@ -45,15 +44,11 @@ export class QuestionDetailComponent implements OnInit{
     console.log(this.multipleChoice);
   }
 
-  onSaveAndClose(){
+  onSaveAndClose() {}
 
-  }
+  onToggle(e: any) {}
 
-  onToggle(e: any){
-
-  }
-
-  return(){
-    this.router.navigate([`/admin/questions`])
+  return() {
+    this.router.navigate([`/admin/questions`]);
   }
 }

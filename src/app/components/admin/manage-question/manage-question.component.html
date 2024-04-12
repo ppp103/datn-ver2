@@ -46,21 +46,40 @@
                   </button>
                 </div>
               </div>
-              <div class="mt-4 input-container flex justify-between items-center">
+              <div
+                class="mt-4 input-container flex justify-between items-center"
+              >
                 <div class="select-container">
                   <label for="">Chủ đề</label>
-                  <select formControlName="chuDeId" placeholder="Chọn chủ đề" class="mt-2 form-control">
+                  <select
+                    formControlName="chuDeId"
+                    placeholder="Chọn chủ đề"
+                    class="mt-2 form-control"
+                  >
+                    <option value="" disabled selected hidden>
+                      Chọn loại chủ đề
+                    </option>
                     <option value="1">Chủ đề 1</option>
                   </select>
                 </div>
                 <div class="select-container">
                   <label for="">Loại câu hỏi</label>
-                    <select formControlName="loaiCauId" placeholder="Chọn loại câu hỏi" class="mt-2 form-control">
-                      <option value="" disabled selected hidden>Chọn loại câu hỏi</option>
-                      <ng-container *ngFor="let questionCategory of questionCategories">
-                        <option [value]="questionCategory.id">{{questionCategory.questionCategoryName}}</option>
-                      </ng-container>
-                    </select>
+                  <select
+                    formControlName="loaiCauId"
+                    placeholder="Chọn loại câu hỏi"
+                    class="mt-2 form-control"
+                  >
+                    <option value="" disabled selected hidden>
+                      Chọn loại câu hỏi
+                    </option>
+                    <ng-container
+                      *ngFor="let questionCategory of questionCategories"
+                    >
+                      <option [value]="questionCategory.id">
+                        {{ questionCategory.questionCategoryName }}
+                      </option>
+                    </ng-container>
+                  </select>
                 </div>
               </div>
             </form>
@@ -131,12 +150,12 @@
                   <td
                     class="border-t-0 text-center px-6 align-middle border-l-0 border-r-0 text-xs p-4"
                   >
-                    123
+                    {{ ques.chuDe }}
                   </td>
                   <td
                     class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs p-4 italic font-semibold"
                   >
-                    123
+                    {{ ques.loaiCau }}
                   </td>
                   <td style="padding-left: 25px">
                     <button

@@ -22,15 +22,17 @@
         <div
           class="flex items-start justify-between p-3 border-b border-solid border-gray-300 rounded-t"
         >
-        <h3 *ngIf="editMode; else addTitle" class="text-2xl font-semibold">Sửa câu hỏi</h3>
-        <ng-template #addTitle>
-          <h3 class="text-2xl font-semibold">Thêm câu hỏi</h3>
-        </ng-template>
+          <h3 *ngIf="editMode; else addTitle" class="text-2xl font-semibold">
+            Sửa câu hỏi
+          </h3>
+          <ng-template #addTitle>
+            <h3 class="text-2xl font-semibold">Thêm câu hỏi</h3>
+          </ng-template>
           <button
-          class="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-          (click)="closeModal()"
+            class="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+            (click)="closeModal()"
           >
-          <i class="fas fa-times"></i>
+            <i class="fas fa-times"></i>
           </button>
         </div>
         <!--body-->
@@ -81,15 +83,22 @@
                             Kiểu câu hỏi
                           </label>
                           <div class="flex">
-                            <div *ngFor="let questionType of questionCategories" class="radio-type flex-1">
+                            <div
+                              *ngFor="let questionType of questionCategories"
+                              class="radio-type flex-1"
+                            >
                               <div class="radio-btn">
-                                <input type="radio" id="{{questionType.id}}" 
-                                      formControlName="LoaiCauId"
-                                       name="LoaiCauId" 
-                                       [value]="questionType.id"
-                                       (click)="changeQuestionType(questionType.id)"
-                                       />
-                                <label for="{{questionType.id}}">{{questionType.questionCategoryName}}</label>
+                                <input
+                                  type="radio"
+                                  id="{{ questionType.id }}"
+                                  formControlName="LoaiCauId"
+                                  name="LoaiCauId"
+                                  [value]="questionType.id"
+                                  (click)="changeQuestionType(questionType.id)"
+                                />
+                                <label for="{{ questionType.id }}">{{
+                                  questionType.questionCategoryName
+                                }}</label>
                               </div>
                             </div>
                           </div>
@@ -125,7 +134,10 @@
                               <div class="flex flex-col">
                                 <div
                                   class="w-full my-2"
-                                  *ngFor="let mc of multipleChoice; let i = index"
+                                  *ngFor="
+                                    let mc of multipleChoice;
+                                    let i = index
+                                  "
                                 >
                                   <textarea
                                     class="form-control w-100"
@@ -137,7 +149,10 @@
                                   </textarea>
                                   <div class="flex my-2 items-center">
                                     <div class="radio-type">
-                                      <div class="radio-btn" style="width: 180px">
+                                      <div
+                                        class="radio-btn"
+                                        style="width: 180px"
+                                      >
                                         <!-- <input class="form-control" type="text" placeholder="test" 
                                         [(ngModel)]="test" 
                                         [ngModelOptions]="{standalone: true}"
@@ -157,12 +172,15 @@
                                         >
                                       </div>
                                     </div>
-  
+
                                     <div
                                       class="radio-type"
                                       *ngIf="multipleChoice.length > 2"
                                     >
-                                      <div class="radio-btn" style="width: 180px">
+                                      <div
+                                        class="radio-btn"
+                                        style="width: 180px"
+                                      >
                                         <button
                                           type="button"
                                           class="btn btn-danger"
@@ -195,29 +213,85 @@
                               </div>
                             </div>
                           </ng-container>
-                          <!-- <ng-container *ngIf="currentQuestionType == 2">
-                            <div class="flex">
+                          <ng-container *ngIf="currentQuestionType == 2">
+                            <div class="w-full">
+                              <div class="flex flex-col">
+                                <div
+                                  class="w-full my-2"
+                                  *ngFor="
+                                    let mc of multipleChoice;
+                                    let i = index
+                                  "
+                                >
+                                  <textarea
+                                    [disabled]="currentQuestionType == 2"
+                                    class="form-control w-100"
+                                    rows="2"
+                                    [(ngModel)]="mc.choiceText"
+                                    [ngModelOptions]="{ standalone: true }"
+                                    placeholder="Nhập đáp án"
+                                  >
+                                  </textarea>
+                                  <div class="flex my-2 items-center">
+                                    <div class="radio-type">
+                                      <div
+                                        class="radio-btn"
+                                        style="width: 180px"
+                                      >
+                                        <input
+                                          id="mc-{{ i }}"
+                                          type="radio"
+                                          name="mcChoices"
+                                          (change)="changeChoiceMC(i)"
+                                          [checked]="
+                                            mc.isCorrected === 1 ? true : false
+                                          "
+                                        />
+                                        <label class="" for="mc-{{ i }}"
+                                          >Đáp án đúng</label
+                                        >
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <label
+                                  class="block uppercase tracking-wide text-gray-600 text-xs font-bold mb-2"
+                                  >Giải thích</label
+                                >
+                                <textarea
+                                  formControlName="Explaination"
+                                  class="form-control w-100"
+                                  rows="2"
+                                  placeholder="Nhập giải thích"
+                                ></textarea>
+                              </div>
+                            </div>
+                            <!-- <div class="flex">
                               <div class="radio-type flex-1">
                                 <div class="radio-btn">
-                                  <input type="radio" id="T" formControlName="choices"
-                                         name="choices" value="True"
-                                         (change)="changeChoiceTF('True')"/>
+                                  <input
+                                    type="radio"
+                                    id="T"
+                                    name="choices"
+                                    value="True"
+                                  />
                                   <label for="T">True</label>
                                 </div>
                               </div>
 
                               <div class="radio-type flex-1">
                                 <div class="radio-btn">
-                                  <input type="radio" id="False" formControlName="choices"
-                                         name="choices" value="F"
-                                         (change)="changeChoiceTF('False')"/>
+                                  <input
+                                    type="radio"
+                                    id="False"
+                                    name="choices"
+                                    value="F"
+                                  />
                                   <label for="False">False</label>
                                 </div>
                               </div>
-                            </div>
-
+                            </div> -->
                           </ng-container>
-                           -->
                         </div>
                       </div>
                     </div>
@@ -231,7 +305,7 @@
                           hỏi</span
                         >
                         <ng-template #addQuestion>
-                          <span 
+                          <span
                             ><i class="fa fa-question-circle mr-1"></i>Tạo câu
                             hỏi</span
                           >
