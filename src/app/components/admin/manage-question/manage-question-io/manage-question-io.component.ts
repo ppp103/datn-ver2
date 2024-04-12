@@ -14,7 +14,9 @@ import {
 import { Choice } from '../../../../models/choice';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonServiceShared } from '../../../../services/base/common-service.service';
-
+import { QuestionCategoryService } from '../../../../services/question-category/question-category.service';
+import { closeFilterDialog } from '@syncfusion/ej2-angular-grids';
+import { QTYPE } from '../../../../enum/enum';
 @Component({
   selector: 'app-manage-question-io',
   templateUrl: './manage-question-io.component.html',
@@ -24,6 +26,8 @@ export class ManageQuestionIoComponent {
   inputModel: any;
   createForm!: FormGroup;
   dataChanged: any = false;
+  editMode: boolean = false;
+  currentQuestionType: any;
   multipleChoice: Choice[] = [
     {
       choiceText: '',
@@ -34,7 +38,7 @@ export class ManageQuestionIoComponent {
       isCorrected: 0,
     },
   ];
-  test: any;
+  
   formErrors = {
     ChuDeId: '',
     Content: '',
@@ -44,6 +48,7 @@ export class ManageQuestionIoComponent {
     Option3: '',
     Option4: '',
   };
+  questionCategories: any;
 
   constructor(
     private questionService: QuestionService,
@@ -51,30 +56,58 @@ export class ManageQuestionIoComponent {
     private dialog: MatDialog,
     private dialogRef: MatDialogRef<ManageQuestionIoComponent>,
     private commonService: CommonServiceShared,
+    private questionCategoryService: QuestionCategoryService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.createForm = this.fb.group({
-      ChuDeId: [''],
-      Content: [''],
-      LoaiCauId: ['1'],
-      Explaination: [''],
-    });
   }
 
   async ngOnInit() {
+    this.formInit();
+    console.log(this.createForm.value);
     if (this.data.item != null) {
+      this.editMode = true;
       this.mapObjToForm();
     }
+    this.loadQuestionCategory();
+
+  }
+
+  changeQuestionType(id: number){
+    this.currentQuestionType = id;
+  }
+
+  formInit() {
+    this.createForm = this.fb.group({
+      ChuDeId: [''],
+      Content: [''],
+      LoaiCauId: [''],
+      Explaination: [''],
+    });
+  }
+  
+  async loadQuestionCategory() {
+    this.questionCategories = await this.questionCategoryService.getFetchAll();
+    console.log(this.questionCategories);
   }
 
   mapObjToForm() {
-    console.log(this.data.item);
     this.createForm.setValue({
       ChuDeId: this.data.item.chuDeId,
       Content: this.data.item.content,
       LoaiCauId: this.data.item.loaiCauId,
       Explaination: this.data.item.explaination,
     });
+    this.multipleChoice = []
+    for (let i = 1; i <= 4; i++) {
+      const optionKey = `option${i}`;
+      if (this.data.item[optionKey] !== null) {
+        this.multipleChoice.push({
+          choiceText: this.data.item[optionKey],
+          isCorrected: this.data.item[optionKey] === this.data.item.correctOption ? 1 : 0
+        });
+      }
+    }
+            
   }
 
   onSaveAndClose() {}
@@ -166,16 +199,35 @@ export class ManageQuestionIoComponent {
   }
 
   onSubmit() {
+    console.log(this.editMode);
     this.multipleChoice.forEach((choice, index) => {
-      console.log(choice.choiceText);
       this.createForm.value[`option${index + 1}`] = choice.choiceText;
       if (choice.isCorrected) {
         this.createForm.value.correctOption = choice.choiceText;
       }
     });
-    if (this.validate()) {
+    if (!this.validate()) return;
+    if(this.editMode){
       this.inputModel = this.createForm.value;
-
+      this.inputModel.id = this.data.item.id;
+      this.questionService.updateQuestion(this.inputModel).subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (error: HttpErrorResponse) => {
+          this.commonService.showeNotiResult(
+            'Sửa thất bại! Vui lòng thử lại sau',
+            2000
+          );
+        },
+        complete: () => {
+          this.commonService.showeNotiResult('Sửa câu hỏi thành công', 2000);
+          this.dataChanged = true;
+          this.closeModal();
+        },
+      });
+    }else{
+      this.inputModel = this.createForm.value;
       this.questionService.addQuestion(this.inputModel).subscribe({
         next: (res) => {
           console.log(res);
@@ -187,7 +239,7 @@ export class ManageQuestionIoComponent {
           );
         },
         complete: () => {
-          this.commonService.showeNotiResult('Thêm mới thành công', 2000);
+          this.commonService.showeNotiResult('Thêm mới thành công',  2000);
           this.dataChanged = true;
           this.closeModal();
         },

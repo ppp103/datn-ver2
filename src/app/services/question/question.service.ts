@@ -28,6 +28,21 @@ export class QuestionService extends RepositoryEloquentService {
     return this.addItem(param);
   }
 
+  public getPaggingData(param: any, search: any){
+    this.setServiceInfo({
+      apiUrl: `${environment.apiEndPoint}Question/Pagging`,
+    });
+    return this.getDataFromServer(param, search);
+  }
+
+  public updateQuestion(param: any){
+    this.setServiceInfo({
+      apiUrl: `${environment.apiEndPoint}Question`,
+    });
+
+    return this.updateItem(param);
+  }
+
   public getQuestionById(id: number) {
     this.setServiceInfo({
       apiUrl: `${environment.apiEndPoint}Question`,

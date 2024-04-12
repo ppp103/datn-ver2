@@ -85,6 +85,24 @@ export class RepositoryEloquentService extends Subject<DataStateChangeEventArgs>
     }
   }
 
+    /**
+   * Update item
+   * @param {Any} body Data input.
+   * @returns {Observable}
+   */
+    public updateItem(body: any): Observable<typeof inputModelName> {
+      try {
+        return this.httpClient.put<typeof inputModelName>(
+          this.apiUrl,
+          this.clearnBody(body),
+          this.getOptions()
+        );
+      } catch (error) {
+        return of(null);
+      }
+    }
+  
+
   /**
    * Update item
    * @param {Number} id Item id.
@@ -210,9 +228,11 @@ export class RepositoryEloquentService extends Subject<DataStateChangeEventArgs>
             // Tính toán để ra số thứ tự đúng theo từng trang
             // Trang 1 bắt đầu = 1
             // Trang 2 bắt đầu bằn (2 - 1) * pageZise
+            // if(response.paging.pageNumber == 0){
+            //   response.paging.pageNumber = 1
+            // }
             const sumNumber =
               (response.paging.pageNumber - 1) * response.paging.pageSize;
-
             // Set serial number
             response.items.map((item: any, index: any) => {
               item.serialNumber = index + 1 + sumNumber;

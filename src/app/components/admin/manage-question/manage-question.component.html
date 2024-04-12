@@ -27,26 +27,40 @@
               <div class="flex justify-between">
                 <div class="input-container flex items-center">
                   <input
-                    style="width: 300px"
+                    style="width: 600px"
                     type="text"
                     class="form-control"
                     formControlName="keyWord"
-                    placeholder="Nhập nội dung câu hỏi"
+                    placeholder="Tìm kiếm theo nội dung câu hỏi"
                   />
                 </div>
-                <div class="input-container flex items-center">
-                  <!-- <mat-select> </mat-select> -->
-                </div>
                 <div class="input-container flex gap-5 items-center">
-                  <button class="btn btn-success">
+                  <button (click)="formReset()" class="btn btn-success">
                     <i class="fas fa-sync"></i>
                     Làm mới
                   </button>
 
-                  <button class="btn btn-success">
+                  <button (click)="loadData()" class="btn btn-success">
                     <i class="fas fa-search"></i>
                     Tìm kiếm
                   </button>
+                </div>
+              </div>
+              <div class="mt-4 input-container flex justify-between items-center">
+                <div class="select-container">
+                  <label for="">Chủ đề</label>
+                  <select formControlName="chuDeId" placeholder="Chọn chủ đề" class="mt-2 form-control">
+                    <option value="1">Chủ đề 1</option>
+                  </select>
+                </div>
+                <div class="select-container">
+                  <label for="">Loại câu hỏi</label>
+                    <select formControlName="loaiCauId" placeholder="Chọn loại câu hỏi" class="mt-2 form-control">
+                      <option value="" disabled selected hidden>Chọn loại câu hỏi</option>
+                      <ng-container *ngFor="let questionCategory of questionCategories">
+                        <option [value]="questionCategory.id">{{questionCategory.questionCategoryName}}</option>
+                      </ng-container>
+                    </select>
                 </div>
               </div>
             </form>
@@ -138,7 +152,7 @@
                       title="Xoá"
                       (click)="getItemByEvent(ques.id, 'delete')"
                     >
-                      <i class="far fa-trash"></i>
+                      <i class="fas fa-trash"></i>
                     </button>
                   </td>
                 </tr>

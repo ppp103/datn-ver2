@@ -9,6 +9,7 @@ import { Constant } from '../../../constants/constants';
 import { CommonServiceShared } from '../../../services/base/common-service.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { QuestionCategoryService } from '../../../services/question-category/question-category.service';
 @Component({
   selector: 'app-manage-question',
   templateUrl: './manage-question.component.html',
@@ -16,6 +17,7 @@ import { firstValueFrom } from 'rxjs';
 })
 export class ManageQuestionComponent implements OnInit {
   questions: any;
+  questionCategories: any;
   formSearch!: FormGroup;
   public pagging: any;
 
@@ -27,15 +29,29 @@ export class ManageQuestionComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private dialog: MatDialog,
-    private commonService: CommonServiceShared
+    private commonService: CommonServiceShared,
+    private questionCategoryService: QuestionCategoryService
   ) {
-    this.formSearch = this.fb.group({
-      keyWord: [''],
-    });
+
   }
 
   ngOnInit() {
+    this.formInit();
     this.loadData();
+    this.loadQuestionCategory();
+  }
+
+  async loadQuestionCategory() {
+    this.questionCategories = await this.questionCategoryService.getFetchAll();
+    console.log(this.questionCategories);
+  }
+
+  formInit() {
+    this.formSearch = this.fb.group({
+      keyWord: [''],
+      chuDeId: [''],
+      loaiCauId: ['']
+    });
   }
 
   onChangePage(args: any) {
@@ -44,7 +60,8 @@ export class ManageQuestionComponent implements OnInit {
 
   async loadData(skip: number = 0, take: number = 10) {
     let state: any = { skip, take, action: { requestType: 'searching' } };
-    this.questionService.getDataFromServer(state);
+    this.questionService.getPaggingData(state, {...this.formSearch.value});
+
     this.questionService.subscribe((res: any) => {
       this.pagging = res;
       if (res.result) {
@@ -62,7 +79,9 @@ export class ManageQuestionComponent implements OnInit {
     });
   }
 
-  goDeTail(id: any) {}
+  goDeTail(id: any) {
+    this.router.navigate([`/admin/questions/${id}`])
+  }
 
   onToggle(e: any) {
     console.log(e);
@@ -114,4 +133,11 @@ export class ManageQuestionComponent implements OnInit {
       });
     }
   }
+
+  
+  async formReset() {
+    this.formInit();
+    await this.loadData();
+  }
+
 }

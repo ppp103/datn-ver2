@@ -16,6 +16,7 @@ import { ManageTestComponent } from './components/admin/manage-test/manage-test.
 import { AdminComponent } from './components/admin/admin.component';
 import { ManageUserComponent } from './components/admin/manage-user/manage-user.component';
 import { ManageSubjectComponent } from './components/admin/manage-subject/manage-subject.component';
+import { QuestionDetailComponent } from './components/admin/manage-question/question-detail/question-detail.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,11 @@ const routes: Routes = [
         path: 'questions',
         component: ManageQuestionComponent,
         data: { breadcrumb: 'Quản lý câu hỏi' },
+      },
+      {
+        path: 'questions/:id',
+        component: QuestionDetailComponent,
+        data: { breadcrumb: 'Thông tin câu hỏi' },
       },
       {
         path: 'tests',
