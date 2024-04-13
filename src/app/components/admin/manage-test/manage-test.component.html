@@ -11,11 +11,15 @@
         <div class="rounded-t mb-0 px-4 py-3 border-0">
           <div class="flex flex-wrap items-center">
             <div
-              class="relative w-full px-4 max-w-full flex-grow leading-8 mb-3"
+              class="relative w-full px-4 max-w-full flex-grow leading-8 mb-3 flex justify-between"
             >
               <h3 class="font-semibold text-2xl text-gray-800">
                 Danh sách bài test
               </h3>
+              <button class="btn btn-primary" [routerLink]="['./add-test']">
+                <i class="fas fa-plus-square"></i>
+                Thêm mới
+              </button>
             </div>
             <div class="flex flex-wrap flex-col w-full">
               <div class="flex flex-wrap flex-row"></div>
@@ -52,7 +56,9 @@
                 </th>
                 <th
                   class="row-action px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
-                ></th>
+                >
+                  Thao tác
+                </th>
               </tr>
             </thead>
 
@@ -64,21 +70,23 @@
                   >
                     <!-- [routerLink]="[exam.id, 'preview']"
                   [tooltip]="'Xem chi tiết'" -->
-                    <a class="hover:text-blue-700">{{ exam.title }}</a>
+                    <a class="hover:text-blue-700">{{ exam.serialNumber }}</a>
                   </td>
                   <td
                     class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-no-wrap p-4 text-left"
                   >
-                    <!-- {{ exam.beginExam | date : "dd/MM/yyyy" }} -->
+                    {{ exam.testName }}
                   </td>
 
                   <td
                     class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4"
-                  ></td>
+                  >
+                    {{ exam.time }}
+                  </td>
                   <td
                     class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4"
                   >
-                    {{ exam.intake.name }}
+                    {{ exam.numberOfQuestions }}
                   </td>
                   <td
                     class="border-t-0 px-6 align-middle flex justify-between border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 w-full"
@@ -97,14 +105,11 @@
             </tbody>
           </table>
         </div>
-
-        <ng-container *ngIf="examList.length == 0 && !skeleton">
-          <div
-            class="px-4 py-3 bg-white border-t flex flex-row justify-between xs:flex-row items-center xs:justify-between"
-          >
-            <p class="mx-auto text-gray-700 text-sm">Nội dung chưa được tạo</p>
-          </div>
-        </ng-container>
+        <app-pagging
+          [listItems]="pagging"
+          (onChangePage)="onChangePage($event)"
+        >
+        </app-pagging>
       </div>
     </div>
   </div>

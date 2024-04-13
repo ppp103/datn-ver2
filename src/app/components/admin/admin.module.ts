@@ -26,6 +26,7 @@ import { AddTestComponent } from './manage-test/add-test/add-test.component';
 import { DetailTestComponent } from './manage-test/detail-test/detail-test.component';
 import { UserTestComponent } from './manage-test/user-test/user-test.component';
 import { UserTestResultComponent } from './manage-test/user-test-result/user-test-result.component';
+import { ManageTestComponent } from './manage-test/manage-test.component';
 // import { LineChartComponent } from './line-chart/line-chart.component';
 @NgModule({
   declarations: [
@@ -47,7 +48,11 @@ import { UserTestResultComponent } from './manage-test/user-test-result/user-tes
     DetailTestComponent,
     UserTestComponent,
     UserTestResultComponent,
-
+    AddTestComponent,
+    DetailTestComponent,
+    UserTestComponent,
+    UserTestResultComponent,
+    ManageTestComponent,
     // LineChartComponent,
   ],
   imports: [
@@ -62,7 +67,7 @@ import { UserTestResultComponent } from './manage-test/user-test-result/user-tes
     MatSelectModule,
     BrowserModule,
     GridModule,
-    MatDialogModule
+    MatDialogModule,
   ],
 })
 export class AdminModule {}

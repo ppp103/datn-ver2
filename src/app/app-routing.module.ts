@@ -17,6 +17,8 @@ import { AdminComponent } from './components/admin/admin.component';
 import { ManageUserComponent } from './components/admin/manage-user/manage-user.component';
 import { ManageSubjectComponent } from './components/admin/manage-subject/manage-subject.component';
 import { QuestionDetailComponent } from './components/admin/manage-question/question-detail/question-detail.component';
+import { DetailTestComponent } from './components/admin/manage-test/detail-test/detail-test.component';
+import { AddTestComponent } from './components/admin/manage-test/add-test/add-test.component';
 
 const routes: Routes = [
   {
@@ -60,6 +62,16 @@ const routes: Routes = [
         path: 'tests',
         component: ManageTestComponent,
         data: { breadcrumb: 'Quản lý đề thi' },
+      },
+      {
+        path: 'tests/add-test',
+        component: AddTestComponent,
+        data: { breadcrumb: 'Tạo mới đề thi' },
+      },
+      {
+        path: 'tests/:id',
+        component: DetailTestComponent,
+        data: { breadcrumb: 'Chi tiết đề thi' },
       },
       {
         path: 'users',
