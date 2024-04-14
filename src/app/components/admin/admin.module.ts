@@ -27,6 +27,7 @@ import { DetailTestComponent } from './manage-test/detail-test/detail-test.compo
 import { UserTestComponent } from './manage-test/user-test/user-test.component';
 import { UserTestResultComponent } from './manage-test/user-test-result/user-test-result.component';
 import { ManageTestComponent } from './manage-test/manage-test.component';
+import { DropDownTreeModule } from '@syncfusion/ej2-angular-dropdowns';
 // import { LineChartComponent } from './line-chart/line-chart.component';
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { ManageTestComponent } from './manage-test/manage-test.component';
     BrowserModule,
     GridModule,
     MatDialogModule,
+    DropDownTreeModule 
   ],
 })
 export class AdminModule {}

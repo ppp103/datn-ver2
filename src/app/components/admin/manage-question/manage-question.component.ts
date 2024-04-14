@@ -10,6 +10,7 @@ import { CommonServiceShared } from '../../../services/base/common-service.servi
 import { HttpErrorResponse } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { QuestionCategoryService } from '../../../services/question-category/question-category.service';
+import { TopicService } from '../../../services/topics/topic.service';
 @Component({
   selector: 'app-manage-question',
   templateUrl: './manage-question.component.html',
@@ -24,13 +25,16 @@ export class ManageQuestionComponent implements OnInit {
   dialogRef!: MatDialogRef<any>;
   dataList: any;
   selectedItem: any;
+  fields: any;
+  topics: any;
   constructor(
     private questionService: QuestionService,
     private fb: FormBuilder,
     private router: Router,
     private dialog: MatDialog,
     private commonService: CommonServiceShared,
-    private questionCategoryService: QuestionCategoryService
+    private questionCategoryService: QuestionCategoryService,
+    private topicService: TopicService
   ) {
 
   }
@@ -39,6 +43,15 @@ export class ManageQuestionComponent implements OnInit {
     this.formInit();
     this.loadData();
     this.loadQuestionCategory();
+    this.loadTopics();
+
+  }
+  
+  async loadTopics() {
+    this.topics = await this.topicService.getFetchAll();
+    this.fields = { dataSource: this.topics, value: 'id', text: 'name', child: 'child' }
+
+    console.log(this.topics);
   }
 
   async loadQuestionCategory() {

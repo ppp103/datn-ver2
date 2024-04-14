@@ -48,29 +48,54 @@
                       class="my-4 px-8 text-gray-600 text-base leading-relaxed text-left flex-row flex flex-wrap justify-center lg:justify-start items-center"
                     >
                       <div class="md:flex mb-2 w-full">
-                        <div class="md:w-1/2">
+                        <div class="md:w-1/2 pr-3">
                           <label
                             class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
                           >
                             Chủ đề <span class="mandatory">(*)</span>
                           </label>
-                          <!-- <select (change)="changeCourse($event)"
-                                  formControlName="course" name="course"
-                                  class="block appearance-none w-full bg-gray-200 py-2 my-1 mt-3 pr-4 rounded shadow leading-tight focus:outline-none">
-                            <option value="-1">-- please choose course --</option>
-                            <option *ngFor="let course of courseList" [value]="course.id"
-                                    [selected]="course.id === selectedCourseId">{{course.name}}</option>
-
-                          </select> -->
-                          <select
+                          <!-- <select
                             class="form-control"
                             formControlName="ChuDeId"
                             placeholder="Chọn chủ đề"
                           >
+                            <option value="" disabled selected hidden>
+                              Chọn loại chủ đề
+                            </option>
                             <option value="1">1</option>
-                          </select>
+                          </select> -->
+                          <ejs-dropdowntree 
+                            #dropdownTree 
+                            id="form1" 
+                            formControlName="ChuDeId" 
+                            [fields]="fields" 
+                            style="width: 100%;" 
+                            placeholder="Chọn tất cả">
+                          </ejs-dropdowntree> 
                           <span *ngIf="formErrors.ChuDeId" class="text-red">{{
                             formErrors.ChuDeId
+                          }}</span>
+                        </div>
+                        <div class="md:w-1/2 pl-3">
+                          <label
+                            class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+                          >
+                            Độ khó <span class="mandatory">(*)</span>
+                          </label>
+                          <select
+                            class="form-control"
+                            formControlName="DifficultyLevel"
+                          >
+                            <option value="" disabled selected hidden>
+                              Chọn độ khó
+                            </option>
+                            <option value="1">Dễ - 5 điểm - 2 phút</option>
+                            <option value="2">Vừa - 10 điểm - 3 phút</option>
+                            <option value="3">Khó - 15 điểm - 4 phút</option>
+
+                          </select>
+                          <span *ngIf="formErrors.difficultyLevel" class="text-red">{{
+                            formErrors.difficultyLevel
                           }}</span>
                         </div>
                       </div>

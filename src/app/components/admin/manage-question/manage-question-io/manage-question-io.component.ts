@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -17,12 +17,16 @@ import { CommonServiceShared } from '../../../../services/base/common-service.se
 import { QuestionCategoryService } from '../../../../services/question-category/question-category.service';
 import { closeFilterDialog } from '@syncfusion/ej2-angular-grids';
 import { QTYPE } from '../../../../enum/enum';
+import { TopicService } from '../../../../services/topics/topic.service';
+import { DropDownTreeComponent } from '@syncfusion/ej2-angular-dropdowns';
 @Component({
   selector: 'app-manage-question-io',
   templateUrl: './manage-question-io.component.html',
   styleUrl: './manage-question-io.component.scss',
 })
 export class ManageQuestionIoComponent {
+  @ViewChild("dropdownTree", { static: false }) public dropdownTree!: DropDownTreeComponent;
+
   inputModel: any;
   createForm!: FormGroup;
   dataChanged: any = false;
@@ -47,8 +51,12 @@ export class ManageQuestionIoComponent {
     Option2: '',
     Option3: '',
     Option4: '',
+    difficultyLevel: '',
+
   };
   questionCategories: any;
+  topics: any;
+  fields: any;
 
   constructor(
     private questionService: QuestionService,
@@ -57,18 +65,20 @@ export class ManageQuestionIoComponent {
     private dialogRef: MatDialogRef<ManageQuestionIoComponent>,
     private commonService: CommonServiceShared,
     private questionCategoryService: QuestionCategoryService,
+    private topicService: TopicService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
   async ngOnInit() {
     this.formInit();
-    console.log(this.createForm.value);
+    console.log(this.data.item);
     if (this.data.item != null) {
       this.currentQuestionType = this.data.item.loaiCauId;
       this.editMode = true;
       this.mapObjToForm();
     }
     this.loadQuestionCategory();
+    this.loadTopics();
   }
 
   changeQuestionType(id: number) {
@@ -94,8 +104,17 @@ export class ManageQuestionIoComponent {
       Content: [''],
       LoaiCauId: [''],
       Explaination: [''],
+      DifficultyLevel: ['']
     });
   }
+
+  async loadTopics() {
+    this.topics = await this.topicService.getFetchAll();
+    this.fields = { dataSource: this.topics, value: 'id', text: 'name', child: 'child' }
+
+    console.log(this.topics);
+  }
+
 
   async loadQuestionCategory() {
     this.questionCategories = await this.questionCategoryService.getFetchAll();
@@ -108,7 +127,13 @@ export class ManageQuestionIoComponent {
       Content: this.data.item.content,
       LoaiCauId: this.data.item.loaiCauId,
       Explaination: this.data.item.explaination,
+      DifficultyLevel: this.data.item.difficultyLevel
     });
+    setTimeout(() => {
+      if (this.data.item.chuDeId) {
+        this.dropdownTree.value = [this.data.item.chuDeId.toString()];
+      }
+    }, 300)
     this.multipleChoice = [];
     for (let i = 1; i <= 4; i++) {
       const optionKey = `option${i}`;
@@ -171,6 +196,14 @@ export class ManageQuestionIoComponent {
       isValid = true;
     }
 
+    if (!formValue.DifficultyLevel) {
+      this.formErrors.difficultyLevel = 'Vui lòng chọn độ khó';
+      isValid = false;
+    } else {
+      this.formErrors.difficultyLevel = '';
+      isValid = true;
+    }
+
     if (!formValue.Content) {
       this.formErrors.Content = 'Nội dung câu hỏi không được để trống';
       isValid = false;
@@ -222,6 +255,8 @@ export class ManageQuestionIoComponent {
     if (this.editMode) {
       this.inputModel = this.createForm.value;
       this.inputModel.id = this.data.item.id;
+      this.inputModel.ChuDeId =  parseInt(this.dropdownTree.value[0]),
+
       this.questionService.updateQuestion(this.inputModel).subscribe({
         next: (res) => {
           console.log(res);
@@ -240,6 +275,8 @@ export class ManageQuestionIoComponent {
       });
     } else {
       this.inputModel = this.createForm.value;
+      this.inputModel.ChuDeId =  parseInt(this.dropdownTree.value[0]),
+
       this.questionService.addQuestion(this.inputModel).subscribe({
         next: (res) => {
           console.log(res);
