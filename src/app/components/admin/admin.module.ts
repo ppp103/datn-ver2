@@ -29,6 +29,7 @@ import { UserTestResultComponent } from './manage-test/user-test-result/user-tes
 import { ManageTestComponent } from './manage-test/manage-test.component';
 import { DropDownTreeModule } from '@syncfusion/ej2-angular-dropdowns';
 // import { LineChartComponent } from './line-chart/line-chart.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 @NgModule({
   declarations: [
     AdminDashboardComponent,
@@ -69,7 +70,8 @@ import { DropDownTreeModule } from '@syncfusion/ej2-angular-dropdowns';
     BrowserModule,
     GridModule,
     MatDialogModule,
-    DropDownTreeModule 
+    DropDownTreeModule,
+    DragDropModule
   ],
 })
 export class AdminModule {}
