@@ -70,9 +70,10 @@ export class AddTestComponent implements OnInit {
     this.fields = { dataSource: this.topics, value: 'id', text: 'name', child: 'child' }
 
   }
-
+clicked(){
+  console.log('123');
+}
   async loadData(skip: number = 0, take: number = 10) {
-    console.log('call load data');
     let state: any = { skip, take, action: { requestType: 'searching' } };
     this.questionService.getPaggingData(state, {...this.formSearch});
     console.log({...this.formSearch});

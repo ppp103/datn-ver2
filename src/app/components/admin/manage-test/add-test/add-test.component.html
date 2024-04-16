@@ -30,7 +30,10 @@
                     >
                       Thông tin chung
                     </p>
-
+                    <div class="mb-3">
+                      <label for="formFile" class="form-label">Chọn ảnh</label>
+                      <input class="form-control" type="file" id="formFile">
+                    </div>
                     <div class="md:flex mb-2 w-full">
                       <div class="md:w-full">
                         <label
@@ -111,7 +114,7 @@
                     <div class="md:w-4/12 flex items-end justify-end">
                       <div class="w-1/2 flex justify-end items-end">
                         <button class="btn btn-primary" (click)="loadData()">Lọc câu hỏi</button>
-                        <!-- <button class="btn btn-primary" (debounceClick)="loadData()">Lọc câu hỏi</button> -->
+                        <!-- <button class="btn btn-primary" (debounceClick)="clicked()">Lọc câu hỏi</button> -->
 
                         </div>
                         <div class="w-1/2 flex justify-end items-end">
