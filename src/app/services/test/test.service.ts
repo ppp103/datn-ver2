@@ -26,4 +26,12 @@ export class TestService extends RepositoryEloquentService {
     });
     return this.getDataFromServer(param);
   }
+
+  public addTest(param: any) {
+    this.setServiceInfo({
+      apiUrl: `${environment.apiEndPoint}Test`,
+    });
+    return this.addItem(param);
+  }
+
 }

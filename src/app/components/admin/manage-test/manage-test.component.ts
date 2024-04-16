@@ -17,7 +17,7 @@ export class ManageTestComponent implements OnInit {
   constructor(
     private testService: TestService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit() {
@@ -51,5 +51,10 @@ export class ManageTestComponent implements OnInit {
 
   onChangePage(args: any) {
     this.loadData(args.skip, args.take);
+  }
+
+  toAddPage(){
+    // this.router.navigate(['/admin/tests/add-test'])
+    window.location.href = '/admin/tests/add-test'
   }
 }

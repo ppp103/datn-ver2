@@ -95,6 +95,17 @@ export class ManageQuestionIoComponent {
           isCorrected: 0,
         },
       ];
+    }else{
+      this.multipleChoice = [
+        {
+          choiceText: '',
+          isCorrected: 1,
+        },
+        {
+          choiceText: '',
+          isCorrected: 0,
+        },
+      ];
     }
   }
 

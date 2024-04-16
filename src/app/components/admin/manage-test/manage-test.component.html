@@ -16,7 +16,8 @@
               <h3 class="font-semibold text-2xl text-gray-800">
                 Danh sách bài test
               </h3>
-              <button class="btn btn-primary" [routerLink]="['./add-test']">
+              <!-- [routerLink]="['./add-test']" -->
+              <button class="btn btn-primary" (click)="toAddPage()">
                 <i class="fas fa-plus-square"></i>
                 Thêm mới
               </button>
@@ -47,13 +48,18 @@
                 <th
                   class="row-name px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
                 >
-                  Thời gian
+                  Thời gian (Phút)
                 </th>
                 <th
                   class="row-name px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
                 >
                   Số câu hỏi
                 </th>
+                <th
+                class="row-name px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+              >
+                Tổng điểm
+              </th>
                 <th
                   class="row-action px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
                 >
@@ -88,6 +94,11 @@
                   >
                     {{ exam.numberOfQuestions }}
                   </td>
+                  <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4"
+                >
+                  {{ exam.totalPoint }}
+                </td>
                   <td
                     class="border-t-0 px-6 align-middle flex justify-between border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 w-full"
                   >

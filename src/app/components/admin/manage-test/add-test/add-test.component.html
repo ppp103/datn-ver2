@@ -17,6 +17,7 @@
                 <h3 class="font-semibold text-2xl text-gray-800">
                   Tạo bài test
                 </h3>
+                <button (click)="returnList()" class="btn btn-primary">Quay lại</button>
               </div>
               <hr class="border w-full my-3" />
               <div class="flex flex-wrap flex-col w-full">
@@ -36,7 +37,7 @@
                           class="block uppercase tracking-wide text-gray-600 text-xs font-bold mb-2"
                           for="test-title"
                         >
-                          Đặt tiêu đề
+                          Đặt tiêu đề <span class="text-danger">(*)</span>
                         </label>
                         <input
                           class="appearance-none border rounded-md w-full py-2 px-3 my-1 text-gray-600 leading-tight outline-none focus:border-blue-500"
@@ -46,7 +47,11 @@
                           autocomplete="off"
                           tabindex="1"
                           required
+                          [(ngModel)]="testName"
                         />
+                        <span *ngIf="formErrors.testName" class="text-red">{{
+                          formErrors.testName
+                        }}</span>
                       </div>
                     </div>
                   </div>
@@ -63,12 +68,10 @@
                       </p>
 
                     </div>
-                    <div class="w-1/2 flex justify-end items-end">
-                      <div (click)="addSelectedQuestion()" class="btn btn-primary">Chọn câu hỏi</div>
-                    </div>
+
                   </div>
                   <div class="md:flex mb-4 mt-3 w-full">
-                    <div class="md:w-5/12 pr-3">
+                    <div class="md:w-4/12 pr-3">
                       <label
                         class="block uppercase tracking-wide text-gray-600 text-xs font-bold mb-2"
                       >
@@ -84,7 +87,7 @@
                     </ejs-dropdowntree> 
                     <!-- (select)="filterChange($event)" -->
                     </div>
-                    <div class="md:w-5/12 pl-3">
+                    <div class="md:w-4/12 pl-3">
                       <label
                         class="block uppercase tracking-wide text-gray-600 text-xs font-bold mb-2"
                       >
@@ -105,8 +108,15 @@
 
                         </select>
                     </div>
-                    <div class="md:w-2/12 flex items-end justify-end">
+                    <div class="md:w-4/12 flex items-end justify-end">
+                      <div class="w-1/2 flex justify-end items-end">
                         <button class="btn btn-primary" (click)="loadData()">Lọc câu hỏi</button>
+                        <!-- <button class="btn btn-primary" (debounceClick)="loadData()">Lọc câu hỏi</button> -->
+
+                        </div>
+                        <div class="w-1/2 flex justify-end items-end">
+                          <div (click)="addSelectedQuestion()" class="btn btn-primary">Thêm câu hỏi</div>
+                        </div>
                     </div>
                 </div>
                   
@@ -116,100 +126,108 @@
                     >
                       <!-- *ngIf="selectedPartId > 0" -->
                       <!-- Projects table -->
-                      <table
-                        class="items-center w-full bg-transparent border-collapse table-fixed user-list block lg:table overflow-x-auto overflow-y-auto"
-                      >
-                        <thead>
-                          <tr>
-                            <th
-                              class="row-header row-checkbox px-6 bg-gray-100 text-gray-600 align-middle border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 font-semibold text-left"
-                            >
-                              <input type="checkbox" name="allCheck" />
-                              <!-- [value]="checkedAll"
-                                [(ngModel)]="checkedAll"
-                                [ngModelOptions]="{ standalone: true }"
-                                (change)="checkBoxAll($event)" -->
-                            </th>
-                            <th
-                              class="row-header row-question px-6 bg-gray-100 text-gray-600 align-middle border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 font-semibold text-left"
-                            >
-                              Câu hỏi
-                            </th>
-
-                            <th
-                              class="row-header row-difficulty text-center px-6 bg-gray-100 text-gray-600 align-middle border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 font-semibold text-middle"
-                            >
-                              Chủ đề
-                            </th>
-                            <th
-                              class="row-header row-difficulty text-center px-6 bg-gray-100 text-gray-600 align-middle border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 font-semibold text-middle"
-                            >
-                              Loại câu
-                            </th>
-                            <th
-                              class="row-header row-type px-6 bg-gray-100 text-gray-600 align-middle border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 font-semibold text-left"
-                            >
-                              Độ khó
-                            </th>
-                          </tr>
-                        </thead>
-
-                        <tbody>
-                          <ng-container
-                          *ngFor="
-                            let ques of questions;
-                          "
-                          
-                          >
-                            <tr class="border hover:bg-gray-300">
-                              <td
-                                class="border-t-0 px-6 text-left align-middle border-l-0 border-r-0 text-md text-gray-500 p-4"
-                              >
-                                <input type="checkbox" name="noneCheck" 
-                                [ngModelOptions]="{ standalone: true }"
-                                  [(ngModel)]="ques.isSelected"
-                                  />
-                                  <!-- (change)="changeChecked(ques)" -->
-                              </td>
-
+                      <ng-container *ngIf="questions.length == 0; else data">
+                        <div class="h-100 flex items-center justify-center text-2xl text-blue-700">
+                          Không có dữ liệu hiển thị
+                        </div>
+                      </ng-container>
+                      <ng-template #data>
+                        <table
+                          class="items-center w-full bg-transparent border-collapse table-fixed user-list block lg:table overflow-x-auto overflow-y-auto"
+                        >
+                          <thead>
+                            <tr>
                               <th
-                                class="elipse-text border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs p-4 text-left"
+                                class="row-header row-checkbox px-6 bg-gray-100 text-gray-600 align-middle border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 font-semibold text-left"
                               >
-                                <div [innerHTML]="ques.content"></div>
+                                <input type="checkbox" name="allCheck" style="width: 18px; height: 18px;"
+                                (change)="checkBoxAll($event)"
+                                />
+                                <!-- [value]="checkedAll"
+                                  [(ngModel)]="checkedAll"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  (change)="checkBoxAll($event)" -->
                               </th>
-                              <td
+                              <th
+                                class="row-header row-question px-6 bg-gray-100 text-gray-600 align-middle border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 font-semibold text-left"
+                              >
+                                Câu hỏi
+                              </th>
+  
+                              <th
+                                class="row-header row-difficulty text-center px-6 bg-gray-100 text-gray-600 align-middle border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 font-semibold text-middle"
+                              >
+                                Chủ đề
+                              </th>
+                              <th
+                                class="row-header row-difficulty text-center px-6 bg-gray-100 text-gray-600 align-middle border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 font-semibold text-middle"
+                              >
+                                Loại câu
+                              </th>
+                              <th
+                                class="row-header row-type px-6 bg-gray-100 text-gray-600 align-middle border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 font-semibold text-left"
+                              >
+                                Độ khó
+                              </th>
+                            </tr>
+                          </thead>
+  
+                          <tbody>
+                            <ng-container
+                            *ngFor="
+                              let ques of questions;
+                            "
+                            >
+                              <tr class="border hover:bg-gray-300">
+                                <td
+                                  class="border-t-0 px-6 text-left align-middle border-l-0 border-r-0 text-md text-gray-500 p-4"
+                                >
+                                  <input type="checkbox" name="noneCheck" 
+                                  [ngModelOptions]="{ standalone: true }"
+                                    [(ngModel)]="ques.isSelected"
+                                    style="width: 18px; height: 18px;"
+                                    />
+                                </td>
+  
+                                <th
+                                  class="elipse-text border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs p-4 text-left"
+                                >
+                                  <div [innerHTML]="ques.content"></div>
+                                </th>
+                                <td
+                                  class="border-t-0 text-center px-6 align-middle border-l-0 border-r-0 text-xs p-4"
+                                >
+                                  {{ ques.chuDe }}
+                                </td>
+                                <td
                                 class="border-t-0 text-center px-6 align-middle border-l-0 border-r-0 text-xs p-4"
                               >
-                                {{ ques.chuDe }}
+                                {{ ques.loaiCau }}
                               </td>
                               <td
-                              class="border-t-0 text-center px-6 align-middle border-l-0 border-r-0 text-xs p-4"
+                              class="border-t-0 text-left px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 w-1/3"
                             >
-                              {{ ques.loaiCau }}
+                              <!-- {{ ques.correctOption }} -->
+                            <ng-container [ngSwitch]="ques.difficultyLevel">
+                              <ng-template [ngSwitchCase]="1">
+                                <span
+                                  class="px-2 py-1 bg-green-200 cursor-pointer font-medium hover:bg-green-300 transition duration-300 ease-in-out font-light text-green-600 text-xs rounded-md">Dễ</span>
+                              </ng-template>
+                              <ng-template [ngSwitchCase]="2">
+                                <span
+                                  class="px-2 py-1 bg-gray-200 cursor-pointer font-medium hover:bg-gray-400 transition duration-300 ease-in-out font-light text-gray-600 text-xs rounded-md">Vừa</span>
+                              </ng-template>
+                              <ng-template [ngSwitchCase]="3">
+                                <span
+                                  class="px-2 py-1 bg-red-200 cursor-pointer font-medium hover:bg-red-300 transition duration-300 ease-in-out font-light text-red-600 text-xs rounded-md">Khó</span>
+                              </ng-template>
+                            </ng-container>
                             </td>
-                            <td
-                            class="border-t-0 text-left px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 w-1/3"
-                          >
-                            <!-- {{ ques.correctOption }} -->
-                          <ng-container [ngSwitch]="ques.difficultyLevel">
-                            <ng-template [ngSwitchCase]="1">
-                              <span
-                                class="px-2 py-1 bg-green-200 cursor-pointer font-medium hover:bg-green-300 transition duration-300 ease-in-out font-light text-green-600 text-xs rounded-md">Dễ</span>
-                            </ng-template>
-                            <ng-template [ngSwitchCase]="2">
-                              <span
-                                class="px-2 py-1 bg-gray-200 cursor-pointer font-medium hover:bg-gray-400 transition duration-300 ease-in-out font-light text-gray-600 text-xs rounded-md">Vừa</span>
-                            </ng-template>
-                            <ng-template [ngSwitchCase]="3">
-                              <span
-                                class="px-2 py-1 bg-red-200 cursor-pointer font-medium hover:bg-red-300 transition duration-300 ease-in-out font-light text-red-600 text-xs rounded-md">Khó</span>
-                            </ng-template>
-                          </ng-container>
-                          </td>
-                            </tr>
-                          </ng-container>
-                        </tbody>
-                      </table>
+                              </tr>
+                            </ng-container>
+                          </tbody>
+                        </table>
+                      </ng-template>
                     </div>
                     <app-pagging [listItems]="pagging" (onChangePage)="onChangePage($event)">
                     </app-pagging>
@@ -223,7 +241,7 @@
         <div
           class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
         >
-          <div class="rounded-t mb-0 px-4 py-3 border-0">
+          <div *ngIf="questionListSelected.length > 0" class="rounded-t mb-0 px-4 py-3 border-0">
             <div class="flex flex-wrap items-center">
               <div
                 class="relative flex flex-col w-full px-4 max-w-full flex-grow leading-8 mb-3"
@@ -245,13 +263,13 @@
                   <div class="w-1/3">
                     <span class="mx-1">Thời gian ước tính:</span>
                     <span class="mx-1 text-blue-700">
-                      {{ questionListSelected.length }}
+                      {{ totalTime }} phút
                     </span>
                   </div>
                   <div class="w-1/3">
                     <span class="mx-1">Tổng điểm:</span>
                     <span class="mx-1 text-blue-700">
-                      {{ questionListSelected.length }}
+                      {{ totalPoint }} 
                     </span>
                   </div>
                 </div>
@@ -271,17 +289,17 @@
                       class="w-full hover:bg-gray-300 flex flex-row items-center"
                     >
                       <div class="col-custom pl-2">
-                        <span class="text-gray-600 italic font-semibold text-lg"
+                        <span class="pointer-events-none text-gray-600 italic font-semibold text-lg"
                           >#{{ i + 1 }}</span
                         >
                       </div>
                       <div
                         class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs p-4 text-left md:w-1/2"
                       >
-                        <div [innerHTML]="ques.content"></div>
+                        <div class="pointer-events-none" [innerHTML]="ques.content"></div>
                       </div>
                       <div
-                        class="border-t-0 md:w-1/6 text-center px-6 align-middle border-l-0 border-r-0 text-xs  p-4">
+                        class="pointer-events-none border-t-0 md:w-1/6 text-center px-6 align-middle border-l-0 border-r-0 text-xs  p-4">
                         <ng-container [ngSwitch]="ques.difficultyLevel">
                           <ng-template [ngSwitchCase]="1">
                                   <span
@@ -298,7 +316,7 @@
                         </ng-container>
                       </div>
                       <div
-                        class="border-t-0 px-6 md:w-1/6 align-middle border-l-0 border-r-0 text-xs p-4"
+                        class="pointer-events-none border-t-0 px-6 md:w-1/6 align-middle border-l-0 border-r-0 text-xs p-4"
                       >
                         {{ ques.point }} điểm
                       </div>
@@ -316,9 +334,8 @@
               </div>
             </div>
             <div class="w-full flex justify-end px-3">
-              <button
+              <button (click)="onSubmit()"
                       class="bg-blue-200 py-2 shadow-md hover:bg-blue-300 text-blue-600 border border-gray-400 transition duration-200 ease-in-out text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
-                      type="submit"
                     >
                       <span><i class="fa mr-1"></i>Tạo bài test</span>
                     </button>
