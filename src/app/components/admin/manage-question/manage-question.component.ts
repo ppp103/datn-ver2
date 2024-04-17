@@ -48,7 +48,7 @@ export class ManageQuestionComponent implements OnInit {
   }
   
   async loadTopics() {
-    this.topics = await this.topicService.getFetchAll();
+    this.topics = await this.topicService.getTopicTree();
     this.fields = { dataSource: this.topics, value: 'id', text: 'name', child: 'child' }
 
     console.log(this.topics);

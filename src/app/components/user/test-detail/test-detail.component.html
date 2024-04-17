@@ -36,24 +36,24 @@
   </div>
 </div> -->
 
-<div class="flex text-center flex-col w-full h-auto items-center">
+<div *ngIf="exam" class="flex text-center flex-col w-full h-auto items-center">
   <h2 class="text-center my-2 mt-5 font-bold px-2 py-1 bg-blue-300 rounded">
-    Tên: Tên bài thi
+    Tên: {{exam.testName}}
   </h2>
   <div class="flex flex-row flex-wrap justify-center">
     <div class="my-2 mx-3 px-2 py-1 bg-gray-300 rounded">
-      <span class="mx-2"><i class="fa fa-book"></i></span>Chủ đề
+      <span class="mx-2"><i class="fa fa-book"></i></span> Loại đề thi
     </div>
-    <div class="my-2 mx-3 px-2 py-1 bg-gray-300 rounded">20 câu hỏi</div>
+    <div class="my-2 mx-3 px-2 py-1 bg-gray-300 rounded">{{exam.numberOfQuestions}} câu hỏi</div>
   </div>
   <div class="my-2 px-2 py-1 bg-gray-300 rounded">
     <span class="mx-2"><i class="fa fa-calendar"></i></span>
-    10/10/2023
+    Ngày tạo: {{exam.createdDate | date: 'dd/MM/yyyy'}}
   </div>
   <div class="my-2 px-2 py-1 bg-gray-300 rounded">
-    <span class="mx-2"><i class="fa fa-calendar"></i></span>11/10/2023
+    <span class="mx-2"><i class="fa fa-calendar"></i></span>Tổng điểm: {{exam.totalPoint}} điểm
   </div>
-  <div class="my-2 px-2 py-1 bg-gray-300 rounded mb-8">Thời gian: 20 phút</div>
+  <div class="my-2 px-2 py-1 bg-gray-300 rounded mb-8"><i class="mx-2 fas fa-clock"></i>Thời gian: {{exam.time}} phút</div>
   <div class="flex justify-center my-5">
     <a [routerLink]="['./start']" class="btn btn-primary mr-4"> Bắt đầu </a>
     <a [routerLink]="['/user/test']" class="btn btn-primary"> Quay lại </a>

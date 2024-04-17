@@ -32,7 +32,10 @@
                     </p>
                     <div class="mb-3">
                       <label for="formFile" class="form-label">Chọn ảnh</label>
-                      <input class="form-control" type="file" id="formFile">
+                      <input
+                        (change)="selectFile($event)"
+                        accept=".jpg,.jpeg,.png"
+                      class="form-control" type="file" id="formFile">
                     </div>
                     <div class="md:flex mb-2 w-full">
                       <div class="md:w-full">

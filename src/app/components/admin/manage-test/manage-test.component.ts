@@ -26,7 +26,7 @@ export class ManageTestComponent implements OnInit {
 
   async loadData(skip: number = 0, take: number = 10) {
     let state: any = { skip, take, action: { requestType: 'searching' } };
-    this.testService.getPaggingData(state);
+    this.testService.getPaggingData(state, {});
 
     this.testService.subscribe((res: any) => {
       this.pagging = res;

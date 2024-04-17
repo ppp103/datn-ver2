@@ -31,6 +31,7 @@ export class AddTestComponent implements OnInit {
     DifficultyLevel: ''
   };
   questionListSelected: any = [];
+  fileValue: any;
   constructor(
     private fb: FormBuilder,
     private topicService: TopicService,
@@ -70,9 +71,7 @@ export class AddTestComponent implements OnInit {
     this.fields = { dataSource: this.topics, value: 'id', text: 'name', child: 'child' }
 
   }
-clicked(){
-  console.log('123');
-}
+
   async loadData(skip: number = 0, take: number = 10) {
     let state: any = { skip, take, action: { requestType: 'searching' } };
     this.questionService.getPaggingData(state, {...this.formSearch});
@@ -147,6 +146,7 @@ clicked(){
         time: this.totalTime, 
         totalPoint: this.totalPoint,
         numberOfQuestion: this.questionListSelected.length,
+        imgLink: this.fileValue,
         ids: ids
       }).subscribe({
           next: (res) => console.log(res),
@@ -183,5 +183,10 @@ clicked(){
     this.questions.forEach((question:any) => {
       question.isSelected = !question.isSelected
     })
+  }
+
+  selectFile(event: any) {
+    // this.createForm.value.File = event.target.files[0];
+    this.fileValue = event.target.files[0];
   }
 }

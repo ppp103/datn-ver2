@@ -5,14 +5,14 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
-export class TopicService extends RepositoryEloquentService {
+export class TestCategoryService extends RepositoryEloquentService {
   constructor(public override httpClient: HttpClient) {
     super();
     this.setServiceInfo({
       httpClient,
       inputModelName: null,
       outputModelName: null,
-      apiUrl: `${environment.apiEndPoint}Topic`,
+      apiUrl: `${environment.apiEndPoint}TestCategory`,
     });
   }
 
@@ -20,18 +20,10 @@ export class TopicService extends RepositoryEloquentService {
     return 'ok';
   }
 
-  getTopicTree(){
+  public getTestCategory(){
     this.setServiceInfo({
-      apiUrl: `${environment.apiEndPoint}Topic`,
-    });
-
-    return this.getFetchAll();
-  }
-
-  getFlatList(){
-    this.setServiceInfo({
-      apiUrl: `${environment.apiEndPoint}Topic/get-flat-topic`,
-    });
+        apiUrl: `${environment.apiEndPoint}TestCategory`,
+      });
 
     return this.getFetchAll();
   }

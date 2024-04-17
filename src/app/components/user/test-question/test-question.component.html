@@ -1,46 +1,4 @@
-<div class="w-full py-5">
-  <div
-    class="px-4 py-4 bg-white shadow-lg rounded-md sticky z-30"
-    style="top: -8px"
-  >
-    <div class="flex justify-between">
-      <div>
-        Thời gian:
-        <span class="font-bold text-xl">{{ counter | formatTime }}</span>
-      </div>
-
-      <div>
-        <button class="btn btn-primary" (click)="showModal()">Nộp bài</button>
-      </div>
-    </div>
-    <div class="row">
-      <div class="question-list flex mt-2 flex-wrap">
-        <ng-container>
-          <div class="question-container cursor-pointer">
-            <div
-              class="w-7 mr-2 text-white h-7 bg-blue-500 rounded-full relative flex justify-center items-center"
-            >
-              1
-            </div>
-          </div>
-          <div class="question-container cursor-pointer">
-            <div
-              class="w-7 mr-2 text-white h-7 bg-blue-500 rounded-full relative flex justify-center items-center"
-            >
-              1
-            </div>
-          </div>
-          <div class="question-container cursor-pointer">
-            <div
-              class="w-7 mr-2 text-white h-7 bg-blue-500 rounded-full relative flex justify-center items-center"
-            >
-              1
-            </div>
-          </div>
-        </ng-container>
-      </div>
-    </div>
-  </div>
+<div class="w-full relative">
   <ng-container>
     <div class="my-12 mx-4 flex flex-row">
       <div
@@ -106,6 +64,50 @@
   </ng-container>
   <hr class="w-full my-3" />
   <p class="text-center font-bold end-text">Kết thúc</p>
+  
+  <!-- Thanh chính -->
+  <div
+  class="px-4 py-4 bg-white shadow-lg rounded-md fixed bottom-0 left-0 right-0 z-30"
+  style="left: 256px"
+>
+  <div class="flex justify-between">
+    <div>
+      Thời gian:
+      <span class="font-bold text-xl">{{ counter | formatTime }}</span>
+    </div>
+
+    <div>
+      <button class="btn btn-primary" (click)="showModal()">Nộp bài</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="question-list flex mt-2 flex-wrap">
+      <ng-container>
+        <div class="question-container cursor-pointer">
+          <div
+            class="w-7 mr-2 text-white h-7 bg-blue-500 rounded-full relative flex justify-center items-center"
+          >
+            1
+          </div>
+        </div>
+        <div class="question-container cursor-pointer">
+          <div
+            class="w-7 mr-2 text-white h-7 bg-blue-500 rounded-full relative flex justify-center items-center"
+          >
+            1
+          </div>
+        </div>
+        <div class="question-container cursor-pointer">
+          <div
+            class="w-7 mr-2 text-white h-7 bg-blue-500 rounded-full relative flex justify-center items-center"
+          >
+            1
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  </div>
 </div>
 
 <div *ngIf="toggleModal" class="fixed inset-0 z-40 bg-smoke-light"></div>
@@ -143,4 +145,5 @@
       </div>
     </div>
   </div>
+  
 </div>

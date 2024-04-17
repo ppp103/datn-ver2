@@ -120,21 +120,21 @@ const routes: Routes = [
         component: TestListComponent,
         data: { breadcrumb: 'Danh sách đề thi' },
       },
-      {
-        path: 'test/detail',
-        component: TestDetailComponent,
-        data: { breadcrumb: 'Chi tiết đề thi' },
-      },
-      // { path: 'test/detail/:id', component: TestDetailComponent, data: { breadcrumb: 'Chi tiết đề thi' } },
+      // {
+      //   path: 'test/detail',
+      //   component: TestDetailComponent,
+      //   data: { breadcrumb: 'Chi tiết đề thi' },
+      // },
+      { path: 'test/:id', component: TestDetailComponent, data: { breadcrumb: 'Chi tiết đề thi' } },
 
       {
-        path: 'test/detail/start',
+        path: 'test/:id/start',
         component: TestQuestionComponent,
         data: { breadcrumb: 'Làm bài' },
       },
       // { path: 'test/detail/:id/start', component: TestQuestionComponent, data: { breadcrumb: 'Làm bài' } },
       {
-        path: 'test/detail/result',
+        path: 'test/:id/result',
         component: TestResultComponent,
         data: { breadcrumb: 'Kết quả' },
       },

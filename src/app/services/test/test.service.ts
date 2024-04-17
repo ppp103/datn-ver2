@@ -20,11 +20,11 @@ export class TestService extends RepositoryEloquentService {
     return 'ok';
   }
 
-  public getPaggingData(param: any) {
+  public getPaggingData(state: any, param: any) {
     this.setServiceInfo({
       apiUrl: `${environment.apiEndPoint}Test/Pagging`,
     });
-    return this.getDataFromServer(param);
+    return this.getDataFromServer(state, param);
   }
 
   public addTest(param: any) {
@@ -32,6 +32,13 @@ export class TestService extends RepositoryEloquentService {
       apiUrl: `${environment.apiEndPoint}Test`,
     });
     return this.addItem(param);
+  }
+
+  public getTestById(id : any){
+    this.setServiceInfo({
+      apiUrl: `${environment.apiEndPoint}Test`,
+    });
+    return this.getById(id);
   }
 
 }

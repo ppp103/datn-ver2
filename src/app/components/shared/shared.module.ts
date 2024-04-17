@@ -39,6 +39,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     ResultCircleComponent,
     MatTooltipModule,
     PaggingComponent,
+    FormsModule
   ],
 })
 export class SharedModule {}
