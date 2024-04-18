@@ -146,7 +146,7 @@ export class AddTestComponent implements OnInit {
         time: this.totalTime, 
         totalPoint: this.totalPoint,
         numberOfQuestion: this.questionListSelected.length,
-        imgLink: this.fileValue,
+        // imgLink: this.fileValue,
         ids: ids
       }).subscribe({
           next: (res) => console.log(res),

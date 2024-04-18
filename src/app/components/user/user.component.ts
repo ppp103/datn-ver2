@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 export class UserComponent {
   toggledMenu: any;
   toggleMenu(){
+    this.toggledMenu = !this.toggledMenu;
 
   }
   signOut(){}

@@ -89,7 +89,7 @@
             </ng-container> -->
           </div>
           <div class="flex">
-            <a [routerLink]="['/user/test/detail']" class="w-100 btn btn-outline-primary mb-3">Chi tiết</a>
+            <a [routerLink]="['/user/test/',exam.id]" class="w-100 btn btn-outline-primary mb-3">Chi tiết</a>
           </div>
           <div class="flex items-center justify-between leading-none">
             <a class="flex items-center no-underline text-gray-600">
@@ -109,7 +109,7 @@
           </div>
         </div>
       </article>
-      <div class="mt-5">
+      <div class="mt-5 w-100">
         <app-pagging
           [listItems]="pagging"
           (onChangePage)="onChangePage($event)"

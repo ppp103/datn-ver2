@@ -57,6 +57,13 @@ export class QuestionService extends RepositoryEloquentService {
     });
     return this.deleteItem({ id });
   }
+
+  public getQuestionByTestId(id: number){
+        this.setServiceInfo({
+      apiUrl: `${environment.apiEndPoint}Question/get-questions-by-test-id`,
+    });
+    return this.getById(id)
+  }
 }
 
 // import { Injectable } from '@angular/core';

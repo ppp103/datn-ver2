@@ -1,74 +1,130 @@
 <div class="w-full relative">
-  <ng-container>
+  <h4 *ngIf="exam">Đề thi: {{exam.testName}}</h4>
+  <ng-container *ngFor="let ques of questions; let i = index">
     <div class="my-12 mx-4 flex flex-row">
       <div
-        class="w-48 bg-gray-300 mx-4 px-2 py-2 h-16 rounded-md ml-0 flex flex-col select-none items-center"
+        class="w-48 bg-gray-300 mx-4 px-2 py-2 h-32 rounded-md ml-0 flex flex-col select-none items-center"
       >
-        <div class="font-bold text-gray-600 text-xl my-2">Câu 1</div>
+        <div class="font-bold text-gray-600 text-xl my-2">Câu {{i + 1}}</div>
+        <div class="text-gray-600 text-sm">
+          <ng-container [ngSwitch]="ques.difficultyLevel">
+            <ng-template [ngSwitchCase]="1">
+              <span class="px-2 py-1 my-2 rounded-md bg-green-300 text-green-600 text-sm font-semibold">Dễ</span>
+            </ng-template>
+            <ng-template [ngSwitchCase]="2">
+              <span
+                class="px-2 py-1 my-2 rounded-md bg-gray-400 text-gray-600 text-sm font-semibold">Vừa</span>
+            </ng-template>
+            <ng-template [ngSwitchCase]="3">
+              <span
+                class="px-2 py-1 my-2 rounded-md bg-red-300 text-red-600 text-sm font-semibold">Khó</span>
+            </ng-template>
+          </ng-container>
+        </div>
+        <div class="py-2 text-gray-600">{{ques.point}} điểm</div>
       </div>
       <div class="bg-gray-300 rounded-md shadow-lg px-8 py-6 w-full">
-        <p class="select-none">Câu hỏi</p>
+        <p class="select-none" [innerHTML]="ques.content"></p>
         <div class="h-auto">
           <div class="my-5 font-semibold text-blue-600 select-none">
             Chọn câu trả lời<span></span>
           </div>
           <div class="flex">
+            <div class="radio-type flex-1" *ngFor="let choice of ques.choices; let choiceIndex = index">
+              <div class="radio-btn">
+                <input 
+                  name="mcChoices-{{ques.id}}"
+                  type="radio" 
+                  id="mc-{{ choice.id }}" 
+                  (change)="changeChoiceMC(choice.id, ques.id)"
+                  [checked]="choice.isSelected === 1 ? true : false"
+                />
+                <label for="mc-{{ choice.id }}" class="select-none">{{choice.choiceText}}</label>
+              </div>
+            </div>
+
+            <!-- <div class="radio-type flex-1">
+              <div class="radio-btn">
+                <input type="radio" />
+                <label class="select-none">{{ques.option2}}</label>
+              </div>
+            </div> -->
+          </div>
+          <!-- <div class="flex" *ngIf="ques.option3">
             <div class="radio-type flex-1">
               <div class="radio-btn">
                 <input type="radio" />
-                <label class="select-none">True</label>
+                <label class="select-none">{{ques.option3}}</label>
               </div>
             </div>
 
             <div class="radio-type flex-1">
               <div class="radio-btn">
                 <input type="radio" />
-                <label class="select-none">False</label>
+                <label class="select-none">{{ques.option4}}</label>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </ng-container>
-  <ng-container>
-    <div class="my-12 mx-4 flex flex-row">
-      <div
-        class="w-48 bg-gray-300 mx-4 px-2 py-2 h-16 rounded-md ml-0 flex flex-col select-none items-center"
-      >
-        <div class="font-bold text-gray-600 text-xl my-2">Câu 2</div>
-      </div>
-      <div class="bg-gray-300 rounded-md shadow-lg px-8 py-6 w-full">
-        <p class="select-none">Câu hỏi</p>
-        <div class="h-auto">
-          <div class="my-5 font-semibold text-blue-600 select-none">
-            Chọn câu trả lời<span></span>
-          </div>
-          <div class="flex">
-            <div class="flex flex-col">
-              <div class="w-full my-1">
+          </div> -->
+
+          <!-- <ng-container *ngFor="let choice of ques.choices">
+            <ng-container [ngSwitch]="ques.questionType.typeCode">
+              <ng-template [ngSwitchCase]="1">
                 <div class="flex">
-                  <div class="radio-type w-full">
+                  <div class="radio-type flex-1">
                     <div class="radio-btn">
-                      <input type="radio" />
-                      <label class="select-none">Câu trả lời</label>
+                      <input type="radio" id="true-{{choice.id}}"
+                             name="choicesTF-{{ques.id}}" value="True"
+                             (change)="selectAnswerTF($event, ques.id)"
+                             [checked]="choice.choiceText=='True' && choice.isCorrected==1"/>
+                      <label class="select-none" for="true-{{choice.id}}">True</label>
+                    </div>
+                  </div>
+
+                  <div class="radio-type flex-1">
+                    <div class="radio-btn">
+                      <input type="radio" id="false-{{choice.id}}"
+                             name="choicesTF-{{ques.id}}" value="False"
+                             (click)="selectAnswerTF($event, ques.id)"
+                             [checked]="choice.choiceText=='False' && choice.isCorrected==1"
+                      />
+                      <label class="select-none" for="false-{{choice.id}}">False</label>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
+              </ng-template>
+              <ng-template [ngSwitchCase]="2">
+                <div class="flex flex-col">
+                  <div class="w-full my-1">
+                    <div class="flex">
+                      <div class="radio-type w-full">
+                        <div class="radio-btn">
+                          <input type="radio" name="mcChoices-{{ques.id}}"
+                                 (change)="selectedAnswerMC($event, ques.id, choice.id)" id="mc-{{choice.id}}"
+                                 [checked]="choice.isCorrected==1">
+                          <label class="select-none" for="mc-{{choice.id}}" [innerHTML]="choice.choiceText"></label>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+              </ng-template>
+            </ng-container>
+          </ng-container> -->
+          
         </div>
       </div>
     </div>
   </ng-container>
+
   <hr class="w-full my-3" />
   <p class="text-center font-bold end-text">Kết thúc</p>
   
   <!-- Thanh chính -->
   <div
-  class="px-4 py-4 bg-white shadow-lg rounded-md fixed bottom-0 left-0 right-0 z-30"
-  style="left: 256px"
+  class="px-4 py-4 bg-white shadow-lg rounded-md sticky bottom-0 left-0 right-0 z-30"
 >
   <div class="flex justify-between">
     <div>
@@ -82,26 +138,12 @@
   </div>
   <div class="row">
     <div class="question-list flex mt-2 flex-wrap">
-      <ng-container>
+      <ng-container *ngFor="let ques of questions; let i = index">
         <div class="question-container cursor-pointer">
           <div
             class="w-7 mr-2 text-white h-7 bg-blue-500 rounded-full relative flex justify-center items-center"
           >
-            1
-          </div>
-        </div>
-        <div class="question-container cursor-pointer">
-          <div
-            class="w-7 mr-2 text-white h-7 bg-blue-500 rounded-full relative flex justify-center items-center"
-          >
-            1
-          </div>
-        </div>
-        <div class="question-container cursor-pointer">
-          <div
-            class="w-7 mr-2 text-white h-7 bg-blue-500 rounded-full relative flex justify-center items-center"
-          >
-            1
+            {{i + 1}}
           </div>
         </div>
       </ng-container>

@@ -169,6 +169,7 @@ export class ManageQuestionIoComponent {
   changeChoiceMC(i: number) {
     this.multipleChoice.map((item) => (item.isCorrected = 0));
     this.multipleChoice[i].isCorrected = 1;
+    console.log('123');
   }
 
   addMCAnswer() {
