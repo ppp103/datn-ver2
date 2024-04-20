@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { interval, Subscription, timer } from 'rxjs';
 import { QuestionService } from '../../../services/question/question.service';
@@ -23,7 +23,8 @@ export class TestQuestionComponent {
   constructor(private router: Router,
     private questionService : QuestionService,
     private testService : TestService,
-    private route : ActivatedRoute
+    private route : ActivatedRoute,
+    private el: ElementRef
   ) {}
 
   ngOnInit(): void {
@@ -72,6 +73,15 @@ export class TestQuestionComponent {
 
     if (this.countDown) {
       this.countDown.unsubscribe();
+    }
+  }
+
+  scrollToQuestion(questionNumber: number){
+    console.log(questionNumber);
+    const questionId = 'question-' + questionNumber;
+    const questionElement = this.el.nativeElement.querySelector('#' + questionId);
+    if (questionElement) {
+      questionElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }
 
