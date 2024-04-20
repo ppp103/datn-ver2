@@ -22,3 +22,7 @@
 .nav-link:hover {
   background-color: #e7eaf3;
 }
+
+.col-gap{
+  column-gap: 80px !important;
+}

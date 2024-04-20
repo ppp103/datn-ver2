@@ -173,8 +173,12 @@ form {
   margin-left: 5px;
 }
 .highlight{
-  background-color: #ffad3b;
+  background-color: #ffad3b !important;
 }
+
+// .background-blue{
+//   background-color: #0c5d7d !important;
+// }
 
 .highlight .question-text{
   color: #fff;

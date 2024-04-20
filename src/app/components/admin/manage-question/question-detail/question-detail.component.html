@@ -29,15 +29,45 @@
                   <label
                     class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
                   >
-                    Chủ đề
+                    Chủ đề : <span>{{question.chuDe}}</span>
                   </label>
-                  <!-- <select [disabled]="true"
-                            class="block appearance-none w-full bg-gray-200 py-2 px-3 my-1 mt-3 pr-4 rounded shadow leading-tight focus:outline-none">
-                      <option
-                      >{{course?.name}}</option>
-  
-                    </select>
-   -->
+                  <label
+                    class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+                  >
+                    Thời gian : <span>{{question.time}} phút</span>
+                  </label>
+                  <label
+                    class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+                  >
+                    Điểm : <span>{{question.point}}</span>
+                  </label>
+                  <ng-container [ngSwitch]="question.difficultyLevel">
+                    <ng-template [ngSwitchCase]="1">
+                      <label
+                      class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+                    >
+                      Độ khó : <span
+                      class="px-2 py-1 bg-green-200 cursor-pointer font-medium hover:bg-green-300 transition duration-300 ease-in-out font-light text-green-600 text-xs rounded-md">Dễ</span>
+                    </label>
+                    </ng-template>
+                    <ng-template [ngSwitchCase]="2">
+                      <label
+                      class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+                    >
+                      Độ khó : <span
+                      class="px-2 py-1 bg-gray-200 cursor-pointer font-medium hover:bg-gray-400 transition duration-300 ease-in-out font-light text-gray-600 text-xs rounded-md">Vừa</span>
+                    </label>
+                    </ng-template>
+                    <ng-template [ngSwitchCase]="3">
+                      <label
+                      class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+                    >
+                      Độ khó : <span
+                      class="px-2 py-1 bg-red-200 cursor-pointer font-medium hover:bg-red-300 transition duration-300 ease-in-out font-light text-red-600 text-xs rounded-md">Khó</span>
+                    </label>
+                    </ng-template>
+                  </ng-container>
+                  
                 </div>
               </div>
               <div class="-mx-3 md:flex my-3 w-full">
@@ -154,6 +184,11 @@
                       </div>
                     </div>
                   </div>
+                  <label
+                    class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
+                  >
+                    Giải thích : <span>{{question.explaination}}</span>
+                  </label>
                 </div>
               </div>
             </div>

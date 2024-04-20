@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { interval, Subscription, timer } from 'rxjs';
 import { QuestionService } from '../../../services/question/question.service';
 import { TestService } from '../../../services/test/test.service';
+import { PracticeTestService } from '../../../services/practice-test/practice-test.service';
 
 @Component({
   selector: 'app-test-question',
@@ -19,10 +20,12 @@ export class TestQuestionComponent {
   toggleModal: any;
   questions: any;
   private subscription: any;
+  inputModel= {};
 
   constructor(private router: Router,
     private questionService : QuestionService,
     private testService : TestService,
+    private practiceTestService: PracticeTestService,
     private route : ActivatedRoute,
     private el: ElementRef
   ) {}
@@ -118,7 +121,52 @@ export class TestQuestionComponent {
   }
 
   submit() {
-    this.router.navigate(['user/test/detail/result']);
+    // Chuẩn bị data: {
+//   "time": 0,
+//   "userId": 0,
+//   "testId": 0,
+//   "createdBy": "string",
+//   "answerSheets": [
+//     {
+//       "questionId": 0,
+//       "chosenOption": "string",
+//       "point": 0
+//     }
+//   ]
+// }
+    console.log(this.questions);
+
+    const answerSheets: any = [];
+    this.questions.forEach((question : any) => {
+      let chosenOption = '';
+      question.choices.forEach((choice : any) => {
+        if(choice.isSelected){
+          chosenOption = choice.choiceText;
+        }
+      })
+      answerSheets.push({
+        questionId: question.id,
+        chosenOption: chosenOption,
+        point: question.point
+      })
+    })
+    console.log(answerSheets);
+    // time: tính remaining time
+    // userId + createdBy: tạm fix cứng 
+    this.inputModel = {
+      time: 10,
+      userId: 1,
+      testId: 1,
+      createdBy: 'Admin',
+      answerSheets: answerSheets
+    }
+    console.log(this.inputModel);
+    this.practiceTestService.addPracticeTest(this.inputModel).subscribe({
+      next: (res) =>{
+        console.log(res);
+      }
+    });
+    // this.router.navigate(['user/test/detail/result']);
   }
 
   selectAnswerTF(value: any, id: number){
