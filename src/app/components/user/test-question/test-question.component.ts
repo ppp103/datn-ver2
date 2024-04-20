@@ -42,10 +42,15 @@ export class TestQuestionComponent {
       this.counter = this.exam.time * 60;
       this.questionService.getQuestionByTestId(this.id).subscribe(res => {
         this.questions = res;
-        console.log(this.questions);
         this.questions.forEach((question : any) => {
+          // Set highlight cho câu hỏi là false
+          question.isHiglighted = false;
+          question.isAnswered = false;
+
+          // Set lại mảng choices của từng câu hỏi
           question.choices = [];
           for (let i = 1; i <= 4; i++) {
+            // Set Id
             choiceId++;
             const optionKey = `option${i}`;
             if (question[optionKey] !== null && question[optionKey] !== '') {
@@ -53,18 +58,14 @@ export class TestQuestionComponent {
                 id: choiceId,
                 choiceText: question[optionKey],
                 isSelected: 0,
-                // isCorrected:
-                //   question[optionKey] === question.correctOption ? 1 : 0,
               });
             }
           }
         });
-        console.log(this.questions);
       });
     }
   });
 }
-
 
   ngOnDestroy(): void {
     if (this.subscription) {
@@ -77,7 +78,6 @@ export class TestQuestionComponent {
   }
 
   scrollToQuestion(questionNumber: number){
-    console.log(questionNumber);
     const questionId = 'question-' + questionNumber;
     const questionElement = this.el.nativeElement.querySelector('#' + questionId);
     if (questionElement) {
@@ -104,21 +104,9 @@ export class TestQuestionComponent {
   }
 
   changeChoiceMC(i : number, quesId : number){
-    console.log(i);
-    // console.log(quesId, 'quesID');
-    console.log(this.questions);
-    // this.questions.map((question : any) => {
-    //   if(question.id != quesId) return;
-    //   if(!question.choices) return; 
-    //   question.choices.map((choice : any) =>{
-    //     choice.isSelected = 0;
-    //   })
-    //   question.choices[i].isSelected = 1;
-    // })
     const question = this.questions.find((x: any) => x.id === quesId);
-    console.log(question);
     question.choices.map((x : any) => x.id === i ? (x.isSelected = 1) : (x.isSelected = 0));
-    question.choices.map((choice : any) => console.log(choice))
+    question.isAnswered = true;
   }
 
   showModal() {
@@ -130,7 +118,6 @@ export class TestQuestionComponent {
   }
 
   submit() {
-    console.log('click');
     this.router.navigate(['user/test/detail/result']);
   }
 
@@ -141,5 +128,9 @@ export class TestQuestionComponent {
 
   selectedAnswerMC(value: any, questionId: number, choiceId: number){
 
+  }
+
+  highlightQuestion(question: any){
+    question.isHiglighted = !question.isHiglighted; // Highlight the clicked question
   }
 }

@@ -43,9 +43,7 @@ export class AddTestComponent implements OnInit {
 
   ) {
     this.route.params.subscribe(() => {
-      console.log('in subscribe');
       this.questionListSelected.splice(0, this.questionListSelected.length);
-      console.log(this.questionListSelected, 'selected');
       this.loadData()
       this.loadTopic()
     })
@@ -56,14 +54,6 @@ export class AddTestComponent implements OnInit {
       testName: [''],
       time: [''],
     });
-
-    // this.formSearch = this.fb.group({
-    //   ChuDeId: [''],
-    //   DifficultyLevel: ['']
-    // })
-    //////////// test
-    // this.loadData()
-    // this.loadTopic()
   }
 
   async loadTopic() {
@@ -77,7 +67,6 @@ export class AddTestComponent implements OnInit {
     this.questionService.getPaggingData(state, {...this.formSearch});
     console.log({...this.formSearch});
     this.questionService.subscribe((res: any) => {
-      console.log(res, 'resss');
       this.pagging = res;
       if (res.result) {
         res.result = res.result.filter((question: any) => {
@@ -87,7 +76,6 @@ export class AddTestComponent implements OnInit {
         this.questions = res.result;
         console.log(res.result);
         //////////////////// test data
-        // this.questionListSelected = res.result
         this.questions.map((question : any) => {
           question.isSelected = false;
         })
@@ -139,7 +127,7 @@ export class AddTestComponent implements OnInit {
 
   onSubmit() {
     this.validate();
-    const ids = this.questionListSelected.map((item:any) => item.id)
+    const ids = this.questionListSelected.map((item:any) => item.id);
     this.testService.addTest(
       {
         testName: this.testName, 
