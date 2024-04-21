@@ -52,7 +52,7 @@
             <div class="radio-type flex-1" *ngFor="let choice of ques.choices; let choiceIndex = index">
               <div class="flex w-100 ">
                 <span class="text-2xl pr-2 w-8">
-                  <ng-container *ngIf="(!choice.isCorrect && ques.chosenOption == choice.choiceText) || ques.correctOption != choice.choiceText">
+                  <ng-container *ngIf="(!choice.isCorrect || ques.correctOption != choice.choiceText)  && ques.chosenOption == choice.choiceText">
                     <i class="fa fa-close text-red-600"></i>
                   </ng-container>
                   <ng-container *ngIf="choice.isCorrect || ques.correctOption == choice.choiceText">
