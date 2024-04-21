@@ -4,6 +4,8 @@ import { interval, Subscription, timer } from 'rxjs';
 import { QuestionService } from '../../../services/question/question.service';
 import { TestService } from '../../../services/test/test.service';
 import { PracticeTestService } from '../../../services/practice-test/practice-test.service';
+import { error } from 'console';
+import { CommonServiceShared } from '../../../services/base/common-service.service';
 
 @Component({
   selector: 'app-test-question',
@@ -21,13 +23,14 @@ export class TestQuestionComponent {
   questions: any;
   private subscription: any;
   inputModel= {};
-
+  answerSheets: any = []
   constructor(private router: Router,
     private questionService : QuestionService,
     private testService : TestService,
     private practiceTestService: PracticeTestService,
     private route : ActivatedRoute,
-    private el: ElementRef
+    private el: ElementRef,
+    private commonService: CommonServiceShared
   ) {}
 
   ngOnInit(): void {
@@ -121,61 +124,55 @@ export class TestQuestionComponent {
   }
 
   submit() {
-    // Chuẩn bị data: {
-//   "time": 0,
-//   "userId": 0,
-//   "testId": 0,
-//   "createdBy": "string",
-//   "answerSheets": [
-//     {
-//       "questionId": 0,
-//       "chosenOption": "string",
-//       "point": 0
-//     }
-//   ]
-// }
-    console.log(this.questions);
+    // Lấy ra các đáp án đã chọn
+    this.getAnswerSheets();
 
-    const answerSheets: any = [];
-    this.questions.forEach((question : any) => {
+    // Check xem tất cả các đáp án đã được trả lời
+    const hasEmptyOption = this.answerSheets.some((answer : any) => answer.chosenOption == '')
+
+    if(hasEmptyOption) {
+      this.commonService.showeNotiResult('Vui lòng trả lời hết tất cả các câu hỏi', 2000);
+    }else{
+      this.addPracticeTest();
+    }
+  }
+
+  getAnswerSheets(){
+      this.questions.forEach((question : any) => {
       let chosenOption = '';
       question.choices.forEach((choice : any) => {
         if(choice.isSelected){
           chosenOption = choice.choiceText;
         }
       })
-      answerSheets.push({
+      this.answerSheets.push({
         questionId: question.id,
         chosenOption: chosenOption,
         point: question.point
       })
     })
-    console.log(answerSheets);
+
+  }
+
+  addPracticeTest(){
     // time: tính remaining time
     // userId + createdBy: tạm fix cứng 
     this.inputModel = {
       time: 10,
       userId: 1,
-      testId: 1,
+      testId: this.exam.id,
       createdBy: 'Admin',
-      answerSheets: answerSheets
+      answerSheets: this.answerSheets
     }
-    console.log(this.inputModel);
+    
     this.practiceTestService.addPracticeTest(this.inputModel).subscribe({
       next: (res) =>{
-        console.log(res);
+        this.router.navigate([`user/test/${res.id}/result`]);
+      },
+      error: (error) => {
+        console.log(error);
       }
     });
-    // this.router.navigate(['user/test/detail/result']);
-  }
-
-  selectAnswerTF(value: any, id: number){
-
-  }
-
-
-  selectedAnswerMC(value: any, questionId: number, choiceId: number){
-
   }
 
   highlightQuestion(question: any){
