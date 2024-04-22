@@ -37,27 +37,52 @@
                         accept=".jpg,.jpeg,.png"
                       class="form-control" type="file" id="formFile">
                     </div>
-                    <div class="md:flex mb-2 w-full">
-                      <div class="md:w-full">
-                        <label
-                          class="block uppercase tracking-wide text-gray-600 text-xs font-bold mb-2"
-                          for="test-title"
-                        >
-                          Đặt tiêu đề <span class="text-danger">(*)</span>
-                        </label>
-                        <input
-                          class="appearance-none border rounded-md w-full py-2 px-3 my-1 text-gray-600 leading-tight outline-none focus:border-blue-500"
-                          id="test-title"
-                          type="text"
-                          placeholder="Nhập tiêu đề bài test"
-                          autocomplete="off"
-                          tabindex="1"
-                          required
-                          [(ngModel)]="testName"
-                        />
-                        <span *ngIf="formErrors.testName" class="text-red">{{
-                          formErrors.testName
-                        }}</span>
+                    <div class="flex gap-2">
+                      <div class="md:flex mb-2 w-1/2">
+                        <div class="md:w-full">
+                          <label
+                            class="block uppercase tracking-wide text-gray-600 text-xs font-bold mb-2"
+                            for="test-title"
+                          >
+                            Chọn loại đề thi <span class="text-danger">(*)</span>
+                          </label>
+                          <select
+                            class="form-control"
+                            [(ngModel)]="testCategory"
+                            >
+                            <option value="" disabled selected hidden>
+                              Chọn loại đề thi
+                            </option>
+                            <option *ngFor="let testCategory of testCategories" [value]="testCategory.id">{{testCategory.testCategoryName}}</option>
+  
+                          </select>
+                          <span *ngIf="formErrors.testCategory" class="text-red">{{
+                            formErrors.testCategory
+                          }}</span>
+                        </div>
+                      </div>
+                      <div class="md:flex mb-2 w-1/2">
+                        <div class="md:w-full">
+                          <label
+                            class="block uppercase tracking-wide text-gray-600 text-xs font-bold mb-2"
+                            for="test-title"
+                          >
+                            Đặt tiêu đề <span class="text-danger">(*)</span>
+                          </label>
+                          <input
+                            class="appearance-none border py-2 px-3 rounded-md w-full text-gray-600 leading-tight outline-none focus:border-blue-500"
+                            id="test-title"
+                            type="text"
+                            placeholder="Nhập tiêu đề bài test"
+                            autocomplete="off"
+                            tabindex="1"
+                            required
+                            [(ngModel)]="testName"
+                          />
+                          <span *ngIf="formErrors.testName" class="text-red">{{
+                            formErrors.testName
+                          }}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -91,7 +116,6 @@
                       [(ngModel)]="formSearch.ChuDeId"
                       placeholder="Chọn chủ đề">
                     </ejs-dropdowntree> 
-                    <!-- (select)="filterChange($event)" -->
                     </div>
                     <div class="md:w-4/12 pl-3">
                       <label
@@ -103,7 +127,6 @@
                           class="form-control"
                           [(ngModel)]="formSearch.DifficultyLevel"
                           >
-                          <!-- (change)="filterChange($event)" -->
                           <option value="" disabled selected hidden>
                             Chọn độ khó
                           </option>

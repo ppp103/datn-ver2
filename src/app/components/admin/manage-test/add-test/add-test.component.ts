@@ -8,6 +8,8 @@ import { TestService } from '../../../../services/test/test.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DebounceDirective } from '../../../../directives/debounce.directive';
+import { PracticeTestService } from '../../../../services/practice-test/practice-test.service';
+import { TestCategoryService } from '../../../../services/test-category/test-category.service';
 @Component({
   selector: 'app-add-test',
   templateUrl: './add-test.component.html',
@@ -23,8 +25,11 @@ export class AddTestComponent implements OnInit {
   totalPoint: any;
   inputModel: any;
   testName: any;
+  testCategory: any;
+  testCategories: any;
   formErrors = {
-    testName: ''
+    testName: '',
+    testCategory: '',
   }
   formSearch = {
     ChuDeId: '',
@@ -39,14 +44,20 @@ export class AddTestComponent implements OnInit {
     private commonService: CommonServiceShared,
     private testService: TestService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private testCategoryService: TestCategoryService
 
   ) {
     this.route.params.subscribe(() => {
       this.questionListSelected.splice(0, this.questionListSelected.length);
       this.loadData()
       this.loadTopic()
+      this.loadTestCategory();
     })
+  }
+  async loadTestCategory() {
+    const res: any = await this.testCategoryService.getTestCategory();
+    this.testCategories = res
   }
 
   ngOnInit() {
@@ -152,6 +163,10 @@ export class AddTestComponent implements OnInit {
   validate() {
     if(!this.testName){
       this.formErrors.testName = 'Tên test không được để trống'
+    }
+
+    if(!this.testCategory){
+      this.formErrors.testCategory = 'Vui lòng chọn loại đề thi'
     }
   }
 
