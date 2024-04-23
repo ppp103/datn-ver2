@@ -25,7 +25,7 @@ export class AddTestComponent implements OnInit {
   totalPoint: any;
   inputModel: any;
   testName: any;
-  testCategory: any;
+  testCategoryId: any;
   testCategories: any;
   formErrors = {
     testName: '',
@@ -61,10 +61,10 @@ export class AddTestComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.createForm = this.fb.group({
-      testName: [''],
-      time: [''],
-    });
+    // this.createForm = this.fb.group({
+    //   testName: [''],
+    //   time: [''],
+    // });
   }
 
   async loadTopic() {
@@ -145,6 +145,7 @@ export class AddTestComponent implements OnInit {
         time: this.totalTime, 
         totalPoint: this.totalPoint,
         numberOfQuestion: this.questionListSelected.length,
+        testCategoryId: this.testCategoryId,
         // imgLink: this.fileValue,
         ids: ids
       }).subscribe({
@@ -165,7 +166,7 @@ export class AddTestComponent implements OnInit {
       this.formErrors.testName = 'Tên test không được để trống'
     }
 
-    if(!this.testCategory){
+    if(!this.testCategoryId){
       this.formErrors.testCategory = 'Vui lòng chọn loại đề thi'
     }
   }

@@ -15,7 +15,7 @@ export class TestListComponent implements OnInit{
   currentDate = new Date();
   selectedTestCategory: any;
   searchString: any;
-
+  formSearch: any;
   constructor(
     private testService: TestService,
     private testCategoryService: TestCategoryService
@@ -24,7 +24,16 @@ export class TestListComponent implements OnInit{
 
   async loadData(skip: number = 0, take: number = 8) {
     let state: any = { skip, take, action: { requestType: 'searching' } };
-    this.testService.getPaggingData(state, {Keyword: this.searchString});
+    // this.formSearch = {
+    //   Keyword: this.searchString, 
+    //   TestCategoryId: this.selectedTestCategory
+    // }
+    if(this.selectedTestCategory){
+      this.testService.getPaggingData(state, {Keyword: this.searchString, TestCategoryId: this.selectedTestCategory.id});
+    }else{
+      this.testService.getPaggingData(state, {Keyword: this.searchString});
+
+    }
 
     this.testService.subscribe((res: any) => {
       this.pagging = res;
@@ -52,6 +61,8 @@ export class TestListComponent implements OnInit{
     this.testCategories.forEach((testCategory: any) => {
       testCategory.isActive = (testCategory === selectedTestCategory);
     });
+
+    this.loadData();
   }
   
 }

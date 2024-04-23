@@ -17,6 +17,7 @@ import { RouterOutlet } from '@angular/router';
 import { UserComponent } from './user.component';
 import { TestDetailComponent } from './test-detail/test-detail.component';
 import { FormatTimePipe } from '../../pipes/format-time.pipe';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,6 @@ import { FormatTimePipe } from '../../pipes/format-time.pipe';
     TestDetailComponent,
     FormatTimePipe,
   ],
-  imports: [CommonModule, SharedModule, RouterModule, RouterOutlet],
+  imports: [CommonModule, SharedModule, RouterModule, RouterOutlet, ReactiveFormsModule, FormsModule],
 })
 export class UserModule {}

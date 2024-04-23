@@ -2,32 +2,36 @@
   <input class="form-control" type="text" placeholder="Tìm kiếm" />
   <button class="btn btn-primary mt-2">Tìm kiếm</button>
 </div> -->
-<div class="tag-list">
-  <ul class="nav nav-pills flex-wrap">
-    <li class="nav-item w-auto" *ngFor="let testCategory of testCategories">
-      <a 
-        class="nav-link mr-2"
-        [ngClass]="{'active': testCategory.isActive}"
-        (click)="activatetestCategory(testCategory)"
-      >{{testCategory.testCategoryName}}</a>
-    </li>
-  </ul>
-</div>
-<div class="input-group mt-3">
-  <input
-    type="search"
-    class="form-control rounded"
-    placeholder="Tìm kiếm"
-    aria-label="Search"
-    aria-describedby="search-addon"
-    [(ngModel)]="searchString"
-    (keydown.enter)="loadData()"
-  />
-  <button (click)="loadData()" type="button" class="btn btn-outline-primary" data-mdb-ripple-init>
-    Tìm kiếm
-  </button>
-</div>
+<form [formGroup]="formSearch">
+  <div class="tag-list">
+    <ul class="nav nav-pills flex-wrap">
+      <li class="nav-item w-auto" *ngFor="let testCategory of testCategories">
+        <a 
+          class="nav-link mr-2"
+          [ngClass]="{'active': testCategory.isActive}"
+          (click)="activatetestCategory(testCategory)"
+        >{{testCategory.testCategoryName}}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="input-group mt-3">
+    <input
+      type="search"
+      class="form-control rounded"
+      placeholder="Tìm kiếm"
+      aria-label="Search"
+      aria-describedby="search-addon"
+      formControlName="keyWord"
+      (keydown.enter)="loadData()"
+      />
+      <!-- [(ngModel)]="searchString" -->
+    <button (click)="loadData()" type="button" class="btn btn-outline-primary" data-mdb-ripple-init>
+      Tìm kiếm
+    </button>
+  </div>
+</form>
 <div class="list-current-exam flex flex-wrap w-full gap-5 mt-5"
+  *ngIf="examList"
   [class.col-gap]="examList.length < 4"
   [class.justify-between]="examList.length >= 4"
 >
@@ -63,33 +67,9 @@
           </div>
           <div class="text-gray-600 text-sm flex justify-between">
             <p>{{(exam.createdDate ? exam.createdDate : currentDate) | date: 'dd/MM/yyyy'}}</p>
-      
-            <!-- <ng-container>
-              <ng-template>
-                <p class="text-sm text-red-500 flex items-center">
-                  <span class="mr-2"><i class="fa fa-lock"></i></span>
-                  Chưa làm
-                </p>
-              </ng-template>
-              <ng-template>
-                <p class="text-sm text-gray-500 flex items-center">
-                  <span class="mr-2"><i class="fa fa-lock"></i></span>
-                  Hoàn thành
-                </p>
-              </ng-template>
-              <ng-template>
-                <p class="text-sm text-yellow-500 flex items-center">
-                  <span class="mr-2"><i class="fa fa-lock"></i></span>
-                  Đợi
-                </p>
-              </ng-template>
-              <ng-template>
-                <p class="text-sm text-green-500 flex items-center">
-                  <span class="mr-2"><i class="fa fa-unlock"></i></span>
-                  Đang hoàn thiện
-                </p>
-              </ng-template>
-            </ng-container> -->
+          </div>
+          <div class="w-full mb-1">
+            {{exam.testCategoryName}}
           </div>
           <div class="flex">
             <a [routerLink]="['/user/test/',exam.id]" class="w-100 btn btn-outline-primary mb-3">Chi tiết</a>
