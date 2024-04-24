@@ -87,7 +87,9 @@
                   <td
                     class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4"
                   >
-                    {{ exam.time }}
+                    {{ exam.time | formatTime }}
+                    <!-- {{ exam.time }} -->
+
                   </td>
                   <td
                     class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4"

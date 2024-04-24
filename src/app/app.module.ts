@@ -14,9 +14,9 @@ import { UserModule } from './components/user/user.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { SharedModule } from './components/shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
-import { DebounceDirective } from './directives/debounce.directive';
+// import { DebounceDirective } from './directives/debounce.directive';
 @NgModule({
-  declarations: [AppComponent, DebounceDirective],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

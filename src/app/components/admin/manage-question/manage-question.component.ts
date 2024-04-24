@@ -132,7 +132,8 @@ export class ManageQuestionComponent implements OnInit {
           this.questionService.deleteQuestion(this.selectedItem.id).subscribe({
             next: (res) => console.log(res),
             error: (error: HttpErrorResponse) => {
-              this.commonService.showeNotiResult(error.toString(), 2000);
+              console.log(error);
+              this.commonService.showeNotiResult(error.error.DevMessage, 2000);
             },
             complete: async () => {
               this.commonService.showeNotiResult('Xoá thành công', 2000);

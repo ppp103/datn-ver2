@@ -142,7 +142,7 @@ export class AddTestComponent implements OnInit {
     this.testService.addTest(
       {
         testName: this.testName, 
-        time: this.totalTime, 
+        time: this.totalTime * 60, 
         totalPoint: this.totalPoint,
         numberOfQuestion: this.questionListSelected.length,
         testCategoryId: this.testCategoryId,

@@ -24,10 +24,6 @@ export class TestListComponent implements OnInit{
 
   async loadData(skip: number = 0, take: number = 8) {
     let state: any = { skip, take, action: { requestType: 'searching' } };
-    // this.formSearch = {
-    //   Keyword: this.searchString, 
-    //   TestCategoryId: this.selectedTestCategory
-    // }
     if(this.selectedTestCategory){
       this.testService.getPaggingData(state, {Keyword: this.searchString, TestCategoryId: this.selectedTestCategory.id});
     }else{

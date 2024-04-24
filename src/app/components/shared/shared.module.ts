@@ -14,6 +14,8 @@ import { PaggingComponent } from './pagging/pagging.component';
 import { GridModule } from '@syncfusion/ej2-angular-grids';
 import { MyAlertDialogComponent } from './my-alert-dialog/my-alert-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { FormatTimePipe } from '../../pipes/format-time.pipe';
+import { DebounceDirective } from '../../directives/debounce.directive';
 @NgModule({
   declarations: [
     UpdateAvatarComponent,
@@ -22,6 +24,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     ResultCircleComponent,
     PaggingComponent,
     MyAlertDialogComponent,
+    FormatTimePipe,
+    DebounceDirective
   ],
   imports: [
     CommonModule,
@@ -39,7 +43,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     ResultCircleComponent,
     MatTooltipModule,
     PaggingComponent,
-    FormsModule
+    FormsModule,
+    FormatTimePipe,
+    DebounceDirective
+
   ],
 })
 export class SharedModule {}

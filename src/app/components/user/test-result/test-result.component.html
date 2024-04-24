@@ -80,10 +80,13 @@
   <div
   class="px-4 py-4 bg-white shadow-lg rounded-md sticky bottom-0 left-0 right-0 z-30"
 >
-  <div class="flex justify-between">
+  <div *ngIf="practiceTest" class="flex justify-between">
     <div>
-      Thời gian:
-      <span class="font-bold text-xl">{{ 123 | formatTime }}</span>
+      Thời gian làm:
+      <span class="font-semibold">{{ practiceTest.time | formatTime }}</span>
+    </div>
+    <div>Ngày làm: 
+      <span class="font-semibold">{{ practiceTest.createdDate | date: 'dd/MM/yyyy'}}</span>      
     </div>
   </div>
   <div class="row">

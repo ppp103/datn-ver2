@@ -15,6 +15,7 @@ import { CommonServiceShared } from '../../../services/base/common-service.servi
 export class TestQuestionComponent {
   // counter!: number;
   counter = 10;
+  totalTime: any;
   countDown!: Subscription;
   tick = 1000;
   id: any;
@@ -34,7 +35,7 @@ export class TestQuestionComponent {
   ) {}
 
   ngOnInit(): void {
-  // this.startTimer();
+  this.startTimer();
   // this.subscription = interval(10000).subscribe((x) => {
   //   this.saveToServer(false);
   // });
@@ -45,7 +46,8 @@ export class TestQuestionComponent {
   this.testService.getTestById(this.id).subscribe({
     next: res => {
       this.exam = res;
-      this.counter = this.exam.time * 60;
+      this.counter = this.exam.time;
+      this.totalTime = this.counter;
       this.questionService.getQuestionByTestId(this.id).subscribe(res => {
         this.questions = res;
         this.questions.forEach((question : any) => {
@@ -80,7 +82,7 @@ export class TestQuestionComponent {
 
     if (this.countDown) {
       this.countDown.unsubscribe();
-    }
+    } 
   }
 
   scrollToQuestion(questionNumber: number){
@@ -92,13 +94,6 @@ export class TestQuestionComponent {
   }
 
   startTimer() {
-    // this.subscription = interval(1000).subscribe(() => {
-    //   if (this.counter > 0) {
-    //     this.counter--; // Decrement the timer value every second
-    //   } else {
-    //     this.countDown.unsubscribe(); // Stop the timer when it reaches 0
-    //   }
-    // });
     this.countDown = timer(0, this.tick).subscribe(() => {
       if (this.counter > 0) {
         --this.counter;
@@ -132,9 +127,9 @@ export class TestQuestionComponent {
 
     if(hasEmptyOption) {
       this.commonService.showeNotiResult('Vui lòng trả lời hết tất cả các câu hỏi', 2000);
-    }else{
-      this.addPracticeTest();
+      return;
     }
+    this.addPracticeTest();
   }
 
   getAnswerSheets(){
@@ -157,8 +152,9 @@ export class TestQuestionComponent {
   addPracticeTest(){
     // time: tính remaining time
     // userId + createdBy: tạm fix cứng 
+    console.log(this.counter);
     this.inputModel = {
-      time: 10,
+      time: this.totalTime - this.counter,
       userId: 1,
       testId: this.exam.id,
       createdBy: 'Admin',

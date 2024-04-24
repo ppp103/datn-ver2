@@ -2,7 +2,7 @@
   <input class="form-control" type="text" placeholder="Tìm kiếm" />
   <button class="btn btn-primary mt-2">Tìm kiếm</button>
 </div> -->
-<form [formGroup]="formSearch">
+<!-- <form [formGroup]="formSearch"> -->
   <div class="tag-list">
     <ul class="nav nav-pills flex-wrap">
       <li class="nav-item w-auto" *ngFor="let testCategory of testCategories">
@@ -21,15 +21,14 @@
       placeholder="Tìm kiếm"
       aria-label="Search"
       aria-describedby="search-addon"
-      formControlName="keyWord"
       (keydown.enter)="loadData()"
+      [(ngModel)]="searchString"
       />
-      <!-- [(ngModel)]="searchString" -->
     <button (click)="loadData()" type="button" class="btn btn-outline-primary" data-mdb-ripple-init>
       Tìm kiếm
     </button>
   </div>
-</form>
+<!-- </form> -->
 <div class="list-current-exam flex flex-wrap w-full gap-5 mt-5"
   *ngIf="examList"
   [class.col-gap]="examList.length < 4"
@@ -87,7 +86,7 @@
               class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700"
             >
               <i class="fa fa-clock-o text-gray-700 lg:mr-1"></i>
-              <span>{{exam.time}} phút</span>
+              <span>{{exam.time | formatTime}} phút</span>
             </div>
           </div>
         </div>
