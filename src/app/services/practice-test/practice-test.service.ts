@@ -35,4 +35,15 @@ export class PracticeTestService extends RepositoryEloquentService {
 
       return this.getById(id)
   }
+
+  public getPracticeTestByTestId(id : any){
+    this.setServiceInfo({
+    apiUrl: `${environment.apiEndPoint}PracticeTest/get-practice-test-by-test-id`,
+  });
+
+  return this.getFetchAll({id: id})
 }
+}
+
+
+

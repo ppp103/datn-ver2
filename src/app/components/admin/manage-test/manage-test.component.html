@@ -17,7 +17,7 @@
                 Danh sách bài test
               </h3>
               <!-- [routerLink]="['./add-test']" -->
-              <button class="btn btn-primary" (click)="toAddPage()">
+              <button class="btn btn-primary" (click)="toRoute('add-test')">
                 <i class="fas fa-plus-square"></i>
                 Thêm mới
               </button>
@@ -61,7 +61,7 @@
                 Tổng điểm
               </th>
                 <th
-                  class="row-action px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left"
+                  class="row-action px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-center"
                 >
                   Thao tác
                 </th>
@@ -74,8 +74,6 @@
                   <td
                     class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md font-semibold text-gray-800 whitespace-no-wrap p-4"
                   >
-                    <!-- [routerLink]="[exam.id, 'preview']"
-                  [tooltip]="'Xem chi tiết'" -->
                     <a class="hover:text-blue-700">{{ exam.serialNumber }}</a>
                   </td>
                   <td
@@ -102,16 +100,13 @@
                   {{ exam.totalPoint }}
                 </td>
                   <td
-                    class="border-t-0 px-6 align-middle flex justify-between border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 w-full"
+                    class="border-t-0 px-6 align-middle flex justify-center border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 w-full"
                   >
-                    <!-- <a
-                      [routerLink]="[exam.id, 'users']"
-                      *ngIf="!exam.canceled"
-                      [tooltip]="'Kết quả người dùng'"
-                      class="bg-white shadow-md hover:bg-blue-500 hover:text-gray-200 cursor-pointer transition duration-200 ease-in-out text-xs font-bold uppercase rounded outline-none focus:outline-none px-2 py-1"
-                    >
-                      <span><i class="fa fa-users"></i></span>
-                    </a> -->
+                  <i
+                  matTooltip="Kết quả người dùng"
+                  matTooltipPosition="above"
+                  (click)="toRoute(exam.id + '/users')"
+                  class="fas fa-users cursor-pointer"></i>
                   </td>
                 </tr>
               </ng-container>

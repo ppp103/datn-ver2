@@ -53,8 +53,8 @@ export class ManageTestComponent implements OnInit {
     this.loadData(args.skip, args.take);
   }
 
-  toAddPage(){
+  toRoute(route: string){
     // this.router.navigate(['/admin/tests/add-test'])
-    window.location.href = '/admin/tests/add-test'
+    window.location.href = `/admin/tests/${route}`
   }
 }
