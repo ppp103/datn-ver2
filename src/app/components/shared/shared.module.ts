@@ -16,6 +16,7 @@ import { MyAlertDialogComponent } from './my-alert-dialog/my-alert-dialog.compon
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormatTimePipe } from '../../pipes/format-time.pipe';
 import { DebounceDirective } from '../../directives/debounce.directive';
+import { TestResultComponent } from '../user/test-result/test-result.component';
 @NgModule({
   declarations: [
     UpdateAvatarComponent,
@@ -24,6 +25,7 @@ import { DebounceDirective } from '../../directives/debounce.directive';
     ResultCircleComponent,
     PaggingComponent,
     MyAlertDialogComponent,
+    TestResultComponent,
     FormatTimePipe,
     DebounceDirective
   ],
@@ -45,7 +47,9 @@ import { DebounceDirective } from '../../directives/debounce.directive';
     PaggingComponent,
     FormsModule,
     FormatTimePipe,
-    DebounceDirective
+    DebounceDirective,
+    TestResultComponent,
+
 
   ],
 })

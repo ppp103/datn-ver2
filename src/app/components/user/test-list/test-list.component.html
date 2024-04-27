@@ -5,6 +5,14 @@
 <!-- <form [formGroup]="formSearch"> -->
   <div class="tag-list">
     <ul class="nav nav-pills flex-wrap">
+      <li class="nav-item w-auto">
+        <a 
+          class="nav-link mr-2"
+          [ngClass]="{'active': isAllCategoriesSelected()}"
+          (click)="selectAllCategories()"
+        >Chọn tất cả
+      </a>
+      </li>
       <li class="nav-item w-auto" *ngFor="let testCategory of testCategories">
         <a 
           class="nav-link mr-2"

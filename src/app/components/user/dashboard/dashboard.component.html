@@ -10,7 +10,7 @@
   </div>
   <div class="list-current-exam flex flex-wrap w-full gap-5">
 
-        <ng-container *ngIf="examList && examList.length > 0; else noExam">
+    <ng-container *ngIf="examList && examList.length > 0; else noExam">
       <article *ngFor="let exam of examList"
         class="overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition duration-700"
       >
@@ -35,33 +35,6 @@
           </div>
           <div class="text-gray-600 text-sm flex justify-between">
             <p>{{(exam.createdDate ? exam.createdDate : currentDate) | date: 'dd/MM/yyyy'}}</p>
-      
-            <!-- <ng-container>
-              <ng-template>
-                <p class="text-sm text-red-500 flex items-center">
-                  <span class="mr-2"><i class="fa fa-lock"></i></span>
-                  Chưa làm
-                </p>
-              </ng-template>
-              <ng-template>
-                <p class="text-sm text-gray-500 flex items-center">
-                  <span class="mr-2"><i class="fa fa-lock"></i></span>
-                  Hoàn thành
-                </p>
-              </ng-template>
-              <ng-template>
-                <p class="text-sm text-yellow-500 flex items-center">
-                  <span class="mr-2"><i class="fa fa-lock"></i></span>
-                  Đợi
-                </p>
-              </ng-template>
-              <ng-template>
-                <p class="text-sm text-green-500 flex items-center">
-                  <span class="mr-2"><i class="fa fa-unlock"></i></span>
-                  Đang hoàn thiện
-                </p>
-              </ng-template>
-            </ng-container> -->
           </div>
           <div class="flex">
             <a [routerLink]="['/user/test/',exam.id]" class="w-100 btn btn-outline-primary mb-3">Chi tiết</a>
@@ -114,29 +87,69 @@
   </div>
 </div>
 
-<div class="py-3">
+<div class="py-3" *ngIf="lastestTests">
   <div class="flex justify-between items-center mb-3 px-2">
     <div class="current-exam lg:text-2xl font-semibold text-gray-800">
       <h2 class="select-none list-title title-complete flex items-center mt-2">
-        Bài thi gần đây
+        Bài thi hoàn thành gần đây
         <!-- <span class="mx-2">({{listComplete.length}})</span> -->
-        <span class="mx-2">(10)</span>
+        <span class="mx-2">({{lastestTests.length}})</span>
       </h2>
     </div>
   </div>
   <div class="list-current-exam flex flex-wrap gap-5">
-    <!-- Column -->
-    <!-- <ng-container *ngFor="let examComplete of listComplete">
-      <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
-        <app-test-card [examUser]="examComplete"></app-test-card>
-      </div>
-    </ng-container> -->
-    <app-test-card></app-test-card>
-    <app-test-card></app-test-card>
-    <app-test-card></app-test-card>
-    <app-test-card></app-test-card>
-    <app-test-card></app-test-card>
-    <app-test-card></app-test-card>
+    <article *ngFor="let exam of lastestTests"
+        class="overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition duration-700"
+      >
+        <a [routerLink]="['/user/test/',exam.id]">
+          <div class="relative img-hover-zoom">
+            <img
+              alt=""
+              class="bg-img block h-56 w-full cursor-pointer"
+              src="../../../assets/images/{{exam.imgLink && exam.imgLink != 'string' ? exam.imgLink : 'avatar-default.png'}}" 
+              />
+              <!-- src="../../../assets/images/avatar-default.png"  -->
+            <i class="fa fa-circle absolute top-0 right-0 mt-4 mr-4"></i>
+          </div>
+        </a>
+        <div class="card-content p-3">
+          <div class="flex items-center justify-between leading-tight">
+            <h1 class="text-lg">
+              <a class="no-underline hover:underline font-bold text-xl text-gray-700">
+                {{exam.testName}}
+              </a>
+            </h1>
+          </div>
+          <div class="text-gray-600 text-sm flex justify-between">
+            <p>Ngày hoàn thành: {{(exam.createdDate ? exam.createdDate : currentDate) | date: 'dd/MM/yyyy'}}</p>
+          </div>
+          <div class="text-gray-600 text-sm flex justify-between">
+            <p>Thời gian hoàn thành: {{exam.time}} s</p>
+          </div>
+          <div class="text-gray-600 text-sm flex justify-between">
+            <p>Kết quả: {{exam.result}}/{{exam.totalPoint}} điểm</p>
+          </div>
+          <div class="flex">
+            <a [routerLink]="['/user/test/',exam.id]" class="w-100 btn btn-outline-primary mb-3">Chi tiết</a>
+          </div>
+          <div class="flex items-center justify-between leading-none">
+            <!-- <a class="flex items-center no-underline text-gray-600">
+              <img
+                alt="###"
+                class="block rounded-full shadow-lg w-8 h-8"
+                src="../../../assets/images/avatar-default.png"
+              />
+              <p class="text-sm mb-0 ml-1">{{exam.createdBy ? exam.createdBy : 'Admin'}}</p>
+            </a> -->
+            <!-- <div
+              class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700"
+            >
+              <i class="fa fa-clock-o text-gray-700 lg:mr-1"></i>
+              <span>{{exam.time |formatTime}} s</span>
+            </div> -->
+          </div>
+        </div>
+      </article>
 
     <!-- <p *ngIf="listComplete.length==0 &&!skeletonLoading" class="mx-10 text-gray-700 text-sm">There are no exams available!</p> -->
 

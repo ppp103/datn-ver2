@@ -24,12 +24,13 @@ import { QuestionDetailComponent } from './manage-question/question-detail/quest
 import { MatDialogModule } from '@angular/material/dialog';
 import { AddTestComponent } from './manage-test/add-test/add-test.component';
 import { DetailTestComponent } from './manage-test/detail-test/detail-test.component';
-import { UserTestComponent } from './manage-test/user-test/user-test.component';
-import { UserTestResultComponent } from './manage-test/user-test-result/user-test-result.component';
 import { ManageTestComponent } from './manage-test/manage-test.component';
 import { DropDownTreeModule } from '@syncfusion/ej2-angular-dropdowns';
 // import { LineChartComponent } from './line-chart/line-chart.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { UserTestComponent } from './manage-test/user-test/user-test.component';
+import { UserTestResultComponent } from './manage-test/user-test-result/user-test-result.component';
+import { TestResultComponent } from '../user/test-result/test-result.component';
 @NgModule({
   declarations: [
     AdminDashboardComponent,
@@ -48,13 +49,12 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     QuestionDetailComponent,
     AddTestComponent,
     DetailTestComponent,
-    UserTestComponent,
-    UserTestResultComponent,
     AddTestComponent,
     DetailTestComponent,
     UserTestComponent,
     UserTestResultComponent,
     ManageTestComponent,
+    // TestResultComponent
     // LineChartComponent,
   ],
   imports: [

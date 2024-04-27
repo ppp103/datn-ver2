@@ -19,7 +19,8 @@ import { ManageSubjectComponent } from './components/admin/manage-subject/manage
 import { QuestionDetailComponent } from './components/admin/manage-question/question-detail/question-detail.component';
 import { DetailTestComponent } from './components/admin/manage-test/detail-test/detail-test.component';
 import { AddTestComponent } from './components/admin/manage-test/add-test/add-test.component';
-import { UserTestComponent } from './components/admin/user-test/user-test.component';
+import { UserTestComponent } from './components/admin/manage-test/user-test/user-test.component';
+import { UserTestResultComponent } from './components/admin/manage-test/user-test-result/user-test-result.component';
 
 const routes: Routes = [
   {
@@ -79,6 +80,12 @@ const routes: Routes = [
         component: UserTestComponent,
         data: { breadcrumb: 'Chi tiết kết quả đề thi' },
       },
+      {
+        path: 'tests/:id/users/:practiceTest',
+        component: UserTestResultComponent,
+        data: { breadcrumb: 'Chi tiết kết quả đề thi' },
+      },
+      
       {
         path: 'users',
         component: ManageUserComponent,
@@ -140,7 +147,7 @@ const routes: Routes = [
       },
       // { path: 'test/detail/:id/start', component: TestQuestionComponent, data: { breadcrumb: 'Làm bài' } },
       {
-        path: 'test/:id/result',
+        path: 'test/:practiceTest/result',
         component: TestResultComponent,
         data: { breadcrumb: 'Kết quả' },
       },

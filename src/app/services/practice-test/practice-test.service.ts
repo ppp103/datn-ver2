@@ -36,13 +36,21 @@ export class PracticeTestService extends RepositoryEloquentService {
       return this.getById(id)
   }
 
-  public getPracticeTestByTestId(id : any){
+  public getPracticeTestByTypeId(param:any){
     this.setServiceInfo({
-    apiUrl: `${environment.apiEndPoint}PracticeTest/get-practice-test-by-test-id`,
-  });
+      apiUrl: `${environment.apiEndPoint}PracticeTest/get-practice-test-by-type-id`,
+    });
 
-  return this.getFetchAll({id: id})
-}
+    return this.getFetchAll(param)
+  }
+
+  // public getPracticeTestByTypeIdPagging(param:any){
+  //   this.setServiceInfo({
+  //     apiUrl: `${environment.apiEndPoint}PracticeTest/get-practice-test-by-type-id`,
+  //   });
+
+  //   return this.getFetchAll(param)
+  // }
 }
 
 

@@ -28,7 +28,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     TestCardComponent,
     TestListComponent,
     TestQuestionComponent,
-    TestResultComponent,
+    // TestResultComponent,
     UserComponent,
     TestDetailComponent,
   ],

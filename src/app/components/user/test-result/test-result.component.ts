@@ -27,7 +27,7 @@ export class TestResultComponent implements OnInit {
     let choiceId = 0;
 
     this.route.params.subscribe(params => {
-      this.id = params['id'];
+      this.id = params['practiceTest'];
     });
     this.practiceTestService.getPracticeTestById(this.id).subscribe({
       next: res => {
