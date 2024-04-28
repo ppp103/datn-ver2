@@ -31,6 +31,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { UserTestComponent } from './manage-test/user-test/user-test.component';
 import { UserTestResultComponent } from './manage-test/user-test-result/user-test-result.component';
 import { TestResultComponent } from '../user/test-result/test-result.component';
+import { ManageSubjectIoComponent } from './manage-subject/manage-subject-io/manage-subject-io/manage-subject-io.component';
+import { ManagePartComponent } from './manage-subject/manage-part/manage-part.component';
 @NgModule({
   declarations: [
     AdminDashboardComponent,
@@ -54,6 +56,8 @@ import { TestResultComponent } from '../user/test-result/test-result.component';
     UserTestComponent,
     UserTestResultComponent,
     ManageTestComponent,
+    ManageSubjectIoComponent,
+    ManagePartComponent,
     // TestResultComponent
     // LineChartComponent,
   ],

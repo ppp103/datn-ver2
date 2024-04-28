@@ -21,6 +21,7 @@ import { DetailTestComponent } from './components/admin/manage-test/detail-test/
 import { AddTestComponent } from './components/admin/manage-test/add-test/add-test.component';
 import { UserTestComponent } from './components/admin/manage-test/user-test/user-test.component';
 import { UserTestResultComponent } from './components/admin/manage-test/user-test-result/user-test-result.component';
+import { ReportComponent } from './components/user/report/report.component';
 
 const routes: Routes = [
   {
@@ -132,6 +133,11 @@ const routes: Routes = [
         path: 'test',
         component: TestListComponent,
         data: { breadcrumb: 'Danh sách đề thi' },
+      },
+      {
+        path: 'report',
+        component: ReportComponent,
+        data: { breadcrumb: 'Báo cáo' },
       },
       // {
       //   path: 'test/detail',

@@ -53,20 +53,9 @@
   <div class="my-2 px-2 py-1 bg-gray-300 rounded">
     <span class="mx-2"><i class="fa fa-calendar"></i></span>Tổng điểm: {{exam.totalPoint}} điểm
   </div>
-  <div class="my-2 px-2 py-1 bg-gray-300 rounded mb-8"><i class="mx-2 fas fa-clock"></i>Thời gian: {{exam.time}} phút</div>
+  <div class="my-2 px-2 py-1 bg-gray-300 rounded mb-8"><i class="mx-2 fas fa-clock"></i>Thời gian: {{exam.time | formatTime}} phút</div>
   <div class="flex justify-center my-5">
     <a [routerLink]="['./start']" class="btn btn-primary mr-4"> Bắt đầu </a>
     <a [routerLink]="['/user/test']" class="btn btn-primary"> Quay lại </a>
   </div>
-
-  <!-- <div>
-    <a 
-       class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">View Result</a>
-    <div class="my-8 bg-red-600 px-3 py-2 uppercase text-white font-semibold">This exam
-      was end!
-    </div>
-    <div class="my-8 bg-red-600 px-3 py-2 uppercase text-white font-semibold"
-         *ngIf="examUser.isStarted==false && examUser?.isFinished==true">You missed this exam!
-    </div>
-  </div> -->
 </div>

@@ -2,7 +2,9 @@
     <div class="my-3">
       <div class="px-6 my-6 mb-12">
         <div class="mb-3 text-uppercase text-3xl font-bold">
-          PhucStudy
+          <a [routerLink]="['../home']" class="text-white">
+            PhucStudy
+          </a>
         </div>
         <div *ngIf="currentProfile" class="mb-3">
           <!-- Hi, {{currentProfile?.firstName}} -->

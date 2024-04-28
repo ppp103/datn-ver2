@@ -67,9 +67,9 @@ export class TestListComponent implements OnInit{
 
   selectAllCategories() {
   this.selectedTestCategory = null; // Bỏ chọn thể loại nếu có
-  // this.testCategories.forEach((testCategory: any) => {
-  //   testCategory.isActive = true; // Chọn tất cả các thể loại
-  // });
+  this.testCategories.forEach((testCategory: any) => {
+    testCategory.isActive = false; // Chọn tất cả các thể loại
+  });
   this.selectedTestCategory = 0;
 
   this.loadData(); // Load dữ liệu cho tất cả các thể loại

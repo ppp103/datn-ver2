@@ -287,7 +287,7 @@ export class ManageQuestionIoComponent {
       });
     } else {
       this.inputModel = this.createForm.value;
-      this.inputModel.ChuDeId =  parseInt(this.dropdownTree.value[0]),
+      this.inputModel.ChuDeId =  parseInt(this.dropdownTree.value[0]);
 
       this.questionService.addQuestion(this.inputModel).subscribe({
         next: (res) => {

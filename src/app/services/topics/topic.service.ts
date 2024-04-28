@@ -28,11 +28,26 @@ export class TopicService extends RepositoryEloquentService {
     return this.getFetchAll();
   }
 
-  getFlatList(){
+  getFlatList(param: any = ''){
     this.setServiceInfo({
       apiUrl: `${environment.apiEndPoint}Topic/get-flat-topic`,
     });
 
-    return this.getFetchAll();
+    return this.getFetchAll(param);
+  }
+
+  updateTopic(param: any){
+    this.setServiceInfo({
+      apiUrl: `${environment.apiEndPoint}Topic`,
+    });
+
+    return this.updateItem(param);
+  }
+
+  createTopic(param: any){
+    this.setServiceInfo({
+      apiUrl: `${environment.apiEndPoint}Topic`,
+    });
+    return this.addItem(param)
   }
 }

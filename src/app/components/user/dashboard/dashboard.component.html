@@ -7,6 +7,9 @@
         Các bài kiểm tra mới <span class="mx-2"> ({{examList.length}})</span>
       </h2>
     </div>
+    <div>
+      <a *ngIf="totalTest > 4" [routerLink]="['../test']">Xem tất cả</a>
+    </div>
   </div>
   <div class="list-current-exam flex flex-wrap w-full gap-5">
 
@@ -96,6 +99,9 @@
         <span class="mx-2">({{lastestTests.length}})</span>
       </h2>
     </div>
+      <div>
+        <a *ngIf="totalLastestTests > 4" [routerLink]="['../report']">Xem tất cả</a>
+      </div>
   </div>
   <div class="list-current-exam flex flex-wrap gap-5">
     <article *ngFor="let exam of lastestTests"
@@ -133,20 +139,7 @@
             <a [routerLink]="['/user/test/',exam.id]" class="w-100 btn btn-outline-primary mb-3">Chi tiết</a>
           </div>
           <div class="flex items-center justify-between leading-none">
-            <!-- <a class="flex items-center no-underline text-gray-600">
-              <img
-                alt="###"
-                class="block rounded-full shadow-lg w-8 h-8"
-                src="../../../assets/images/avatar-default.png"
-              />
-              <p class="text-sm mb-0 ml-1">{{exam.createdBy ? exam.createdBy : 'Admin'}}</p>
-            </a> -->
-            <!-- <div
-              class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700"
-            >
-              <i class="fa fa-clock-o text-gray-700 lg:mr-1"></i>
-              <span>{{exam.time |formatTime}} s</span>
-            </div> -->
+
           </div>
         </div>
       </article>
