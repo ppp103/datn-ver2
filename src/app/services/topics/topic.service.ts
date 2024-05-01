@@ -28,12 +28,12 @@ export class TopicService extends RepositoryEloquentService {
     return this.getFetchAll();
   }
 
-  getFlatList(param: any = ''){
+  getFlatList(param: number){
     this.setServiceInfo({
       apiUrl: `${environment.apiEndPoint}Topic/get-flat-topic`,
     });
 
-    return this.getFetchAll(param);
+    return this.getFetchAll({parentId: param});
   }
 
   updateTopic(param: any){

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { QuestionService } from '../../../services/question/question.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Question } from '../../../models/question';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ManageQuestionIoComponent } from './manage-question-io/manage-question-io.component';
 import { Constant } from '../../../constants/constants';
@@ -21,7 +21,8 @@ export class ManageQuestionComponent implements OnInit {
   questionCategories: any;
   formSearch!: FormGroup;
   public pagging: any;
-
+  isDetailPage: any;
+  topicId: any;
   dialogRef!: MatDialogRef<any>;
   dataList: any;
   selectedItem: any;
@@ -34,17 +35,31 @@ export class ManageQuestionComponent implements OnInit {
     private dialog: MatDialog,
     private commonService: CommonServiceShared,
     private questionCategoryService: QuestionCategoryService,
-    private topicService: TopicService
+    private topicService: TopicService,
+    private route : ActivatedRoute
   ) {
 
   }
 
   ngOnInit() {
+    this.checkParams();
     this.formInit();
     this.loadData();
     this.loadQuestionCategory();
     this.loadTopics();
 
+  }
+
+  checkParams(): void {
+    this.route.params.subscribe(params => {
+      this.isDetailPage = params.hasOwnProperty('topicId') ? true : false 
+      if(this.isDetailPage){
+        this.topicId = Number(this.route.snapshot.paramMap.get('topicId'));
+      }
+
+      // console.log(this.isDtailPage, "part page");
+
+    });
   }
   
   async loadTopics() {
@@ -73,6 +88,11 @@ export class ManageQuestionComponent implements OnInit {
 
   async loadData(skip: number = 0, take: number = 10) {
     let state: any = { skip, take, action: { requestType: 'searching' } };
+
+    if(this.isDetailPage){
+      this.formSearch.value.chuDeId = this.topicId;
+    }
+
     this.questionService.getPaggingData(state, {...this.formSearch.value});
 
     this.questionService.subscribe((res: any) => {

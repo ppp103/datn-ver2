@@ -1,46 +1,87 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { RepositoryEloquentService } from '../base/base-service.service';
+import { environment } from '../../../environments/environment';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { TokenStorageService } from '../token-storage/token-storage.service';
-import {Router} from '@angular/router';
-
-const AUTH_API = '';
-
-const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
-};
-
+import { LocalStorageService } from '../local-storage/local-storage.service';
+import { UserService } from '../user/user.service';
+import { CommonServiceShared } from '../base/common-service.service';
+import { Router } from '@angular/router';
+import { jwtDecode } from "jwt-decode";
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
-export class AuthService {
-
-  constructor(private http: HttpClient, private tokenStorageService: TokenStorageService, private router: Router) {
+export class AuthService extends RepositoryEloquentService {
+  constructor(public override httpClient: HttpClient,
+    private localStorageService : LocalStorageService,
+    private userService: UserService,
+    private commonService: CommonServiceShared,
+    private router : Router
+  ) {
+    super();
+    this.setServiceInfo({
+      httpClient,
+      apiUrl: `${environment.apiEndPoint}User`,
+    });
   }
 
-  login(credentials: any): Observable<any> {
-    return this.http.post(AUTH_API + '/signin', {
-      username: credentials.username,
-      password: credentials.password
-    }, httpOptions);
+  public checkBeDeleted(id: number) {
+    return 'ok';
   }
 
-  goLogin() {
-    this.router.navigate(['/login']).then((e) => {
-      if (e) {
-        console.log('on login');
-      } else {
-        console.log('fail');
+public login(param: any){
+  this.userService.login(param).subscribe({
+    next: (res: any) => {
+      // Thành công => Lưu access token vào localStorage
+      // Giải mã token => Lấy ra thông tin và lưu thông tin người dùng
+      localStorage.setItem('ACCESS_TOKEN', res.token)
+      const decodedToken: any = jwtDecode(res.token);
+      this.localStorageService.setItem('USER_PROFILE', decodedToken);
+      // this.router.navigate([`/user`])
+      window.location.href = '/user'
+    },
+    error: (error: any) => {
+      console.log(error);
+      this.commonService.showeNotiResult(error.error.message, 2000);
+    }
+  });
+}
+
+  public register(param: any){
+    this.userService.registerUser(param).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (error: HttpErrorResponse) => {
+        console.log(error);
+        this.commonService.showeNotiResult('Đăng ký thất bại! Vui lòng thử lại sau', 2000);
+      },
+      complete: () => {
+        this.commonService.showeNotiResult('Đăng ký thành công', 2000);
+        
+        setTimeout(() => {
+          window.location.href = "/sign-in";
+        }, 1000);
       }
     });
   }
 
-  sendRequest(email: string): Observable<any> {
-    return this.http.post(`${AUTH_API}/password-reset-request`, {email});
+  isLoggedIn(): boolean {
+    return this.getAccessToken() !== null ? true : false;
   }
 
-  resetPassword(data: any): Observable<any> {
-    return this.http.post(`${AUTH_API}/password-reset`, data);
+  getAccessToken(): string {
+    const accessToken = this.localStorageService.getItem('ACCESS_TOKEN');
+    return accessToken ? accessToken : null;
+  }
+
+  logout(){
+    this.localStorageService.removeAll();
+    this.commonService.showeNotiResult('Đăng xuất thành công', 2000);
+    window.location.href = '/sign-in'
+  }
+
+  getUserDataFromLocal(){
+    return this.localStorageService.getItem('USER_PROFILE');
   }
 }

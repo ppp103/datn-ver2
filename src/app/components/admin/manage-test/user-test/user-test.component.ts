@@ -31,6 +31,7 @@ export class UserTestComponent implements OnInit{
     })
     const res: any = await this.practiceTestService.getPracticeTestByTypeId({id: this.testId, type: Constant.PracticeTestType.TestId}) 
     this.examResults = res
+    console.log(this.examResults);
   }
 
   goBack() {

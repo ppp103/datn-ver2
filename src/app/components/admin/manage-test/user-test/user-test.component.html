@@ -5,7 +5,7 @@
     </div>
   </div>
   
-  <div class=" mx-auto w-full -m-24" *ngIf="examResults">
+  <div class=" mx-auto w-full -m-24 card-content" *ngIf="examResults">
     <div class="flex flex-wrap mt-4 justify-center">
       <div class="w-full mb-12 xl:mb-0 px-4 max-w-5xl">
         <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
@@ -77,7 +77,12 @@
                   </td>
                   <td
                     class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md font-semibold text-gray-800 whitespace-no-wrap p-4">
-                  Admin
+                    <span class="w-fit"
+                      matTooltip="Xem chi tiết"
+                      matTooltipPosition="above"
+                    >
+                      {{exam.createdBy ? exam.createdBy : 'Tên người dùng mặc định'}}
+                    </span>
                   </td>
                   <td
                     class="border-t-0 text-left px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
@@ -85,7 +90,7 @@
                   </td>
                   <td
                     class="border-t-0 text-left px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
-                    {{exam.createdDate | date: 'hh:mm dd/MM/yyyy'}}
+                    {{exam.createdDate | date: 'hh:mm a dd/MM/yyyy'}}
                   </td>
                   <td
                     class="border-t-0 px-6 text-right border-l-0 mr-2 border-r-0 text-md whitespace-no-wrap p-4 font-semibold text-gray-600">

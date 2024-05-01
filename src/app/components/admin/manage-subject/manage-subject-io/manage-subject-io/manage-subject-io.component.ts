@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TopicService } from '../../../../../services/topics/topic.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonServiceShared } from '../../../../../services/base/common-service.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-manage-subject-io',
@@ -18,9 +18,12 @@ export class ManageSubjectIoComponent implements OnInit{
     private topicService: TopicService,
     private commonService: CommonServiceShared,
     private dialogRef: MatDialogRef<ManageSubjectIoComponent>,
-
+    @Inject(MAT_DIALOG_DATA) public data: any
   ){
-    
+    if(data){
+      console.log(data);
+      console.log(data.topicParentId);
+    }
   }
   ngOnInit(): void {
     this.formInit();
@@ -31,7 +34,7 @@ export class ManageSubjectIoComponent implements OnInit{
   }
 
   onSubmit(){
-    this.topicService.createTopic({name: this.topicName}).subscribe( {
+    this.topicService.createTopic({name: this.topicName, parentId: this.data.topicParentId}).subscribe( {
       next: (res) => {
         console.log(res);
       },

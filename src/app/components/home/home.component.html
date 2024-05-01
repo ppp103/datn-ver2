@@ -15,6 +15,7 @@
               <div>
                 <!-- <a [routerLink]="[defaultUrl]" -->
                 <a [routerLink]="[defaultUrl]"
+                   *ngIf="!user"
                    class="text-sm font-semibold text-white focus:outline-none focus:underline">
                    Đăng nhập
                   <!-- {{!isLoggedIn ? 'Đăng nhập &rarr;' : 'Vào ngay &rarr;'}} -->
@@ -25,7 +26,7 @@
           <div class="px-6 md:max-w-3xl md:mx-auto lg:mx-0 lg:max-w-none">
             <p class="text-sm font-semibold text-gray-300 uppercase tracking-wider">
               <!-- Hi, {{!username ? 'friend' : username}}! -->
-              Hi, Phúc
+              Hi, {{user?.Name}}
             </p>
             <h1
               class="mt-3 text-3xl leading-9 font-semibold font-display text-white sm:mt-6 sm:text-4xl sm:leading-10 xl:text-5xl xl:leading-snug">
@@ -36,7 +37,7 @@
             <div class="mt-6 sm:flex sm:mt-8 xl:mt-12">
   
               <!-- <a [routerLink]="[defaultUrl]" -->
-              <a
+              <a [routerLink]="[defaultUrl]"
                  class="mt-4 sm:ml-4 sm:mt-0 w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 border border-transparent text-base leading-6 font-semibold rounded-md text-white bg-gray-800 shadow-sm hover:bg-gray-700 focus:outline-none focus:bg-gray-700 transition ease-in-out duration-150 xl:text-lg xl:py-4">
                 Khám phá ngay &rarr;
               </a>

@@ -22,6 +22,11 @@ import { AddTestComponent } from './components/admin/manage-test/add-test/add-te
 import { UserTestComponent } from './components/admin/manage-test/user-test/user-test.component';
 import { UserTestResultComponent } from './components/admin/manage-test/user-test-result/user-test-result.component';
 import { ReportComponent } from './components/user/report/report.component';
+import { ManagePartComponent } from './components/admin/manage-subject/manage-part/manage-part.component';
+import { QuestionsBySubjectComponent } from './components/admin/manage-subject/questions-by-subject/questions-by-subject/questions-by-subject.component';
+import { IsGuarded } from './services/auth/auth-guard';
+import { SignUpComponent } from './components/home/sign-up/sign-up.component';
+import { IsLoginGuarded } from './services/auth/login-guard';
 
 const routes: Routes = [
   {
@@ -36,10 +41,23 @@ const routes: Routes = [
   {
     path: 'sign-in',
     component: SignInComponent,
+    // canActivate: [IsGuarded],
+    canActivate: [IsLoginGuarded],
   },
+  {
+    path: 'sign-up',
+    component: SignUpComponent,
+    // canActivate: [IsGuarded],
+    canActivate: [IsLoginGuarded],
+
+  },
+  
   {
     path: 'forget-password',
     component: ForgetPasswordComponent,
+    // canActivate: [IsGuarded],
+    canActivate: [IsLoginGuarded],
+
   },
   {
     path: 'admin',
@@ -97,7 +115,16 @@ const routes: Routes = [
         component: ManageSubjectComponent,
         data: { breadcrumb: 'Quản lý chủ đề' },
       },
-
+      {
+        path: 'subjects/:topicId',
+        component: ManageSubjectComponent,
+        data: { breadcrumb: 'Quản lý chủ đề con' },
+      },
+      {
+        path: 'subjects/:topicId/questions',
+        component: ManageQuestionComponent,
+        data: { breadcrumb: 'Câu hỏi theo chủ đề con' },
+      },
       // { path: 'test/detail/:id', component: TestDetailComponent, data: { breadcrumb: 'Chi tiết đề thi' } },
 
       {
@@ -117,6 +144,7 @@ const routes: Routes = [
   {
     path: 'user',
     component: UserComponent,
+    canActivate: [IsGuarded],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {

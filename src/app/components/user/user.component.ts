@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../services/auth/auth.service';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -6,9 +7,17 @@ import { Component } from '@angular/core';
 })
 export class UserComponent {
   toggledMenu: any;
+  user: any;
+  constructor(
+    private authService : AuthService
+  ){
+    this.user = this.authService.getUserDataFromLocal();
+  }
   toggleMenu(){
     this.toggledMenu = !this.toggledMenu;
 
   }
-  signOut(){}
+  logOut(){
+    this.authService.logout();
+  }
 }

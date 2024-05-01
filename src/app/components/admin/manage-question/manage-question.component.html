@@ -3,7 +3,7 @@
 </div>
 <div class="mx-auto w-full -m-24">
   <div class="flex flex-wrap mt-4 justify-center">
-    <div class="w-full mb-12 xl:mb-0 px-4 max-w-5xl">
+    <div class="card-content w-full mb-12 xl:mb-0 px-4 max-w-5xl">
       <div
         class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
       >
@@ -14,7 +14,7 @@
                 <h3 class="font-semibold text-2xl text-gray-800">
                   Danh sách câu hỏi
                 </h3>
-                <button
+                <button *ngIf="!isDetailPage"
                   class="btn btn-primary"
                   (click)="openAddForm(null, 'add')"
                 >
@@ -46,32 +46,11 @@
                   </button>
                 </div>
               </div>
-              <div
+              <div *ngIf="!isDetailPage"
                 class="mt-4 input-container flex justify-between items-center"
               >
                 <div class="select-container">
-                  <!-- <label for="">Chủ đề</label>
-                  <select
-                    formControlName="chuDeId"
-                    placeholder="Chọn chủ đề"
-                    class="mt-2 form-control"
-                  >
-                    <option value="" disabled selected hidden>
-                      Chọn loại chủ đề
-                    </option>
-                    <option value="1">Chủ đề 1</option>
-                  </select> -->
                   <label for="">Chủ đề</label>
-                  <!-- <select
-                    formControlName="chuDeId"
-                    placeholder="Chọn chủ đề"
-                    class="mt-2 form-control"
-                  >
-                    <option value="" disabled selected hidden>
-                      Chọn loại chủ đề
-                    </option>
-                    <option value="1">Chủ đề 1</option>
-                  </select> -->
                 <ejs-dropdowntree 
                   #dropdownTree 
                   id="form1" 
@@ -137,7 +116,7 @@
                 >
                   Loại câu
                 </th>
-                <th
+                <th *ngIf="!isDetailPage"
                   class="row-type px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 font-semibold text-left"
                 >
                   Thao tác
@@ -196,7 +175,7 @@
                   >
                     {{ ques.loaiCau }}
                   </td>
-                  <td style="padding-left: 25px">
+                  <td *ngIf="!isDetailPage" style="padding-left: 25px">
                     <button
                       class="btn btn-sm"
                       title="Sửa"

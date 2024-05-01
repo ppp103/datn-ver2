@@ -50,37 +50,44 @@ $datn-theme: mat.define-light-theme(
 a {
   text-decoration: none !important;
 }
-html,
 body {
   height: 100%;
-}
-body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
-.text-red {
+.text-red, .alert-danger{
   color: red;
+}
+
+.alert-danger{
+  font-size: 12px;
 }
 
 .mandatory {
   color: red;
+}
+
+.card-content{
+    height: 100vh !important;
+}
+
+.input-error{
+  border: 1px solid red !important;
+}
+
+.login-left {
+    border-right: 1px solid #E2E2E2;
+}
+
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+.eye-icon {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
 }

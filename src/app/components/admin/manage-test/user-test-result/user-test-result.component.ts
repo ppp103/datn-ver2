@@ -17,7 +17,6 @@ export class UserTestResultComponent implements OnInit{
 
   constructor(
     private location: Location,
-    private router: Router,
     private route: ActivatedRoute,
     private testService: TestService,
     private practiceTestService: PracticeTestService,
@@ -31,8 +30,10 @@ export class UserTestResultComponent implements OnInit{
     this.testService.getTestById(this.testId).subscribe((res) => {
       this.test = res;
     })
-    // const res: any = await this.practiceTestService.getPracticeTestByTypeId({id: this.testId, type: Constant.PracticeTestType.TestId}) 
-    // this.examResults = res
+    console.log(this.test);
+    const res: any = await this.practiceTestService.getPracticeTestByTypeId({id: this.testId, type: Constant.PracticeTestType.TestId}) 
+    this.examResults = res
+    console.log(this.examResults, "ress");
   }
 
   goBack() {
