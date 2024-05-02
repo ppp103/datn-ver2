@@ -25,7 +25,7 @@ export class TopicService extends RepositoryEloquentService {
       apiUrl: `${environment.apiEndPoint}Topic`,
     });
 
-    return this.getFetchAll();
+    return this.getFetchAll({PageNumber: 1});
   }
 
   getFlatList(param: number){

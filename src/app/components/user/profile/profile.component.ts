@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -10,6 +11,13 @@ export class ProfileComponent {
   togglePwd: any;
   toggleEmail: any;
   toggleAvatar: any;
+  user: any;
+  
+  constructor(
+    private authService : AuthService
+  ){
+    this.user = this.authService.getUserDataFromLocal();
+  }
 
   updatePassword(event: any){
     console.log(event);

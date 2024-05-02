@@ -68,7 +68,8 @@ export class AddTestComponent implements OnInit {
   }
 
   async loadTopic() {
-    this.topics = await this.topicService.getFetchAll();
+    const res: any = await this.topicService.getFetchAll();
+    this.topics = res.items;
     this.fields = { dataSource: this.topics, value: 'id', text: 'name', child: 'child' }
 
   }
