@@ -66,15 +66,20 @@
                 class="text-label">Lưu
                 mật khẩu
               </label>
-              <a [routerLink]="['/forget-password']"
-                class="text-sm cursor-pointer hover:text-black-600 focus:underline font-semibold mr-4 lg:-mr-6 outline-none select-none ml-5"
-                >Quên mật khẩu?</a>
             </div>
-            <div class="flex justify-start items-center">
+            <div class="w-full text-center">
               <button (click)="login()"
-                class="btn btn-primary mt-3">
+                class="btn btn-primary mt-3 w-full">
                 Đăng nhập
               </button>
+              <div class="text-center mt-2 ">
+                  Bạn chưa có tài khoản? 
+                  <a class="text-sm cursor-pointer hover:text-black-600 focus:underline font-semibold outline-none select-none" 
+                  [routerLink]="['/sign-up']">Đăng ký</a>
+              </div>
+              <a [routerLink]="['/forget-password']"
+              class="mt-2 text-sm cursor-pointer hover:text-black-600 focus:underline font-semibold mr-4 lg:-mr-6 outline-none select-none ml-5"
+              >Quên mật khẩu?</a>
               <!-- <ng-template [ngIf]="preLoading">
                 <app-spinner></app-spinner>
               </ng-template>
