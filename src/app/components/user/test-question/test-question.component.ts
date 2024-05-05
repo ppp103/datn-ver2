@@ -1,4 +1,4 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { interval, Subscription, timer } from 'rxjs';
 import { QuestionService } from '../../../services/question/question.service';
@@ -14,6 +14,7 @@ import { AuthService } from '../../../services/auth/auth.service';
   styleUrl: './test-question.component.scss',
 })
 export class TestQuestionComponent {
+  @Input() isStimulate: any; 
   // counter!: number;
   counter = 10;
   totalTime: any;
@@ -40,7 +41,9 @@ export class TestQuestionComponent {
   }
 
   ngOnInit(): void {
-    this.startTimer();
+    if(!this.isStimulate){
+      this.startTimer();
+    }
 
     let choiceId = 0;
     this.route.params.subscribe(params => {
@@ -124,7 +127,7 @@ export class TestQuestionComponent {
   submit() {
     // Lấy ra các đáp án đã chọn
     this.getAnswerSheets();
-
+    console.log(this.answerSheets);
     // Check xem tất cả các đáp án đã được trả lời
     const hasEmptyOption = this.answerSheets.some((answer : any) => answer.chosenOption == '')
 

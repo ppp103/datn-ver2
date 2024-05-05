@@ -34,6 +34,7 @@ import { TestResultComponent } from '../user/test-result/test-result.component';
 import { ManageSubjectIoComponent } from './manage-subject/manage-subject-io/manage-subject-io/manage-subject-io.component';
 import { ManagePartComponent } from './manage-subject/manage-part/manage-part.component';
 import { QuestionsBySubjectComponent } from './manage-subject/questions-by-subject/questions-by-subject/questions-by-subject.component';
+import { PreviewTestComponent } from './manage-test/preview-test/preview-test.component';
 @NgModule({
   declarations: [
     AdminDashboardComponent,
@@ -60,6 +61,7 @@ import { QuestionsBySubjectComponent } from './manage-subject/questions-by-subje
     ManageSubjectIoComponent,
     ManagePartComponent,
     QuestionsBySubjectComponent,
+    PreviewTestComponent,
     // TestResultComponent
     // LineChartComponent,
   ],

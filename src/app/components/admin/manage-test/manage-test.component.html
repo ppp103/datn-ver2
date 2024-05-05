@@ -102,11 +102,23 @@
                   <td
                     class="border-t-0 px-6 align-middle flex justify-center border-l-0 border-r-0 text-xs whitespace-no-wrap p-4 w-full"
                   >
-                  <i
-                  matTooltip="Kết quả người dùng"
-                  matTooltipPosition="above"
-                  (click)="toRoute(exam.id + '/users')"
-                  class="fas fa-users cursor-pointer"></i>
+                  <div class="flex gap-3">
+                    <div>
+                      <i
+                      matTooltip="Kết quả người dùng"
+                      matTooltipPosition="above"
+                      (click)="toRoute(exam.id + '/users')"
+                      class="fas fa-users cursor-pointer"></i>
+                    </div>
+                    <div>
+                      <i
+                      matTooltip="Phòng thi mô phỏng"
+                      matTooltipPosition="above"
+                      (click)="toRoute(exam.id + '/preview')"
+                      class="fas fa-play cursor-pointer"></i>
+                    </div>
+                  </div>
+
                   </td>
                 </tr>
               </ng-container>

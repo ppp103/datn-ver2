@@ -42,7 +42,6 @@
                         <div class="md:w-full">
                           <label
                             class="block uppercase tracking-wide text-gray-600 text-xs font-bold mb-2"
-                            for="test-title"
                           >
                             Chọn loại đề thi <span class="text-danger">(*)</span>
                           </label>
@@ -50,7 +49,7 @@
                             class="form-control"
                             [(ngModel)]="testCategoryId"
                             >
-                            <option value="" disabled selected hidden>
+                            <option disabled selected hidden>
                               Chọn loại đề thi
                             </option>
                             <option *ngFor="let testCategory of testCategories" [value]="testCategory.id">{{testCategory.testCategoryName}}</option>

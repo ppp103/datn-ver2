@@ -14,7 +14,8 @@ import { UserModule } from './components/user/user.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { SharedModule } from './components/shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
-// import { DebounceDirective } from './directives/debounce.directive';
+import { HighchartsChartModule } from 'highcharts-angular';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -27,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     UserModule,
     SharedModule,
     HttpClientModule,
+    HighchartsChartModule
   ],
   providers: [provideClientHydration(), provideAnimationsAsync()],
   bootstrap: [AppComponent],

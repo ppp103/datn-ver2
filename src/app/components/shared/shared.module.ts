@@ -17,6 +17,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FormatTimePipe } from '../../pipes/format-time.pipe';
 import { DebounceDirective } from '../../directives/debounce.directive';
 import { TestResultComponent } from '../user/test-result/test-result.component';
+import { TestQuestionComponent } from '../user/test-question/test-question.component';
 @NgModule({
   declarations: [
     UpdateAvatarComponent,
@@ -25,9 +26,10 @@ import { TestResultComponent } from '../user/test-result/test-result.component';
     ResultCircleComponent,
     PaggingComponent,
     MyAlertDialogComponent,
-    TestResultComponent,
     FormatTimePipe,
-    DebounceDirective
+    DebounceDirective,
+    TestResultComponent,
+    TestQuestionComponent
   ],
   imports: [
     CommonModule,
@@ -49,8 +51,7 @@ import { TestResultComponent } from '../user/test-result/test-result.component';
     FormatTimePipe,
     DebounceDirective,
     TestResultComponent,
-
-
+    TestQuestionComponent
   ],
 })
 export class SharedModule {}

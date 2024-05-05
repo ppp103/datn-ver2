@@ -27,6 +27,7 @@ import { QuestionsBySubjectComponent } from './components/admin/manage-subject/q
 import { IsGuarded } from './services/auth/auth-guard';
 import { SignUpComponent } from './components/home/sign-up/sign-up.component';
 import { IsLoginGuarded } from './services/auth/login-guard';
+import { PreviewTestComponent } from './components/admin/manage-test/preview-test/preview-test.component';
 
 const routes: Routes = [
   {
@@ -41,13 +42,11 @@ const routes: Routes = [
   {
     path: 'sign-in',
     component: SignInComponent,
-    // canActivate: [IsGuarded],
     canActivate: [IsLoginGuarded],
   },
   {
     path: 'sign-up',
     component: SignUpComponent,
-    // canActivate: [IsGuarded],
     canActivate: [IsLoginGuarded],
 
   },
@@ -55,9 +54,7 @@ const routes: Routes = [
   {
     path: 'forget-password',
     component: ForgetPasswordComponent,
-    // canActivate: [IsGuarded],
     canActivate: [IsLoginGuarded],
-
   },
   {
     path: 'admin',
@@ -95,6 +92,11 @@ const routes: Routes = [
         data: { breadcrumb: 'Chi tiết đề thi' },
       },
       {
+        path: 'tests/:id/preview',
+        component: PreviewTestComponent,
+        data: { breadcrumb: 'Mô phỏng' },
+      },
+      {
         path: 'tests/:id/users',
         component: UserTestComponent,
         data: { breadcrumb: 'Chi tiết kết quả đề thi' },
@@ -104,7 +106,6 @@ const routes: Routes = [
         component: UserTestResultComponent,
         data: { breadcrumb: 'Chi tiết kết quả đề thi' },
       },
-      
       {
         path: 'users',
         component: ManageUserComponent,
@@ -125,20 +126,6 @@ const routes: Routes = [
         component: ManageQuestionComponent,
         data: { breadcrumb: 'Câu hỏi theo chủ đề con' },
       },
-      // { path: 'test/detail/:id', component: TestDetailComponent, data: { breadcrumb: 'Chi tiết đề thi' } },
-
-      {
-        path: 'test/detail/start',
-        component: TestQuestionComponent,
-        data: { breadcrumb: 'Làm bài' },
-      },
-      // { path: 'test/detail/:id/start', component: TestQuestionComponent, data: { breadcrumb: 'Làm bài' } },
-      {
-        path: 'test/detail/result',
-        component: TestResultComponent,
-        data: { breadcrumb: 'Kết quả' },
-      },
-      // { path: 'test/detail/:id/result', component: TestResultComponent, data: { breadcrumb: 'Kết quả' } },
     ],
   },
   {
@@ -167,25 +154,20 @@ const routes: Routes = [
         component: ReportComponent,
         data: { breadcrumb: 'Báo cáo' },
       },
-      // {
-      //   path: 'test/detail',
-      //   component: TestDetailComponent,
-      //   data: { breadcrumb: 'Chi tiết đề thi' },
-      // },
-      { path: 'test/:id', component: TestDetailComponent, data: { breadcrumb: 'Chi tiết đề thi' } },
-
+      { 
+        path: 'test/:id', 
+        component: TestDetailComponent, 
+        data: { breadcrumb: 'Chi tiết đề thi' } },
       {
         path: 'test/:id/start',
         component: TestQuestionComponent,
         data: { breadcrumb: 'Làm bài' },
       },
-      // { path: 'test/detail/:id/start', component: TestQuestionComponent, data: { breadcrumb: 'Làm bài' } },
       {
         path: 'test/:practiceTest/result',
         component: TestResultComponent,
         data: { breadcrumb: 'Kết quả' },
       },
-      // { path: 'test/detail/:id/result', component: TestResultComponent, data: { breadcrumb: 'Kết quả' } },
     ],
   },
 ];
