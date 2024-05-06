@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import More from 'highcharts/highcharts-more';
 import Drilldown from 'highcharts/modules/drilldown';
 import Exporting from 'highcharts/modules/exporting';
+import Highcharts3d from 'highcharts/highcharts-3d';
 
 // Setting hightcharts
 More(Highcharts);
 Drilldown(Highcharts);
 Exporting(Highcharts);
-
+Highcharts3d(Highcharts);
 @Injectable({
   providedIn: 'root'
 })
@@ -29,9 +30,26 @@ export class ChartService {
 */
   thongKeKetQuaLuyenThiCaNhanChart(container: any, series: any, dates: any) {
     let chart: any = Highcharts.chart(container, {
+      chart: {
+        renderTo: 'container',
+        plotBorderWidth: 1,
+        marginTop: 80,
+        borderRadius: 5,
+        options3d: {
+          enabled: true,
+          alpha: 15,
+          beta: 15,
+          depth: 50,
+          viewDistance: 25
+        }
+      },
       title: {
-        text: '',
-        align: 'left'
+        text: 'Độ chính xác',
+        align: 'left',
+        x: 58,
+        style: {
+          fontSize: '1.5rem'
+      },
       },
       lang: {
         viewFullscreen: 'Xem toàn màn hình',
@@ -50,6 +68,8 @@ export class ChartService {
         title: {
           text: '%'
         },
+        lineColor: '#000',
+        lineWidth: 1
       },
       xAxis: {
         title: {
@@ -74,6 +94,9 @@ export class ChartService {
                 enabled: true,
                 format: '{y} %'
             }
+        },
+        column: {
+          depth: 25
         }
       },
       responsive: {
