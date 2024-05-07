@@ -7,13 +7,14 @@ import { StatisticItem } from '../../../models/statistic';
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
-  styleUrl: './report.component.css'
+  styleUrl: './report.component.scss'
 })
 export class ReportComponent implements OnInit{
   @ViewChild('chart') chart!: ElementRef;
   // public chartOptions!: Partial<ChartOptions>;
   selectedTime: any;
   defaultTime: any;
+  reports: any;
   user: any; 
   constructor(
     private chartService : ChartService,
@@ -28,7 +29,10 @@ export class ReportComponent implements OnInit{
   
   seriesthongKeKetQuaLuyenThiCaNhanChart = [{
     name: 'Tỷ lệ trả lời đúng',
-    data: []
+    data: [],
+    fillColor: 'rgb(140,180,200)',
+    lineColor: 'rgb(120,160,180)',
+    color: 'rgb(140,180,200)',
   }];
 
   async getStatisticByUser(time: any) {
@@ -36,12 +40,19 @@ export class ReportComponent implements OnInit{
     this.seriesthongKeKetQuaLuyenThiCaNhanChart[0].data = [];
 
     const result: any  = await this.reportService.getStatisticByUser({userId: this.user.Id, time: time });
-    if (result.result.correctPercentage) {
+    if(result){
+      this.reports = result.result;
+    }
+    console.log(this.reports);
+    if (this.reports.correctPercentage) {
       result.result.correctPercentage.forEach((item : StatisticItem) => {
         dates.push(item.label)
         this.seriesthongKeKetQuaLuyenThiCaNhanChart[0].data.push(item.quantity);
       })
     }
+    // if(this.reports.correctPercentageByTopicAndUser){
+    //   this.reports = result.result.correctPercentageByTopicAndUser;
+    // }
     this.chartService.thongKeKetQuaLuyenThiCaNhanChart("thongKeKetQuaLuyenThiCaNhanChart", this.seriesthongKeKetQuaLuyenThiCaNhanChart, dates);
   }
 }

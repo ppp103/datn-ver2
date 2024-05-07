@@ -31,16 +31,17 @@ export class ChartService {
   thongKeKetQuaLuyenThiCaNhanChart(container: any, series: any, dates: any) {
     let chart: any = Highcharts.chart(container, {
       chart: {
+        type: 'column',
         renderTo: 'container',
-        plotBorderWidth: 1,
+        // plotBorderWidth: 1,
         marginTop: 80,
         borderRadius: 5,
         options3d: {
           enabled: true,
           alpha: 15,
           beta: 15,
-          depth: 50,
-          viewDistance: 25
+          depth: 100,
+          viewDistance: 100
         }
       },
       title: {
