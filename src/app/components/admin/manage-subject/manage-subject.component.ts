@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ManageSubjectIoComponent } from './manage-subject-io/manage-subject-io/manage-subject-io.component';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { QuestionService } from '../../../services/question/question.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-manage-subject',
@@ -22,7 +23,8 @@ export class ManageSubjectComponent implements OnInit{
     private dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
-    private questionService: QuestionService
+    private questionService: QuestionService,
+    private location : Location
   ){
   }
   ngOnInit() {
@@ -86,4 +88,9 @@ export class ManageSubjectComponent implements OnInit{
   goToQuestionBySubject(id: number){
     this.router.navigate([`/admin/subjects/${id}/questions`])
   }
+
+  goBack() {
+    this.location.back();
+  }
+
 }

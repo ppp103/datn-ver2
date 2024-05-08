@@ -36,7 +36,7 @@ export class PracticeTestService extends RepositoryEloquentService {
       return this.getById(id)
   }
 
-  public getPracticeTestByTypeId(param:any, query: any){
+  public getPracticeTestByTypeId(param:any, query: any = {}){
     this.setServiceInfo({
       apiUrl: `${environment.apiEndPoint}PracticeTest/get-practice-test-by-type-id`,
     });

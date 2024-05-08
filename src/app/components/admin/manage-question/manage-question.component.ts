@@ -11,6 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { QuestionCategoryService } from '../../../services/question-category/question-category.service';
 import { TopicService } from '../../../services/topics/topic.service';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-manage-question',
   templateUrl: './manage-question.component.html',
@@ -36,7 +37,8 @@ export class ManageQuestionComponent implements OnInit {
     private commonService: CommonServiceShared,
     private questionCategoryService: QuestionCategoryService,
     private topicService: TopicService,
-    private route : ActivatedRoute
+    private route : ActivatedRoute,
+    private location: Location
   ) {
 
   }
@@ -48,6 +50,10 @@ export class ManageQuestionComponent implements OnInit {
     this.loadQuestionCategory();
     this.loadTopics();
 
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   checkParams(): void {

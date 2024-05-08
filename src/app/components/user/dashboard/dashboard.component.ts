@@ -34,9 +34,6 @@ export class DashboardComponent implements OnInit {
     this.user = this.authService.getUserDataFromLocal();
 
     this.loadData();
-    // const resPracticeTest: any = await this.praticeTestService.getPracticeTestByTypeId({id: this.user.Id, type: Constant.PracticeTestType.UserId})
-    // this.totalLastestTests = resPracticeTest.items.length;
-    // this.lastestTests = resPracticeTest.items.splice(0, 4);
   }
 
   onChangePage(args: any) {
@@ -53,7 +50,6 @@ export class DashboardComponent implements OnInit {
       if (res.result) {
         this.lastestTests = res.result;
         this.totalLastestTests = res.result.paging.totalItems
-        // this.clearTabHeadLine(this.questions);
       }
     });
   }

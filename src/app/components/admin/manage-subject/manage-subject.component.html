@@ -1,5 +1,7 @@
 <div class="bg-blue-600 md:pt-32 pb-32 pt-12">
     <div class="px-4 md:px-10 mx-auto w-full">
+      <div *ngIf="isPartPage" (click)="goBack()" class="text-white cursor-pointer hover:underline"><i class="fa fa-long-arrow-left"></i><span
+        class="mx-2">Quay lại</span></div>
     </div>
   </div>
   <div class=" mx-auto w-full -m-24 card-content">
