@@ -19,6 +19,8 @@ export class DashboardComponent implements OnInit {
   userId = 1;
   totalTest: any;
   user: any;
+  pagging: any;
+
   constructor(
     private testService: TestService,
     private praticeTestService: PracticeTestService,
@@ -27,13 +29,33 @@ export class DashboardComponent implements OnInit {
     
   }
   async ngOnInit() {
-    const res: any = await this.testService.getAllTest({PageSize: 4, PageNumber: 1});
-    this.totalTest = res.paging.totalItems
-    this.examList = res.items
+    const res: any = await this.testService.getAllTest({PageSize: -1, PageNumber: 1});
+    this.examList = res.items.slice(0,4)
     this.user = this.authService.getUserDataFromLocal();
 
-    const resPracticeTest: any = await this.praticeTestService.getPracticeTestByTypeId({id: this.user.Id, type: Constant.PracticeTestType.UserId})
-    this.totalLastestTests = resPracticeTest.length;
-    this.lastestTests = resPracticeTest.splice(0, 4);
+    this.loadData();
+    // const resPracticeTest: any = await this.praticeTestService.getPracticeTestByTypeId({id: this.user.Id, type: Constant.PracticeTestType.UserId})
+    // this.totalLastestTests = resPracticeTest.items.length;
+    // this.lastestTests = resPracticeTest.items.splice(0, 4);
   }
+
+  onChangePage(args: any) {
+    this.loadData(args.skip, args.take);
+  }
+
+  async loadData(skip: number = 0, take: number = 4) {
+    let state: any = { skip, take, action: { requestType: 'searching' } };
+
+    this.praticeTestService.getPracticeTestByTypeId(state, {PageNumber:1, TypeId: this.user.Id, Type: Constant.PracticeTestType.UserId});
+
+    this.praticeTestService.subscribe((res: any) => {
+      this.pagging = res;
+      if (res.result) {
+        this.lastestTests = res.result;
+        this.totalLastestTests = res.result.paging.totalItems
+        // this.clearTabHeadLine(this.questions);
+      }
+    });
+  }
+
 }

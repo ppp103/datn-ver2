@@ -73,6 +73,7 @@ export class ChartService {
         lineWidth: 1
       },
       xAxis: {
+        y: 100,
         title: {
             text: 'Ngày làm'
         },

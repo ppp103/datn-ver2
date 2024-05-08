@@ -11,7 +11,7 @@
       <a *ngIf="totalTest > 4" [routerLink]="['../test']">Xem tất cả</a>
     </div>
   </div>
-  <div class="list-current-exam flex flex-wrap w-full gap-5">
+  <div class="list-current-exam grid grid-cols-4 w-full gap-5">
 
     <ng-container *ngIf="examList && examList.length > 0; else noExam">
       <article *ngFor="let exam of examList"
@@ -91,20 +91,19 @@
 </div>
 
 <ng-container *ngIf="lastestTests && lastestTests.length > 0;">
-  <div class="py-3">
+  <div class="py-3 mt-5">
     <div class="flex justify-between items-center mb-3 px-2">
       <div class="current-exam lg:text-2xl font-semibold text-gray-800">
         <h2 class="select-none list-title title-complete flex items-center mt-2">
           Bài thi hoàn thành gần đây
           <!-- <span class="mx-2">({{listComplete.length}})</span> -->
-          <span class="mx-2">({{lastestTests.length}})</span>
         </h2>
       </div>
         <div>
           <a *ngIf="totalLastestTests > 4" [routerLink]="['../report']">Xem tất cả</a>
         </div>
     </div>
-    <div class="list-current-exam flex flex-wrap gap-5">
+    <div class="list-current-exam grid grid-cols-4 gap-5">
       <article *ngFor="let exam of lastestTests"
           class="overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition duration-700"
         >
@@ -164,6 +163,10 @@
       >
         <!-- <app-skeleton></app-skeleton> -->
       </div>
+    </div>
+    <div class="mt-5">
+      <app-pagging [listItems]="pagging" (onChangePage)="onChangePage($event)">
+      </app-pagging>
     </div>
   </div>
 </ng-container>

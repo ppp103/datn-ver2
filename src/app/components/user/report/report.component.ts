@@ -3,6 +3,8 @@ import { ChartService } from '../../../services/chart/chart.service';
 import { ReportService } from '../../../services/report/report.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { StatisticItem } from '../../../models/statistic';
+import { PracticeTestService } from '../../../services/practice-test/practice-test.service';
+import { Constant } from '../../../constants/constants';
 
 @Component({
   selector: 'app-report',
@@ -16,15 +18,25 @@ export class ReportComponent implements OnInit{
   defaultTime: any;
   reports: any;
   user: any; 
+  skeletonLoading: any;
+  lastestTests: any;
+  totalLastestTests: any;
+  currentDate = new Date();
+
   constructor(
     private chartService : ChartService,
     private reportService : ReportService,
-    private authService : AuthService
+    private authService : AuthService,
+    private praticeTestService: PracticeTestService,
   ){
   }
-  ngOnInit(): void {
+  async ngOnInit() {
     this.user = this.authService.getUserDataFromLocal();
     this.getStatisticByUser(7);
+
+    // const resPracticeTest: any = await this.praticeTestService.getPracticeTestByTypeId({id: this.user.Id, type: Constant.PracticeTestType.UserId})
+    // this.totalLastestTests = resPracticeTest.paging.otalItems;
+    // this.lastestTests = resPracticeTest.items;
   }
   
   seriesthongKeKetQuaLuyenThiCaNhanChart = [{

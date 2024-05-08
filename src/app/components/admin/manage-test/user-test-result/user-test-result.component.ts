@@ -31,9 +31,9 @@ export class UserTestResultComponent implements OnInit{
       this.test = res;
     })
     console.log(this.test);
-    const res: any = await this.practiceTestService.getPracticeTestByTypeId({id: this.testId, type: Constant.PracticeTestType.TestId}) 
-    this.examResults = res
-    console.log(this.examResults, "ress");
+    // const res: any = await this.practiceTestService.getPracticeTestByTypeId({id: this.testId, type: Constant.PracticeTestType.TestId}) 
+    // this.examResults = res
+    // console.log(this.examResults, "ress");
   }
 
   goBack() {
