@@ -19,7 +19,6 @@ export class ReportService extends RepositoryEloquentService {
   public checkBeDeleted(id: number) {
     return 'ok';
   }
-
   
   public getStatisticByUser(param: any){
     this.setServiceInfo({
@@ -27,5 +26,13 @@ export class ReportService extends RepositoryEloquentService {
     });
 
     return this.getFetchAll(param)
+  }
+
+  public getAdminStatistics(){
+        this.setServiceInfo({
+      apiUrl: `${environment.apiEndPoint}Report/get-admin-statistic`,
+    });
+
+    return this.getFetchAll()
   }
 }

@@ -24,7 +24,7 @@ export class ChartService {
   }
 
   /**
-* Hiển thị biểu đồ thống kê lượt truy cập
+* Hiển thị biểu đồ thống kê kết quả luyện thi cá nhân theo ngày
 * Chú ý: thuộc tính "series".
 * @param container Element id để render biểu đồ
 */
@@ -95,6 +95,123 @@ export class ChartService {
             dataLabels: {
                 enabled: true,
                 format: '{y} %'
+            }
+        },
+        column: {
+          depth: 25
+        }
+      },
+      responsive: {
+        rules: [{
+          condition: {
+            maxWidth: 500
+          },
+          chartOptions: {
+            legend: {
+              layout: 'horizontal',
+              align: 'center',
+              verticalAlign: 'bottom'
+            }
+          }
+        }]
+      }
+    } as any);
+  }
+
+    /**
+* Hiển thị biểu đồ thống kê lượt truy cập
+* Chú ý: thuộc tính "series".
+* @param container Element id để render biểu đồ
+*/
+  thongKeSoBaiLuyenTheoNgayChart(container: any, series: any, dates: any) {
+    let chart: any = Highcharts.chart(container, {
+      chart: {
+        type: 'line',
+        renderTo: 'container',
+        color: '#fff',
+        backgroundColor: null,
+        borderRadius: 5,
+        options3d: {
+          enabled: true,
+          alpha: 15,
+          beta: 15,
+          depth: 100,
+          viewDistance: 100
+        }
+      },
+      title: {
+        text: '',
+        align: 'left',
+        x: 58,
+        style: {
+          fontSize: '1.5rem'
+      },
+      },
+      lang: {
+        viewFullscreen: 'Xem toàn màn hình',
+        exitFullscreen: 'Thu nhỏ',
+        contextButtonTitle: 'Menu',
+        printChart: 'In biểu đồ',
+        downloadPNG: 'Tải xuống PNG',
+        downloadJPEG: 'Tải xuống JPEG',
+        downloadPDF: 'Tải xuống PDF',
+        downloadSVG: 'Tải xuống SVG',
+        drillUpText: '< Trở về'
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'Số bài',
+          style: {
+            color: 'white'
+          }
+        },
+        lineColor: '#000',
+        lineWidth: 1,
+        labels: {
+          style: {
+            color: 'white'
+          }
+        }
+      },
+      xAxis: {
+        y: 100,
+        title: {
+          text: 'Ngày',
+          color: 'white',
+          style: {
+            color: 'white'
+          }
+          
+        },
+        categories: dates,
+        labels: {
+          style: {
+            color: 'white'
+          }
+        }
+      },
+      legend: {
+        enabled: true,
+        backgroundColor: 'orange',
+        borderRadius: 5,
+        title: {
+          text: '<span style="font-size: 12px; color: #000; ' +
+                'font-weight: normal">(Nhấn để ẩn)</span>',
+          style: {
+              fontStyle: 'italic',
+          },
+          itemStyle: {
+            color: '#fff',
+          }
+        },
+      },
+      series: series,
+      plotOptions: {
+        series: {
+            dataLabels: {
+                enabled: true,
+                format: '{y} bài'
             }
         },
         column: {
