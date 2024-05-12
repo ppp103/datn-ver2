@@ -14,10 +14,10 @@
                 <h3 class="font-semibold text-2xl text-gray-800">
                   Danh sách tài khoản
                 </h3>
-                <button class="btn btn-primary">
+                <!-- <button class="btn btn-primary">
                   <i class="fas fa-plus-square"></i>
                   Thêm mới
-                </button>
+                </button> -->
               </div>
             </div>
             <form [formGroup]="formSearch">
@@ -30,28 +30,6 @@
                     formControlName="keyWord"
                     placeholder="Nhập tên hoặc email người dùng"
                   />
-                </div>
-                <div class="input-container flex items-center">
-                  <!-- <mat-select> </mat-select> -->
-                  <mat-form-field>
-                    <mat-label>Toppings</mat-label>
-                    <mat-select [formControl]="toppings" multiple>
-                      <mat-select-trigger>
-                        {{toppings.value?.[0] || ''}}
-                        @if ((toppings.value?.length || 0) > 1) {
-                        <span class="example-additional-selection">
-                          (+{{ (toppings.value?.length || 0) - 1 }}
-                          {{
-                            toppings.value?.length === 2 ? "other" : "others"
-                          }})
-                        </span>
-                        }
-                      </mat-select-trigger>
-                      @for (topping of toppingList; track topping) {
-                      <mat-option [value]="topping">{{ topping }}</mat-option>
-                      }
-                    </mat-select>
-                  </mat-form-field>
                 </div>
                 <div class="input-container flex gap-5 items-center">
                   <button class="btn btn-success">
@@ -70,63 +48,93 @@
         </div>
         <div class="block w-full">
           <!-- Projects table -->
-          <!-- <ejs-grid
-            class="table-striped mt-2"
-            [dataSource]="listData"
-            #grid
-            allowPaging="true"
-            [allowSorting]="true"
-            [allowSelection]="true"
-            [allowResizing]="true"
+          <table
+            class="items-center table-fixed w-full bg-transparent border-collapse user-list block lg:table overflow-x-auto overflow-y-auto"
           >
-            <e-columns>
-              <e-column
-                type="checkbox"
-                freeze="Left"
-                width="70"
-                textAlign="center"
-              >
-              </e-column>
-              <e-column
-                field="serialNumber"
-                headerText="STT"
-                textAlign="Center"
-              ></e-column>
-              <e-column
-                field="ten"
-                headerText="Tên kho lưu trữ"
-                [width]="150"
-                textAlign="Left"
-              ></e-column>
-              <e-column
-                field="tenKhongGianLuuTru"
-                headerText="Không gian lưu trữ"
-                textAlign="Left"
-              ></e-column>
+            <thead>
+              <tr>
+                <th
+                  class="w-1/5 row-status px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 font-semibold text-left"
+                >
+                  STT
+                </th>
+                <th
+                  class="row-question px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 font-semibold text-left"
+                >
+                  User Name
+                </th>
+                <th
+                  class="text-left row-status px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 font-semibold"
+                >
+                  Email
+                </th>
+                <th
+                  class="text-left row-status px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 font-semibold"
+                >
+                  Trạng thái
+                </th>
+                <th
+                  class="row-type px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 font-semibold text-left"
+                  style="width: 12%;"
+                >
+                  Thao tác
+                </th>
+              </tr>
+            </thead>
 
-              <e-column
-                field="id"
-                headerText="Thao tác"
-                freeze="Right"
-                textAlign="Center"
-              >
-                <ng-template #template let-data>
-                  <button class="btn btn-sm">
-                    <i class="far fa-edit" style="color: rgb(0, 34, 255)"></i>
-                  </button>
-                  <button class="btn btn-sm" style="color: red">
-                    <i class="far fa-trash"></i>
-                  </button>
-                  <button class="p-2">
-                    <i class="fal fa-eye"></i>
-                  </button>
-                  <button class="p-2">
-                    <i class="fal fa-cog"></i>
-                  </button>
-                </ng-template>
-              </e-column>
-            </e-columns>
-          </ejs-grid> -->
+            <tbody>
+              <ng-container *ngFor="let user of users">
+                <tr class="border hover:bg-gray-300">
+                  <td
+                    class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs p-4 text-left"
+                  >
+                    {{ user.serialNumber }}
+                  </td>
+                  <td
+                    class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs p-4 italic font-semibold"
+                      (click)="goDeTail(user.id)"
+                  >
+                    {{ user.userName }}
+                  </td>
+                  <td
+                    class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs p-4 italic font-semibold"
+                  >
+                    {{ user.email }}
+                  </td>
+                  <td
+                    class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs p-4 italic font-semibold"
+                  >
+                    <!-- {{ user.isActive }} -->
+                    <div class="toggle-container">
+                      <label >
+                        <input class="switch" type="checkbox" [(ngModel)]="user.isActive" [checked]="user.isActive" (click)="onToggle($event, user)">
+                        <span class="slider round"></span>
+                      </label>
+                    </div>
+                  </td>
+                  <td style="padding-left: 25px">
+                    <button
+                      class="btn btn-sm"
+                      matTooltip="Chỉnh sửa thông tin người dùng"
+                      matTooltipPosition="above"
+                      >
+                      <!-- (click)="getItemByEvent(user.id)" -->
+                      <i class="far fa-edit" style="color: rgb(0, 34, 255)"></i>
+                    </button>
+                    <button
+                      class="btn btn-sm"
+                      style="color: red"
+                      matTooltip="Xoá tài khoản"
+                      matTooltipPosition="above"
+                      >
+                      <!-- (click)="getItemByEvent(user.id, 'delete')" -->
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

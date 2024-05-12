@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, CanActivateFn, Router } fr
 
 import { AuthService } from './auth.service';
 import { CommonServiceShared } from '../base/common-service.service';
+import { Observable, map } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,15 +14,19 @@ import { CommonServiceShared } from '../base/common-service.service';
       private commonService: CommonServiceShared
     ) { }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-      if (this.authService.isLoggedIn()) {
-        this.router.navigate([`/home`])
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    return this.authService.isLoggedIn().pipe(
+    map(isLoggedIn => {
+      if (isLoggedIn) {
+        this.router.navigate(['/home']);
         this.commonService.showeNotiResult('Bạn đã đăng nhập thành công', 2000);
         return false;
       } else {
         return true;
       }
-    }
+    })
+  );
+}
   }
   export const IsLoginGuarded: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any => {
     return inject(LoginGuard).canActivate(route, state);

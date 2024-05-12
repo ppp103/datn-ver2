@@ -8,6 +8,7 @@ import { UserService } from '../user/user.service';
 import { CommonServiceShared } from '../base/common-service.service';
 import { Router } from '@angular/router';
 import { jwtDecode } from "jwt-decode";
+import { Observable, map, of } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -66,9 +67,22 @@ public login(param: any){
     });
   }
 
-  isLoggedIn(): boolean {
-    return this.getAccessToken() !== null ? true : false;
+  isLoggedIn(): Observable<boolean> {
+  const userLocal = this.getUserDataFromLocal();
+  if(userLocal){
+    return this.userService.getUserById(userLocal.Id).pipe(
+      map(res => {
+        if(res){
+          console.log(res);
+          return true;
+        }
+        return false;
+      })
+    );
+  } else {
+    return of(false);
   }
+}
 
   getAccessToken(): string {
     const accessToken = this.localStorageService.getItem('ACCESS_TOKEN');

@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { RepositoryEloquentService } from '../base/base-service.service';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../auth/auth.service';
 @Injectable({
   providedIn: 'root',
 })
 export class UserService extends RepositoryEloquentService {
-  constructor(public override httpClient: HttpClient) {
+  constructor(public override httpClient: HttpClient,
+  ) {
     super();
     this.setServiceInfo({
       httpClient,
@@ -34,5 +36,29 @@ export class UserService extends RepositoryEloquentService {
     });
 
     return this.addItem(param);
+  }
+
+  public getAllUser(){
+    this.setServiceInfo({
+      apiUrl: `${environment.apiEndPoint}User`,
+    });
+
+    return this.getFetchAll()
+  }
+
+  public getUserById(id: number){
+    this.setServiceInfo({
+      apiUrl: `${environment.apiEndPoint}User`,
+    });
+
+    return this.getById(id)
+  }
+
+  public updateUserStatus(param: any){
+        this.setServiceInfo({
+      apiUrl: `${environment.apiEndPoint}User/update-status`,
+    });
+
+    return this.updateItem(param)
   }
 }
