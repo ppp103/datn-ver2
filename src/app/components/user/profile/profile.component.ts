@@ -43,5 +43,11 @@ export class ProfileComponent {
 
   }
 
-  
-}
+  updateEmail(e: any){
+    console.log(e);
+  }
+
+  getAvatarUpload(e: any){
+    console.log(e);
+  }
+} 

@@ -14,18 +14,18 @@
         formControlName="email"
         required
       >
-      <!-- <p class="text-red-500 text-xs italic"
-         *ngIf="email?.hasError('required') && (email?.dirty || email?.touched)"
-      >This field must be not empty</p>
       <p class="text-red-500 text-xs italic"
-         *ngIf="email?.hasError('pattern') && (email?.dirty || email?.touched)"
-      >Email has invalid format</p>
+         *ngIf="email && email?.hasError('required') && (email?.dirty || email?.touched)"
+      >Vui lòng điền trường này</p>
       <p class="text-red-500 text-xs italic"
-         *ngIf="email?.hasError('emailExists')&& email.value!=userProfile.email && (email?.dirty || email.touched)">
-        This email already exists</p>
+         *ngIf="email && email?.hasError('pattern') && (email?.dirty || email?.touched)"
+      >Email sai định dạng</p>
       <p class="text-red-500 text-xs italic"
-         *ngIf="email.value==userProfile.email && (email?.dirty || email?.touched)"
-      >This is old email</p> -->
+         *ngIf="email && email?.hasError('emailExists')&& email.value!=userProfile.email && (email?.dirty || email.touched)">
+        Email này đã tồn tại</p>
+      <p class="text-red-500 text-xs italic"
+         *ngIf="email && email.value==userProfile.email && (email?.dirty || email?.touched)"
+      >Email trùng với email cũ</p>
     </div>
     <div class="md:w-full px-3">
       <label class="block uppercase tracking-wide text-gray-600 text-xs font-bold mb-2"
@@ -44,18 +44,18 @@
         required
       >
       <p class="text-red-500 text-xs italic"
-         *ngIf="currentPassword?.hasError('required') && currentPassword?.touched"
+         *ngIf="currentPassword && currentPassword?.hasError('required') && currentPassword?.touched"
       >Mật khẩu không được để trống</p>
     </div>
   </div>
-  <!-- <div class="my-5 flex justify-end px-6">
+  <div class="my-5 flex justify-end px-6">
     <button [disabled]="rfEmail.invalid" *ngIf="rfEmail.valid" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
             type="submit">Lưu
     </button>
-  </div> -->
-  <div class="my-5 flex justify-end px-6">
+  </div>
+  <!-- <div class="my-5 flex justify-end px-6">
     <button [disabled]="rfEmail.invalid" class="btn btn-primary"
             type="submit">Lưu
     </button>
-  </div>
+  </div> -->
 </form>

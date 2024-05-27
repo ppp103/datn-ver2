@@ -93,10 +93,10 @@
       <!-- <app-update-password></app-update-password> -->
       } @if(toggleEmail){
       <!-- <app-update-email [userProfile]="userProfile" (emailUpdate)="updateEmail($event)"></app-update-email> -->
-      <app-update-email></app-update-email>
+      <app-update-email [userProfile]="user" (emailUpdate)="updateEmail($event)"></app-update-email>
       } @if(toggleAvatar){
       <!-- <app-update-avatar (avatarUploadUrl)="getAvatarUpload($event)"></app-update-avatar> -->
-      <app-update-avatar></app-update-avatar>
+      <app-update-avatar (avatarUploadUrl)="getAvatarUpload($event)"></app-update-avatar>
       }
     </div>
   </div>

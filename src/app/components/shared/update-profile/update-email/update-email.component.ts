@@ -11,7 +11,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class UpdateEmailComponent implements OnInit {
   rfEmail: FormGroup;
-  // @Input() userProfile: UserAccount;
+  @Input() userProfile: any;
   @Output() emailUpdate = new EventEmitter<any>();
 
   hiddenPwd = true;
@@ -50,21 +50,21 @@ export class UpdateEmailComponent implements OnInit {
   }
 
   changeEmail() {
-    // const data = {email: this.email.value, password: this.currentPassword.value};
-    // this.emailUpdate.emit(data);
-    // this.rfEmail.reset();
+    const data = {email: this.email!.value, password: this.currentPassword!.value};
+    this.emailUpdate.emit(data);
+    this.rfEmail.reset();
 
   }
 
-  // initFormUpdateEmail() {
-  //   this.rfEmail = this.fb.group({
-  //     email: ['', {
-  //       validators: [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')],
-  //       // asyncValidators: [this.userService.validateEmail()],
-  //       updateOn: 'blur'
-  //     }],
-  //     currentPassword: [null, Validators.required],
+  initFormUpdateEmail() {
+    this.rfEmail = this.fb.group({
+      email: ['', {
+        validators: [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')],
+        // asyncValidators: [this.userService.validateEmail()],
+        updateOn: 'blur'
+      }],
+      currentPassword: [null, Validators.required],
 
-  //   });
-  // }
+    });
+  }
 }

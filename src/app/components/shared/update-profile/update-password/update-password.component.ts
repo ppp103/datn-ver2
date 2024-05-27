@@ -38,36 +38,34 @@ export class UpdatePasswordComponent implements OnInit {
 
 
   updatePassword() {
-    // const data = {currentPassword: this.oldPassword.value, newPassword: this.newPassword.value};
-    // this.passwordUpdate.emit(data);
-
+    const data = {currentPassword: this.oldPassword!.value, newPassword: this.newPassword!.value};
+    this.passwordUpdate.emit(data);
   }
 
   initFormChangePwd() {
-    // this.rfPassword = new FormGroup({
-    //   oldPassword: new FormControl(null, Validators.required),
-    //   newPassword: new FormControl(null, Validators.pattern('^(?=.*[\\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\\w!@#$%^&*]{8,}$')),
-    //   confirmPassword: new FormControl(null)
-    // });
-    // this.rfPassword.setValidators([this.passwordConfirming, this.passwordDuplicating]);
+    this.rfPassword = new FormGroup({
+      oldPassword: new FormControl(null, Validators.required),
+      newPassword: new FormControl(null, Validators.pattern('^(?=.*[\\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\\w!@#$%^&*]{8,}$')),
+      confirmPassword: new FormControl(null)
+    });
+    this.rfPassword.setValidators([this.passwordConfirming, this.passwordDuplicating]);
 
   }
 
-  // passwordConfirming(c: AbstractControl): { passwordConfirming: boolean } {
-  //   if (c.get('newPassword').value !== c.get('confirmPassword').value) {
-  //     return {passwordConfirming: true};
-  //   }
-  // }
-
-  passwordConfirming(c: AbstractControl) {
+  passwordConfirming(c: AbstractControl): { passwordConfirming: boolean } {
+    if (c.get('newPassword')!.value !== c.get('confirmPassword')!.value) {
+      return {passwordConfirming: true};
     }
-  // passwordDuplicating(c: AbstractControl): { passwordDuplicating: boolean } {
-  //   if (c.get('newPassword').value === c.get('oldPassword').value) {
-  //     return {passwordDuplicating: true};
-  //   }
-  // }
 
-  passwordDuplicating(c: AbstractControl) {
+    return {passwordConfirming: false}
+  }
+
+  passwordDuplicating(c: AbstractControl): { passwordDuplicating: boolean } {
+    if (c.get('newPassword')!.value === c.get('oldPassword')!.value) {
+      return {passwordDuplicating: true};
+    }
+
+    return {passwordDuplicating: false}
   }
 
   togglePwd(type: any) {
