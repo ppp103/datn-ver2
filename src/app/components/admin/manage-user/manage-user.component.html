@@ -29,15 +29,16 @@
                     class="form-control"
                     formControlName="keyWord"
                     placeholder="Nhập tên hoặc email người dùng"
+                    (keydown.enter)="getAllUser()"
                   />
                 </div>
                 <div class="input-container flex gap-5 items-center">
-                  <button class="btn btn-success">
+                  <button (click)="refresh()" class="btn btn-success">
                     <i class="fas fa-sync"></i>
                     Làm mới
                   </button>
 
-                  <button class="btn btn-success">
+                  <button (click)="getAllUser()" class="btn btn-success">
                     <i class="fas fa-search"></i>
                     Tìm kiếm
                   </button>
@@ -71,7 +72,7 @@
                 <th
                   class="text-left row-status px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 font-semibold"
                 >
-                  Trạng thái
+                  Trạng thái tài khoản
                 </th>
                 <th
                   class="row-type px-6 bg-gray-100 text-gray-600 align-middle border border-solid border-gray-200 py-3 text-xs uppercase border-l-0 border-r-0 font-semibold text-left"
@@ -115,19 +116,19 @@
                   <td style="padding-left: 25px">
                     <button
                       class="btn btn-sm"
-                      matTooltip="Chỉnh sửa thông tin người dùng"
+                      matTooltip="Đổi mật khẩu"
                       matTooltipPosition="above"
+                      (click)="getItemByEvent(user.id)"
                       >
-                      <!-- (click)="getItemByEvent(user.id)" -->
-                      <i class="far fa-edit" style="color: rgb(0, 34, 255)"></i>
+                      <i class="fas fa-lock-open"></i>
                     </button>
                     <button
                       class="btn btn-sm"
                       style="color: red"
                       matTooltip="Xoá tài khoản"
                       matTooltipPosition="above"
+                      (click)="getItemByEvent(user.id, 'delete')"
                       >
-                      <!-- (click)="getItemByEvent(user.id, 'delete')" -->
                       <i class="fas fa-trash"></i>
                     </button>
                   </td>

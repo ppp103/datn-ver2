@@ -8,6 +8,9 @@ import {
 import { UserService } from '../../../services/user/user.service';
 import { CommonServiceShared } from '../../../services/base/common-service.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ManageUserIoComponent } from './manage-user-io/manage-user-io.component';
 
 @Component({
   selector: 'app-manage-user',
@@ -17,19 +20,31 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class ManageUserComponent implements OnInit {
   formSearch!: FormGroup;
   users: any;
+  selectedItem: any;
+  dialogRef!: MatDialogRef<any>;
 
   constructor(private fb: FormBuilder,
     private userService: UserService,
-    private commonService: CommonServiceShared
+    private commonService: CommonServiceShared,
+    private dialog: MatDialog,
 
   ) {
+
+  }
+
+  ngOnInit() {
+    this.formInit();
+    this.getAllUser();
+  }
+
+  formInit(){
     this.formSearch = this.fb.group({
       keyWord: [''],
     });
   }
 
-  async ngOnInit() {
-    const res: any = await this.userService.getAllUser();
+  async getAllUser(){
+    const res: any = await this.userService.getAllUser({...this.formSearch.value});
 
     if(res){
       console.log(res.items);
@@ -79,4 +94,58 @@ export class ManageUserComponent implements OnInit {
       }
     })
   }
+
+  refresh(){
+    this.formInit();
+    this.getAllUser();
+  }
+
+  async getItemByEvent(id: any, mode = 'edit'){
+        console.log(id);
+    this.selectedItem = await firstValueFrom(
+      this.userService.getUserById(id)
+    );
+    if (mode === 'edit') {
+      this.openAddForm(this.selectedItem, mode);
+    } else if (mode === 'delete') {
+      let result = this.commonService.confirmDiaLogService(
+        'Cảnh báo',
+        `Bạn chắc chắn muốn xóa câu hỏi ${this.selectedItem.content} chứ?`,
+        ''
+      );
+      // Nếu người dùng ấn nút xác nhận thì xóa và cập nhật lại data
+      result.afterClosed().subscribe(async (res) => {
+        if (res === 'confirm') {
+          // Xóa
+          this.userService.deleteUser(this.selectedItem.id).subscribe({
+            next: (res: any) => console.log(res),
+            error: (error: HttpErrorResponse) => {
+              console.log(error);
+              this.commonService.showeNotiResult(error.error.DevMessage, 2000);
+            },
+            complete: async () => {
+              this.commonService.showeNotiResult('Xoá thành công', 2000);
+              // Update data
+              await this.getAllUser();
+            },
+          });
+        } else {
+          return;
+        }
+      });
+    }
+  } 
+
+  
+  openAddForm(item: any, status: any) {
+    this.dialogRef = this.dialog.open(ManageUserIoComponent, {
+      data: { item: item, status: status },
+    });
+    this.dialogRef.afterClosed().subscribe(async (dataChanged) => {
+      if (dataChanged) {
+        await this.getAllUser();
+      }
+    });
+  }
+
 }

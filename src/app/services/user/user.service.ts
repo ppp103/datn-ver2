@@ -38,12 +38,12 @@ export class UserService extends RepositoryEloquentService {
     return this.addItem(param);
   }
 
-  public getAllUser(){
+  public getAllUser(param: any = {}){
     this.setServiceInfo({
       apiUrl: `${environment.apiEndPoint}User`,
     });
 
-    return this.getFetchAll()
+    return this.getFetchAll(param)
   }
 
   public getUserById(id: number){
@@ -55,10 +55,18 @@ export class UserService extends RepositoryEloquentService {
   }
 
   public updateUserStatus(param: any){
-        this.setServiceInfo({
+    this.setServiceInfo({
       apiUrl: `${environment.apiEndPoint}User/update-status`,
     });
 
     return this.updateItem(param)
+  }
+
+  public deleteUser(id: any){
+    this.setServiceInfo({
+      apiUrl: `${environment.apiEndPoint}User`,
+    });
+
+    return this.deleteItem(id);
   }
 }

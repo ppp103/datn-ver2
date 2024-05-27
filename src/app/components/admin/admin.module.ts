@@ -35,6 +35,7 @@ import { ManageSubjectIoComponent } from './manage-subject/manage-subject-io/man
 import { ManagePartComponent } from './manage-subject/manage-part/manage-part.component';
 import { QuestionsBySubjectComponent } from './manage-subject/questions-by-subject/questions-by-subject/questions-by-subject.component';
 import { PreviewTestComponent } from './manage-test/preview-test/preview-test.component';
+import { ManageUserIoComponent } from './manage-user/manage-user-io/manage-user-io.component';
 @NgModule({
   declarations: [
     AdminDashboardComponent,
@@ -62,6 +63,7 @@ import { PreviewTestComponent } from './manage-test/preview-test/preview-test.co
     ManagePartComponent,
     QuestionsBySubjectComponent,
     PreviewTestComponent,
+    ManageUserIoComponent,
     // TestResultComponent
     // LineChartComponent,
   ],
