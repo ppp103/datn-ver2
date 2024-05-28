@@ -69,4 +69,12 @@ export class UserService extends RepositoryEloquentService {
 
     return this.deleteItem(id);
   }
+
+  public updatePassword(param: any){
+        this.setServiceInfo({
+      apiUrl: `${environment.apiEndPoint}User/update-password`,
+    });
+
+    return this.updateItem(param);
+  }
 }

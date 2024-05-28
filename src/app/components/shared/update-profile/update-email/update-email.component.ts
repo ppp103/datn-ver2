@@ -42,7 +42,7 @@ export class UpdateEmailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.initFormUpdateEmail();
+    this.initFormUpdateEmail();
   }
 
   togglePwd() {

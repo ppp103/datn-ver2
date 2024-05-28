@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../../services/auth/auth.service';
+import { UserService } from '../../../services/user/user.service';
+import { CommonServiceShared } from '../../../services/base/common-service.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-profile',
@@ -14,13 +17,36 @@ export class ProfileComponent {
   user: any;
   
   constructor(
-    private authService : AuthService
+    private authService : AuthService,
+    private userService: UserService,
+    private commonService: CommonServiceShared
   ){
     this.user = this.authService.getUserDataFromLocal();
   }
 
   updatePassword(event: any){
-    console.log(event);
+    this.userService.updatePassword(
+      { id: this.user.Id, 
+        oldPassword: event.currentPassword, 
+        newPassword: event.newPassword
+      }).subscribe({
+        next: (res) => {
+            this.commonService.showeNotiResult(res.message + 'Vui lòng đăng nhập lại!', 2000);
+            if(res.flag){
+              setTimeout(() => {
+                this.authService.logout();
+              }, 3000)
+            }
+        },
+        error: (error: HttpErrorResponse) => {
+          console.log(error);
+          this.commonService.showeNotiResult(
+            'Lỗi hệ thống! Vui lòng thử lại sau!',
+            2000
+          );
+        },
+      }
+    );
   }
 
   toggleChangePwd() {
