@@ -1,11 +1,12 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpEventType, HttpHeaders, HttpProgressEvent, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   DataResult,
   DataStateChangeEventArgs,
 } from '@syncfusion/ej2-angular-grids';
 import { Observable, throwError, Subject, of } from 'rxjs';
-import { retry, map } from 'rxjs/operators';
+import { retry, map, scan } from 'rxjs/operators';
+import { Upload } from '../../constants/constants';
 
 let inputModelName: any;
 let outputModelName: any;
@@ -41,7 +42,7 @@ export class RepositoryEloquentService extends Subject<DataStateChangeEventArgs>
    * @param reportProgress Boolean report progress
    * @returns options any
    */
-  getOptions(reportProgress: boolean = false): any {
+  getOptions(reportProgress: boolean = false, isFileUpload: boolean = false): any {
     let headers = this.headers;
 
     let options: any = {
@@ -55,6 +56,43 @@ export class RepositoryEloquentService extends Subject<DataStateChangeEventArgs>
 
     return options;
   }
+
+    /**
+   * Upload file with progress event
+   * @param {Object} body The form data input.
+   * @returns {Observable}
+   */
+    uploadFile(body: FormData): Observable<any> {
+      try {
+        const initialState: Upload = { state: 'PENDING', progress: 0 };
+        const calculateState = (upload: Upload, event: HttpEvent<unknown>): any => {
+          if (isHttpProgressEvent(event)) {
+            return {
+              progress: event.total
+                ? Math.round((100 * event.loaded) / event.total)
+                : upload.progress,
+              state: 'IN_PROGRESS',
+            }
+          }
+          if (isHttpResponse(event)) {
+            return {
+              progress: 100,
+              state: 'DONE',
+              response: event
+            }
+          }
+          return upload;
+        }
+  
+        return this.httpClient
+          .post<typeof inputModelName>(this.apiUrl, body, this.getOptions(true, true))
+          .pipe(scan(calculateState, initialState));
+      } catch (error) {
+        return of(null);
+  
+      }
+    }
+    
 
   /**
    * Return query string from object
@@ -256,4 +294,15 @@ export class RepositoryEloquentService extends Subject<DataStateChangeEventArgs>
       return of();
     }
   }
+}
+
+function isHttpProgressEvent(event: HttpEvent<unknown>): event is HttpProgressEvent {
+  return (
+    event.type === HttpEventType.DownloadProgress ||
+    event.type === HttpEventType.UploadProgress
+  )
+}
+
+function isHttpResponse<T>(event: HttpEvent<T>): event is HttpResponse<T> {
+  return event.type === HttpEventType.Response
 }

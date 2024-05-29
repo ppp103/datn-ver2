@@ -47,4 +47,12 @@ export class TestService extends RepositoryEloquentService {
     });
     return this.getFetchAll(param);
   }
+
+  public addTestVer2(param: any) {
+    this.setServiceInfo({
+      apiUrl: `${environment.apiEndPoint}Test`,
+    });
+    return this.addItem(param);
+  }
+
 }

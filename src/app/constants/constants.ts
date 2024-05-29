@@ -8,3 +8,8 @@ export class Constant{
         TestId : 1
     }
 }
+
+export interface Upload {
+    progress: number
+    state: 'PENDING' | 'IN_PROGRESS' | 'DONE'
+  }
