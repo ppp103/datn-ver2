@@ -27,6 +27,10 @@ export class AddTestComponent implements OnInit {
   testName: any;
   testCategoryId: any;
   testCategories: any;
+  formData: any;
+  defaultImg = 'https://localhost:7253/images/tests/avatar-default.png'
+  previewUrl: string | ArrayBuffer | null = null;
+
   formErrors = {
     testName: '',
     testCategory: '',
@@ -46,7 +50,6 @@ export class AddTestComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private testCategoryService: TestCategoryService
-
   ) {
     this.route.params.subscribe(() => {
       this.questionListSelected.splice(0, this.questionListSelected.length);
@@ -86,7 +89,6 @@ export class AddTestComponent implements OnInit {
           return !this.questionListSelected.some((selectedQuestion: any) => selectedQuestion.id === question.id);
       });
         this.questions = res.result;
-        console.log(res.result);
         //////////////////// test data
         this.questions.map((question : any) => {
           question.isSelected = false;
@@ -140,19 +142,9 @@ export class AddTestComponent implements OnInit {
   onSubmit() {
     this.validate();
     const ids = this.questionListSelected.map((item:any) => item.id);
+    this.formData = new FormData();
     console.log({
-      testName: this.testName, 
-      time: this.totalTime * 60, 
-      totalPoint: this.totalPoint,
-      numberOfQuestion: this.questionListSelected.length,
-      testCategoryId: this.testCategoryId,
-      // imgLink: this.fileValue,
-      file: this.fileValue,
-      ids: ids
-    });
-    this.testService.addTest(
-      {
-        testName: this.testName, 
+              testName: this.testName, 
         time: this.totalTime * 60, 
         totalPoint: this.totalPoint,
         numberOfQuestion: this.questionListSelected.length,
@@ -160,7 +152,18 @@ export class AddTestComponent implements OnInit {
         imgLink: this.fileValue,
         file: this.fileValue,
         ids: ids
-      }).subscribe({
+  });
+    this.formData.append("TestName", this.testName);
+    this.formData.append("Time", this.totalTime * 60);
+    this.formData.append("TotalPoint",  this.totalPoint);
+    this.formData.append("NumberOfQuestion",  this.questionListSelected.length);
+    this.formData.append("TestCategoryId",   this.testCategoryId);
+    this.formData.append("File", this.fileValue);
+    // this.formData.append("Ids", ids);
+    ids.forEach((id:any) => this.formData.append('Ids', id.toString()));
+
+    console.log(this.formData.values());
+    this.testService.submitTest(this.formData).subscribe({
           next: (res) => console.log(res),
           error: (error: HttpErrorResponse) => {
             this.commonService.showeNotiResult('Thêm bài test thất bại', 2000);
@@ -171,6 +174,28 @@ export class AddTestComponent implements OnInit {
             this.returnList();
           },
       })
+
+    // this.testService.addTest(
+    //   {
+    //     testName: this.testName, 
+    //     time: this.totalTime * 60, 
+    //     totalPoint: this.totalPoint,
+    //     numberOfQuestion: this.questionListSelected.length,
+    //     testCategoryId: this.testCategoryId,
+    //     imgLink: this.fileValue,
+    //     file: this.fileValue,
+    //     ids: ids
+    //   }).subscribe({
+    //       next: (res) => console.log(res),
+    //       error: (error: HttpErrorResponse) => {
+    //         this.commonService.showeNotiResult('Thêm bài test thất bại', 2000);
+
+    //       },
+    //       complete: async () => {
+    //         this.commonService.showeNotiResult('Thêm bài test thành công', 2000);
+    //         this.returnList();
+    //       },
+      // })
   }
 
   validate() {
@@ -204,5 +229,13 @@ export class AddTestComponent implements OnInit {
   selectFile(event: any) {
     // this.createForm.value.File = event.target.files[0];
     this.fileValue = event.target.files[0];
+    if (this.fileValue) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.previewUrl = reader.result;
+      };
+      reader.readAsDataURL(this.fileValue);
+    }
   }
 }
+

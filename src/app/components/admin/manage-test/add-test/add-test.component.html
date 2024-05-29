@@ -30,12 +30,16 @@
                     >
                       Thông tin chung
                     </p>
+                    <label for="formFile" class="form-label">Chọn ảnh</label>
                     <div class="mb-3">
-                      <label for="formFile" class="form-label">Chọn ảnh</label>
+                      <!-- *ngIf="previewUrl" -->
+                      <div class="p-2">
+                        <img [src]="previewUrl ?? defaultImg" alt="Image Preview">
+                      </div>
                       <input
                         (change)="selectFile($event)"
                         accept=".jpg,.jpeg,.png"
-                      class="form-control" type="file" id="formFile">
+                      type="file" id="formFile">
                     </div>
                     <div class="flex gap-2">
                       <div class="md:flex mb-2 w-1/2">

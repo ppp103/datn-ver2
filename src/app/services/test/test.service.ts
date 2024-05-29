@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { RepositoryEloquentService } from '../base/base-service.service';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -52,7 +53,11 @@ export class TestService extends RepositoryEloquentService {
     this.setServiceInfo({
       apiUrl: `${environment.apiEndPoint}Test`,
     });
-    return this.addItem(param);
+    return this.uploadFile(param);
+  }
+
+  submitTest(formData: FormData): Observable<any> {
+    return this.httpClient.post(this.apiUrl, formData);
   }
 
 }
