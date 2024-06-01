@@ -1,4 +1,3 @@
-<!-- <xng-breadcrumb></xng-breadcrumb> -->
 <div>
   <div class="flex justify-between items-center mb-3 px-2">
     <div class="current-exam lg:text-2xl font-semibold text-gray-800">
@@ -113,8 +112,10 @@
               <img
                 alt=""
                 class="bg-img block h-56 w-full cursor-pointer"
-                src="../../../assets/images/{{exam.imgLink && exam.imgLink != 'string' ? exam.imgLink : 'avatar-default.png'}}" 
+                src="{{exam.imgLink}}"
+
                 />
+                <!-- src="../../../assets/images/{{exam.imgLink && exam.imgLink != 'string' ? exam.imgLink : 'avatar-default.png'}}"  -->
                 <!-- src="../../../assets/images/avatar-default.png"  -->
               <i class="fa fa-circle absolute top-0 right-0 mt-4 mr-4"></i>
             </div>

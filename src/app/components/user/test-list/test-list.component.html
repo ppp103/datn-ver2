@@ -37,7 +37,7 @@
     </button>
   </div>
 <!-- </form> -->
-<div class="list-current-exam flex flex-wrap w-full gap-5 mt-5"
+<div class="list-current-exam grid grid-cols-4 gap-5"
   *ngIf="examList"
   [class.col-gap]="examList.length % 4 == 0"
   [class.justify-between]="examList.length % 4 == 0"

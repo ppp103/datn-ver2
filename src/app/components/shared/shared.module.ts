@@ -18,6 +18,7 @@ import { FormatTimePipe } from '../../pipes/format-time.pipe';
 import { DebounceDirective } from '../../directives/debounce.directive';
 import { TestResultComponent } from '../user/test-result/test-result.component';
 import { TestQuestionComponent } from '../user/test-question/test-question.component';
+import { NgxSimpleBreadcrumbModule } from 'ngx-simple-breadcrumb';
 @NgModule({
   declarations: [
     UpdateAvatarComponent,
@@ -29,7 +30,7 @@ import { TestQuestionComponent } from '../user/test-question/test-question.compo
     FormatTimePipe,
     DebounceDirective,
     TestResultComponent,
-    TestQuestionComponent
+    TestQuestionComponent,
   ],
   imports: [
     CommonModule,
@@ -39,6 +40,7 @@ import { TestQuestionComponent } from '../user/test-question/test-question.compo
     MatTooltipModule,
     GridModule,
     MatDialogModule,
+    NgxSimpleBreadcrumbModule
   ],
   exports: [
     UpdateAvatarComponent,
@@ -51,7 +53,8 @@ import { TestQuestionComponent } from '../user/test-question/test-question.compo
     FormatTimePipe,
     DebounceDirective,
     TestResultComponent,
-    TestQuestionComponent
+    TestQuestionComponent,
+    NgxSimpleBreadcrumbModule
   ],
 })
 export class SharedModule {}

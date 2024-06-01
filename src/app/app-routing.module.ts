@@ -148,6 +148,22 @@ const routes: Routes = [
         path: 'test',
         component: TestListComponent,
         data: { breadcrumb: 'Danh sách đề thi' },
+        // children: [
+        //   { 
+        //     path: ':id', 
+        //     component: TestDetailComponent, 
+        //     data: { breadcrumb: 'Chi tiết đề thi' } },
+        //   {
+        //     path: ':id/start',
+        //     component: TestQuestionComponent,
+        //     data: { breadcrumb: 'Làm bài' },
+        //   },
+        //   {
+        //     path: ':practiceTest/result',
+        //     component: TestResultComponent,
+        //     data: { breadcrumb: 'Kết quả' },
+        //   },
+        // ]
       },
       {
         path: 'report',
