@@ -10,11 +10,15 @@
       <a *ngIf="totalTest > 4" [routerLink]="['../test']">Xem tất cả</a>
     </div>
   </div>
-  <div class="list-current-exam grid grid-cols-4 w-full gap-5">
-
+  <!-- <div class="list-current-exam grid grid-cols-4 w-full gap-5"> -->
+    <div class="list-current-exam grid grid-cols-4 w-full gap-5"
+    *ngIf="examList"  
+    [class.col-gap]="examList.length % 4 == 0"
+    [class.justify-between]="examList.length % 4 !== 0"
+  >
     <ng-container *ngIf="examList && examList.length > 0; else noExam">
       <article *ngFor="let exam of examList"
-        class="overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition duration-700"
+        class="overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition duration-700 d-flex justify-between flex-column"
       >
         <a [routerLink]="['/user/test/',exam.id]">
           <div class="relative img-hover-zoom">
@@ -105,7 +109,7 @@
     </div>
     <div class="list-current-exam grid grid-cols-4 gap-5">
       <article *ngFor="let exam of lastestTests"
-          class="overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition duration-700"
+          class="overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition duration-700 d-flex justify-between flex-column"
         >
           <a [routerLink]="['/user/test/',exam.id]">
             <div class="relative img-hover-zoom">

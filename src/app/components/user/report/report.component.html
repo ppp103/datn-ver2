@@ -212,15 +212,16 @@
     </div>
     <div class="list-current-exam grid grid-cols-4 gap-5">
       <article *ngFor="let exam of lastestTests"
-          class="overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition duration-700 grid-item"
+          class="overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition duration-700 grid-item d-flex justify-between flex-column"
         >
           <a [routerLink]="['/user/test/',exam.id]">
             <div class="relative img-hover-zoom">
               <img
                 alt=""
                 class="bg-img block h-56 w-full cursor-pointer"
-                src="../../../assets/images/{{exam.imgLink && exam.imgLink != 'string' ? exam.imgLink : 'avatar-default.png'}}" 
+                src="{{exam.imgLink}}"
                 />
+                <!-- src="../../../assets/images/{{exam.imgLink && exam.imgLink != 'string' ? exam.imgLink : 'avatar-default.png'}}"  -->
                 <!-- src="../../../assets/images/avatar-default.png"  -->
               <i class="fa fa-circle absolute top-0 right-0 mt-4 mr-4"></i>
             </div>
