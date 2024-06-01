@@ -99,12 +99,12 @@ const routes: Routes = [
       {
         path: 'tests/:id/users',
         component: UserTestComponent,
-        data: { breadcrumb: 'Chi tiết kết quả đề thi' },
+        data: { breadcrumb: 'Danh sách kết quả bài thi' },
       },
       {
         path: 'tests/:id/users/:practiceTest',
         component: UserTestResultComponent,
-        data: { breadcrumb: 'Chi tiết kết quả đề thi' },
+        data: { breadcrumb: 'Chi tiết kết quả bài thi' },
       },
       {
         path: 'users',
@@ -137,7 +137,7 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
-        data: { breadcrumb: 'Dashboard' },
+        data: { breadcrumb: 'Trang chủ' },
       },
       {
         path: 'profile',

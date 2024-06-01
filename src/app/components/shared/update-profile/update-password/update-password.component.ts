@@ -85,4 +85,9 @@ export class UpdatePasswordComponent implements OnInit {
     }
 
   }
+
+  clearForm(){
+    this.rfPassword.reset();
+    console.log('clear');
+  }
 }

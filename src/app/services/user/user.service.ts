@@ -77,4 +77,12 @@ export class UserService extends RepositoryEloquentService {
 
     return this.updateItem(param);
   }
+
+    public updateEmail(param: any){
+        this.setServiceInfo({
+      apiUrl: `${environment.apiEndPoint}User/update-email`,
+    });
+
+    return this.updateItem(param);
+  }
 }

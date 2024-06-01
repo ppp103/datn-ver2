@@ -87,16 +87,16 @@
     </div>
     <div class="mx-8 md:w-1/2">
       @if(togglePwd){
-      <app-update-password
+      <app-update-password #password *ngIf="hasLoaded"
         (passwordUpdate)="updatePassword($event)"
       ></app-update-password>
       <!-- <app-update-password></app-update-password> -->
       } @if(toggleEmail){
       <!-- <app-update-email [userProfile]="userProfile" (emailUpdate)="updateEmail($event)"></app-update-email> -->
-      <app-update-email [userProfile]="user" (emailUpdate)="updateEmail($event)"></app-update-email>
+      <app-update-email *ngIf="hasLoaded" [userProfile]="user" (emailUpdate)="updateEmail($event)"></app-update-email>
       } @if(toggleAvatar){
       <!-- <app-update-avatar (avatarUploadUrl)="getAvatarUpload($event)"></app-update-avatar> -->
-      <app-update-avatar (avatarUploadUrl)="getAvatarUpload($event)"></app-update-avatar>
+      <app-update-avatar *ngIf="hasLoaded" (avatarUploadUrl)="getAvatarUpload($event)"></app-update-avatar>
       }
     </div>
   </div>

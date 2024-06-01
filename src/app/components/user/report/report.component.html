@@ -238,7 +238,10 @@
               <p>Ngày hoàn thành: {{(exam.createdDate ? exam.createdDate : currentDate) | date: 'dd/MM/yyyy'}}</p>
             </div>
             <div class="text-gray-600 text-sm flex justify-between">
-              <p>Thời gian hoàn thành: {{exam.time}} s</p>
+              <p>Thời gian hoàn thành: {{exam.time | formatTime}} s</p>
+            </div>
+            <div class="text-gray-600 text-sm flex justify-between">
+              <p>Lần thi thứ: {{exam.takeTimes}}</p>
             </div>
             <div class="text-gray-600 text-sm flex justify-between">
               <p>Kết quả: {{exam.result}}/{{exam.totalPoint}} điểm</p>

@@ -1,7 +1,7 @@
 <form novalidate (ngSubmit)="changeEmail()" [formGroup]="rfEmail">
   <div class="-mx-3 md:flex flex-col mb-2 w-full">
     <div class="md:w-full px-3">
-      <label class="block uppercase tracking-wide text-gray-600 text-xs font-bold mb-2"
+      <label class="block uppercase tracking-wide text-gray-600 text-s font-bold mb-2"
              for="email">
         Email mới
       </label>
@@ -14,21 +14,21 @@
         formControlName="email"
         required
       >
-      <p class="text-red-500 text-xs italic"
+      <p class="text-red-500 text-s italic"
          *ngIf="email && email?.hasError('required') && (email?.dirty || email?.touched)"
       >Vui lòng điền trường này</p>
-      <p class="text-red-500 text-xs italic"
+      <p class="text-red-500 text-s italic"
          *ngIf="email && email?.hasError('pattern') && (email?.dirty || email?.touched)"
       >Email sai định dạng</p>
-      <p class="text-red-500 text-xs italic"
+      <p class="text-red-500 text-s italic"
          *ngIf="email && email?.hasError('emailExists')&& email.value!=userProfile.email && (email?.dirty || email.touched)">
         Email này đã tồn tại</p>
-      <p class="text-red-500 text-xs italic"
+      <p class="text-red-500 text-s italic"
          *ngIf="email && email.value==userProfile.email && (email?.dirty || email?.touched)"
       >Email trùng với email cũ</p>
     </div>
     <div class="md:w-full px-3">
-      <label class="block uppercase tracking-wide text-gray-600 text-xs font-bold mb-2"
+      <label class="block uppercase tracking-wide text-gray-600 text-s font-bold mb-2"
              for="current-pwd">
         Mật khẩu <span class="mx-1 text-lg text-gray-700 cursor-pointer" (click)="togglePwd()">
         <i [ngClass]="hiddenPwd ? 'fa fa-eye-slash':'fa fa-eye'"></i>
@@ -43,7 +43,7 @@
         formControlName="currentPassword"
         required
       >
-      <p class="text-red-500 text-xs italic"
+      <p class="text-red-500 text-s italic"
          *ngIf="currentPassword && currentPassword?.hasError('required') && currentPassword?.touched"
       >Mật khẩu không được để trống</p>
     </div>

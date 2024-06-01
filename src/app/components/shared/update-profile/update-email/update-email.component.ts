@@ -52,8 +52,7 @@ export class UpdateEmailComponent implements OnInit {
   changeEmail() {
     const data = {email: this.email!.value, password: this.currentPassword!.value};
     this.emailUpdate.emit(data);
-    this.rfEmail.reset();
-
+    // this.rfEmail.reset();
   }
 
   initFormUpdateEmail() {
@@ -66,5 +65,10 @@ export class UpdateEmailComponent implements OnInit {
       currentPassword: [null, Validators.required],
 
     });
+  }
+
+  clearForm(){
+    this.rfEmail.reset();
+
   }
 }
