@@ -47,7 +47,6 @@ export class ManageUserComponent implements OnInit {
     const res: any = await this.userService.getAllUser({...this.formSearch.value});
 
     if(res){
-      console.log(res.items);
       res.items.map((item: any, index: number) => {
         item.serialNumber = index + 1;
       })
@@ -101,7 +100,6 @@ export class ManageUserComponent implements OnInit {
   }
 
   async getItemByEvent(id: any, mode = 'edit'){
-        console.log(id);
     this.selectedItem = await firstValueFrom(
       this.userService.getUserById(id)
     );
@@ -110,7 +108,7 @@ export class ManageUserComponent implements OnInit {
     } else if (mode === 'delete') {
       let result = this.commonService.confirmDiaLogService(
         'Cảnh báo',
-        `Bạn chắc chắn muốn xóa câu hỏi ${this.selectedItem.content} chứ?`,
+        `Bạn chắc chắn muốn xóa người dùng <b> ${this.selectedItem.userName} </b> chứ?`,
         ''
       );
       // Nếu người dùng ấn nút xác nhận thì xóa và cập nhật lại data
