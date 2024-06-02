@@ -5,6 +5,7 @@ import { CommonServiceShared } from '../../../services/base/common-service.servi
 import { HttpErrorResponse } from '@angular/common/http';
 import { UpdatePasswordComponent } from '../../shared/update-profile/update-password/update-password.component';
 import { UpdateEmailComponent } from '../../shared/update-profile/update-email/update-email.component';
+import { UpdateAvatarComponent } from '../../shared/update-profile/update-avatar/update-avatar.component';
 
 @Component({
   selector: 'app-profile',
@@ -19,19 +20,25 @@ export class ProfileComponent implements AfterViewInit{
   toggleAvatar: any;
   user: any;
   hasLoaded: any = false;
+  previewUrl: string | ArrayBuffer | null = null;
+  defaultImg = 'https://localhost:7253/images/tests/avatar-default.png'
 
   @ViewChild('password') password!: UpdatePasswordComponent;
   @ViewChild('email') email!: UpdateEmailComponent;
+  @ViewChild('avatar') avatar!: UpdateAvatarComponent;
+  formData!: FormData;
+
   constructor(
     private authService : AuthService,
     private userService: UserService,
     private commonService: CommonServiceShared
   ){
     this.user = this.authService.getUserDataFromLocal();
+    console.log(typeof this.user);
   }
+
   ngAfterViewInit(): void {
     this.hasLoaded = true;
-    console.log(this.hasLoaded);
   }
 
   updatePassword(event: any){
@@ -43,17 +50,10 @@ export class ProfileComponent implements AfterViewInit{
         next: (res) => {
             this.commonService.showeNotiResult(res.message, 2000);
             if(this.password){
-              console.log(this.password);
               this.password.clearForm();
             }
-            // if(res.flag){
-            //   setTimeout(() => {
-            //     this.authService.logout();
-            //   }, 3000)
-            // }
         },
         error: (error: HttpErrorResponse) => {
-          console.log(error);
           this.commonService.showeNotiResult(
             'Lỗi hệ thống! Vui lòng thử lại sau!',
             2000
@@ -73,14 +73,12 @@ export class ProfileComponent implements AfterViewInit{
     this.togglePwd = false;
     this.toggleAvatar = false;
     this.toggleEmail = true;
-
   }
 
   toggleChangeAvatar() {
     this.togglePwd = false;
     this.toggleEmail = false;
     this.toggleAvatar = true;
-
   }
 
   updateEmail(e: any){
@@ -90,17 +88,13 @@ export class ProfileComponent implements AfterViewInit{
       email: e.email,
       password: e.password
     }).subscribe({
-        next: (res) => {
-            this.commonService.showeNotiResult(res.message, 2000);
-            this.email.clearForm();
-            // if(res.flag){
-            //   setTimeout(() => {
-            //     this.authService.logout();
-            //   }, 3000)
-            // }
+        next: async (res) => {
+          this.commonService.showeNotiResult(res.message, 2000);
+          this.email.clearForm();
+          this.authService.reloadUserInfo();
+          this.user = this.authService.getUserDataFromLocal();
         },
         error: (error: HttpErrorResponse) => {
-          console.log(error);
           this.commonService.showeNotiResult(
             'Lỗi hệ thống! Vui lòng thử lại sau!',
             2000
@@ -110,7 +104,50 @@ export class ProfileComponent implements AfterViewInit{
     );
   }
 
-  getAvatarUpload(e: any){
-    console.log(e);
+  getAvatarUpload(file: any){
+    console.log(file);
+    if(file){
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.previewUrl = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  saveImg(e: any){
+    this.formData = new FormData();
+    this.formData.append("id", this.user.Id);
+    this.formData.append("imgLink", e);
+
+    this.userService.updateAvatarFile(this.formData).subscribe({
+      next: (res) => console.log(res),
+          error: (error: HttpErrorResponse) => {
+            this.commonService.showeNotiResult('Chỉnh sửa ảnh thất bại', 2000);
+
+          },
+          complete: async () => {
+            this.commonService.showeNotiResult('Chỉnh sửa ảnh thành công', 2000);
+            // this.returnList();
+          },
+    })
+
+    // this.userService.updateAvatarFile({
+    //   id: this.user.Id, 
+    //   imgLink: e.name
+    // }).subscribe({
+    //     next: async (res) => {
+    //       this.commonService.showeNotiResult(res.message, 2000);
+    //       this.email.clearForm();
+    //       this.authService.reloadUserInfo();
+    //       this.user = this.authService.getUserDataFromLocal();
+    //     },
+    //     error: (error: HttpErrorResponse) => {
+    //       this.commonService.showeNotiResult(
+    //         'Lỗi hệ thống! Vui lòng thử lại sau!',
+    //         2000
+    //       );
+    //     },
+    //   })
   }
 } 

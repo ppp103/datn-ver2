@@ -49,7 +49,7 @@ export class DashboardComponent implements OnInit {
       this.pagging = res;
       if (res.result) {
         this.lastestTests = res.result;
-        this.totalLastestTests = res.result.paging.totalItems
+        this.totalLastestTests = res.pagging.totalItems
       }
     });
   }

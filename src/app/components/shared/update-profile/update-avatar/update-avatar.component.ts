@@ -12,6 +12,10 @@ export class UpdateAvatarComponent implements OnInit {
   // imgUploadUrl: string;
   fileUpload: any;
   @Output() avatarUploadUrl = new EventEmitter<any>();
+  @Output() saveImg = new EventEmitter<any>();
+
+  selectedFiles: any;
+  currentFileUpload: any;
 
   // constructor(
   //   private uploadService: UploadFileService,
@@ -22,11 +26,16 @@ export class UpdateAvatarComponent implements OnInit {
   }
 
   submitAvatar() {
-    this.avatarUploadUrl.emit(this.fileUpload);
+    this.saveImg.emit(this.fileUpload);
     console.log(this.fileUpload);
   }
 
-  // updateAvatar(file) {
-  //   this.fileUpload = file;
-  // }
+  selectFile(e: any) {
+    this.selectedFiles = e.target.files;
+    this.currentFileUpload = this.selectedFiles.item(0);
+    this.selectedFiles = undefined;
+    this.fileUpload = this.currentFileUpload;
+    this.avatarUploadUrl.emit(this.fileUpload);
+
+  }
 }

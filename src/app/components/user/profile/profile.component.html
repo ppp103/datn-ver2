@@ -10,11 +10,13 @@
       <div class="my-3 my-1">
         <!-- <img [src]="imgUpload"
              class="avatar mx-auto shadow-md"> -->
-        <img
+        <!-- <img
           class="w-100"
           src="../../../assets/images/avatar-default.png"
           alt="###"
-        />
+        /> -->
+        <img class="w-100" [src]="previewUrl ?? defaultImg" alt="Image Preview">
+
       </div>
       <!-- <div class="px-3 my-4"><label
         class="text-blue-700 text-xl font-semibold uppercase">{{userProfile.profile.lastName}} {{userProfile.profile.firstName}}</label>
@@ -28,7 +30,7 @@
       <div class="px-3 my-1"><label>{{user.Name}}</label></div>
       <div class="px-3 my-2">
         <label class="underline text-blue-500"
-          >{{user.email}}</label
+          >{{user.Email}}</label
         >
       </div>
       <div class="mx-3 my-3 flex justify-center">
@@ -93,10 +95,10 @@
       <!-- <app-update-password></app-update-password> -->
       } @if(toggleEmail){
       <!-- <app-update-email [userProfile]="userProfile" (emailUpdate)="updateEmail($event)"></app-update-email> -->
-      <app-update-email *ngIf="hasLoaded" [userProfile]="user" (emailUpdate)="updateEmail($event)"></app-update-email>
+      <app-update-email #email *ngIf="hasLoaded" [userProfile]="user" (emailUpdate)="updateEmail($event)"></app-update-email>
       } @if(toggleAvatar){
       <!-- <app-update-avatar (avatarUploadUrl)="getAvatarUpload($event)"></app-update-avatar> -->
-      <app-update-avatar *ngIf="hasLoaded" (avatarUploadUrl)="getAvatarUpload($event)"></app-update-avatar>
+      <app-update-avatar #avatar *ngIf="hasLoaded" (saveImg)="saveImg($event)" (avatarUploadUrl)="getAvatarUpload($event)"></app-update-avatar>
       }
     </div>
   </div>

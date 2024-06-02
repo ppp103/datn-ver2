@@ -30,23 +30,37 @@ export class AuthService extends RepositoryEloquentService {
     return 'ok';
   }
 
-public login(param: any){
-  this.userService.login(param).subscribe({
-    next: (res: any) => {
-      // Thành công => Lưu access token vào localStorage
-      // Giải mã token => Lấy ra thông tin và lưu thông tin người dùng
-      localStorage.setItem('ACCESS_TOKEN', res.token)
-      const decodedToken: any = jwtDecode(res.token);
-      this.localStorageService.setItem('USER_PROFILE', decodedToken);
-      // this.router.navigate([`/user`])
-      window.location.href = '/user'
-    },
-    error: (error: any) => {
-      console.log(error);
-      this.commonService.showeNotiResult(error.error.message, 2000);
-    }
-  });
-}
+  public login(param: any){
+    this.userService.login(param).subscribe({
+      next: (res: any) => {
+        // Thành công => Lưu access token vào localStorage
+        // Giải mã token => Lấy ra thông tin và lưu thông tin người dùng
+        localStorage.setItem('ACCESS_TOKEN', res.token)
+        const decodedToken: any = jwtDecode(res.token);
+        this.localStorageService.setItem('USER_PROFILE', decodedToken);
+        // this.router.navigate([`/user`])
+        window.location.href = '/user'
+      },
+      error: (error: any) => {
+        console.log(error);
+        this.commonService.showeNotiResult(error.error.message, 2000);
+      }
+    });
+  }
+
+  public reloadUserInfo(){  
+    const userLocal = this.getUserDataFromLocal();
+    this.userService.getUserById(+userLocal.Id).subscribe(
+        (res) => {
+          const convertResult: any = {
+            Id: res.id,
+            Name: res.userName,
+            Email: res.email
+          }
+          this.localStorageService.setItem('USER_PROFILE', convertResult);
+        }
+      );
+  }
 
   public register(param: any){
     this.userService.registerUser(param).subscribe({
@@ -68,21 +82,20 @@ public login(param: any){
   }
 
   isLoggedIn(): Observable<boolean> {
-  const userLocal = this.getUserDataFromLocal();
-  if(userLocal){
-    return this.userService.getUserById(userLocal.Id).pipe(
-      map(res => {
-        if(res){
-          console.log(res);
-          return true;
-        }
-        return false;
-      })
-    );
-  } else {
-    return of(false);
+    const userLocal = this.getUserDataFromLocal();
+    if(userLocal){
+      return this.userService.getUserById(userLocal.Id).pipe(
+        map(res => {
+          if(res){
+            return true;
+          }
+          return false;
+        })
+      );
+    } else {
+      return of(false);
+    }
   }
-}
 
   getAccessToken(): string {
     const accessToken = this.localStorageService.getItem('ACCESS_TOKEN');

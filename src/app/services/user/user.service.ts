@@ -3,6 +3,7 @@ import { RepositoryEloquentService } from '../base/base-service.service';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -71,15 +72,32 @@ export class UserService extends RepositoryEloquentService {
   }
 
   public updatePassword(param: any){
-        this.setServiceInfo({
+    this.setServiceInfo({
       apiUrl: `${environment.apiEndPoint}User/update-password`,
     });
 
     return this.updateItem(param);
   }
 
-    public updateEmail(param: any){
-        this.setServiceInfo({
+  public updateAvatar(param: any){
+    this.setServiceInfo({
+      apiUrl: `${environment.apiEndPoint}User/update-avatar`,
+    });
+
+    return this.updateItem(param);
+  }
+
+  public updateAvatarFile(formData: FormData): Observable<any>{
+    this.setServiceInfo({
+      apiUrl: `${environment.apiEndPoint}User/update-avatar`,
+    });
+
+    return this.httpClient.put(this.apiUrl, formData);;
+  }
+
+
+  public updateEmail(param: any){
+    this.setServiceInfo({
       apiUrl: `${environment.apiEndPoint}User/update-email`,
     });
 

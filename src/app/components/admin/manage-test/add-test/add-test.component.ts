@@ -74,7 +74,6 @@ export class AddTestComponent implements OnInit {
     const res: any = await this.topicService.getFetchAll();
     this.topics = res.items;
     this.fields = { dataSource: this.topics, value: 'id', text: 'name', child: 'child' }
-
   }
 
   async loadData(skip: number = 0, take: number = 10) {
@@ -144,7 +143,7 @@ export class AddTestComponent implements OnInit {
     const ids = this.questionListSelected.map((item:any) => item.id);
     this.formData = new FormData();
     console.log({
-              testName: this.testName, 
+        testName: this.testName, 
         time: this.totalTime * 60, 
         totalPoint: this.totalPoint,
         numberOfQuestion: this.questionListSelected.length,
@@ -229,6 +228,7 @@ export class AddTestComponent implements OnInit {
   selectFile(event: any) {
     // this.createForm.value.File = event.target.files[0];
     this.fileValue = event.target.files[0];
+    console.log(this.fileValue);
     if (this.fileValue) {
       const reader = new FileReader();
       reader.onload = () => {
