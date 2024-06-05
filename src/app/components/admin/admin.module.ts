@@ -18,7 +18,7 @@ import { ManageQuestionComponent } from './manage-question/manage-question.compo
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserModule } from '@angular/platform-browser';
-import { GridModule } from '@syncfusion/ej2-angular-grids';
+import { GridModule, ResizeService } from '@syncfusion/ej2-angular-grids';
 import { ManageQuestionIoComponent } from './manage-question/manage-question-io/manage-question-io.component';
 import { QuestionDetailComponent } from './manage-question/question-detail/question-detail.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -37,7 +37,7 @@ import { QuestionsBySubjectComponent } from './manage-subject/questions-by-subje
 import { PreviewTestComponent } from './manage-test/preview-test/preview-test.component';
 import { ManageUserIoComponent } from './manage-user/manage-user-io/manage-user-io.component';
 import { EditTestComponent } from './manage-test/edit-test/edit-test.component';
-
+import { PageService, SortService, FilterService, GroupService } from '@syncfusion/ej2-angular-grids'
 @NgModule({
   declarations: [
     AdminDashboardComponent,
@@ -86,5 +86,12 @@ import { EditTestComponent } from './manage-test/edit-test/edit-test.component';
     DropDownTreeModule,
     DragDropModule,
   ],
+  providers: [
+    PageService,
+    SortService,
+    FilterService,
+    GroupService,
+    ResizeService
+  ]
 })
 export class AdminModule {}
