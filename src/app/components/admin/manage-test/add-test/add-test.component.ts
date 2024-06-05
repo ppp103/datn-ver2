@@ -28,6 +28,7 @@ export class AddTestComponent implements OnInit {
   testCategoryId: any;
   testCategories: any;
   formData: any;
+  editTest: any = false;
   defaultImg = 'https://localhost:7253/images/tests/avatar-default.png'
   previewUrl: string | ArrayBuffer | null = null;
 
@@ -41,6 +42,9 @@ export class AddTestComponent implements OnInit {
   };
   questionListSelected: any = [];
   fileValue: any;
+
+  test: any;
+  selectedQuestions: any;
   constructor(
     private fb: FormBuilder,
     private topicService: TopicService,
@@ -51,12 +55,40 @@ export class AddTestComponent implements OnInit {
     private route: ActivatedRoute,
     private testCategoryService: TestCategoryService
   ) {
-    this.route.params.subscribe(() => {
+    this.route.params.subscribe((param) => {
       this.questionListSelected.splice(0, this.questionListSelected.length);
-      this.loadData()
+      // this.loadData()
+      this.loadDataV2();
       this.loadTopic()
       this.loadTestCategory();
+
+      const id = param['id'];
+      if(id){
+        this.editTest = true;
+        this.mapObjToForm(id);
+        console.log(this.editTest);
+      }
     })
+  }
+
+  mapObjToForm(testId: any) {
+    this.testService.getTestById(testId).subscribe((test) => {
+      console.log(test);
+      this.questionService.getQuestionByTestId(test.id).subscribe((questionData) => {
+        console.log(questionData);
+        this.questions.map((question : any) => {
+          questionData.forEach((ques: any) => {
+            if(ques.id == question.id){
+              question.isSelected = true;
+            }
+          })
+        })
+        console.log(this.questions);
+        this.addSelectedQuestion();
+      })
+
+    });
+
   }
   async loadTestCategory() {
     const res: any = await this.testCategoryService.getTestCategory();
@@ -64,10 +96,7 @@ export class AddTestComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.createForm = this.fb.group({
-    //   testName: [''],
-    //   time: [''],
-    // });
+
   }
 
   async loadTopic() {
@@ -95,6 +124,28 @@ export class AddTestComponent implements OnInit {
         this.clearTabHeadLine(this.questions);
       }
     });
+  }
+
+  async loadDataV2() {
+    const res: any = await this.questionService.getQuestions({...this.formSearch});
+      if (res.items) {
+        console.log('in items');
+        res.items = res.items.filter((question: any) => {
+          // Trả về true nếu question.id không tồn tại trong this.questionListSelected
+          return !this.questionListSelected.some((selectedQuestion: any) => selectedQuestion.id === question.id);
+        });
+        this.questions = res.items;
+        //////////////////// test data
+        this.questions.map((question : any, index: number) => {
+          question.isSelected = false;
+          question.serialNumber = index + 1;
+        })
+        console.log(this.questions);
+      }
+  }
+
+  updateSelectedItems(e: any){
+    console.log(e);
   }
 
   clearTabHeadLine(data: any) {
@@ -173,28 +224,6 @@ export class AddTestComponent implements OnInit {
             this.returnList();
           },
       })
-
-    // this.testService.addTest(
-    //   {
-    //     testName: this.testName, 
-    //     time: this.totalTime * 60, 
-    //     totalPoint: this.totalPoint,
-    //     numberOfQuestion: this.questionListSelected.length,
-    //     testCategoryId: this.testCategoryId,
-    //     imgLink: this.fileValue,
-    //     file: this.fileValue,
-    //     ids: ids
-    //   }).subscribe({
-    //       next: (res) => console.log(res),
-    //       error: (error: HttpErrorResponse) => {
-    //         this.commonService.showeNotiResult('Thêm bài test thất bại', 2000);
-
-    //       },
-    //       complete: async () => {
-    //         this.commonService.showeNotiResult('Thêm bài test thành công', 2000);
-    //         this.returnList();
-    //       },
-      // })
   }
 
   validate() {

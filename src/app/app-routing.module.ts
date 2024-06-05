@@ -87,6 +87,11 @@ const routes: Routes = [
         data: { breadcrumb: 'Tạo mới đề thi' },
       },
       {
+        path: 'tests/edit-test/:id',
+        component: AddTestComponent,
+        data: { breadcrumb: 'Chỉnh sửa đề thi' },
+      },
+      {
         path: 'tests/:id',
         component: DetailTestComponent,
         data: { breadcrumb: 'Chi tiết đề thi' },

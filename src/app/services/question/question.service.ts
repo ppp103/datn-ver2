@@ -35,6 +35,14 @@ export class QuestionService extends RepositoryEloquentService {
     return this.getDataFromServer(param, search);
   }
 
+  public getQuestions(param: any){
+    this.setServiceInfo({
+      apiUrl: `${environment.apiEndPoint}Question`,
+    });
+    return this.getFetchAll(param);
+  
+  }
+
   public updateQuestion(param: any){
     this.setServiceInfo({
       apiUrl: `${environment.apiEndPoint}Question`,
