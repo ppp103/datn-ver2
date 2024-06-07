@@ -25,7 +25,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AddTestComponent } from './manage-test/add-test/add-test.component';
 import { DetailTestComponent } from './manage-test/detail-test/detail-test.component';
 import { ManageTestComponent } from './manage-test/manage-test.component';
-import { DropDownTreeModule } from '@syncfusion/ej2-angular-dropdowns';
+import { DropDownListAllModule, DropDownTreeModule } from '@syncfusion/ej2-angular-dropdowns';
 // import { LineChartComponent } from './line-chart/line-chart.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { UserTestComponent } from './manage-test/user-test/user-test.component';
@@ -85,6 +85,7 @@ import { PageService, SortService, FilterService, GroupService } from '@syncfusi
     MatDialogModule,
     DropDownTreeModule,
     DragDropModule,
+    DropDownListAllModule,
   ],
   providers: [
     PageService,

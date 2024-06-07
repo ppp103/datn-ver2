@@ -10,7 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DebounceDirective } from '../../../../directives/debounce.directive';
 import { PracticeTestService } from '../../../../services/practice-test/practice-test.service';
 import { TestCategoryService } from '../../../../services/test-category/test-category.service';
-import { GridComponent } from '@syncfusion/ej2-angular-grids';
+import { GridComponent, TextWrapSettingsModel } from '@syncfusion/ej2-angular-grids';
+import { Tooltip } from '@syncfusion/ej2-popups'; 
 @Component({
   selector: 'app-add-test',
   templateUrl: './add-test.component.html',
@@ -33,7 +34,8 @@ export class AddTestComponent implements OnInit {
   editTest: any = false;
   defaultImg = 'https://localhost:7253/images/tests/avatar-default.png'
   previewUrl: string | ArrayBuffer | null = null;
-
+  public wrapSettings?: TextWrapSettingsModel;
+  
   formErrors = {
     testName: '',
     testCategory: '',
@@ -71,6 +73,17 @@ export class AddTestComponent implements OnInit {
     })
   }
 
+  headerCellInfo(args: any) { 
+    console.log(args.cell.column.field);
+    if(args.cell.column.field){
+      const toolcontent = args.cell.column.headerText; 
+      const tooltip: Tooltip = new Tooltip({ 
+        content: toolcontent 
+      });   
+      tooltip.appendTo(args.node); 
+    }
+  }
+
   mapObjToForm(testId: any) {
     this.testService.getTestById(testId).subscribe((test) => {
       this.questionService.getQuestionByTestId(test.id).subscribe((questionData) => {
@@ -83,10 +96,9 @@ export class AddTestComponent implements OnInit {
         //   })
         // })
 
-        console.log(test);
         this.testName = test.testName
         this.testCategoryId = test.testCategoryId;
-
+        this.previewUrl = test.imgLink;
         /// Set các câu hỏi đã chọn
         // Tạo một tập hợp các id từ questionData
         const idsToRemove = new Set(questionData.map((questionDatum: any) => questionDatum.id));
@@ -108,7 +120,7 @@ export class AddTestComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.wrapSettings = { wrapMode: 'Content' };
   }
 
   async loadTopic() {

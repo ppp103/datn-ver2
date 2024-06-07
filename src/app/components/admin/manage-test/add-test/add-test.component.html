@@ -36,8 +36,8 @@
                     <div class="mb-3">
                       <!-- *ngIf="previewUrl" -->
                       <div class="p-2">
-                        <img style="width: 150px;" *ngIf="!editTest" [src]="previewUrl ?? defaultImg" alt="Image Preview">
-                        <!-- <img *ngIf="editTest" [src]="previewUrl ?? defaultImg" alt="Image Preview"> -->
+                        <img style="width: 250px;" *ngIf="!editTest" [src]="previewUrl ?? defaultImg" alt="Image Preview">
+                        <img style="width: 250px;" *ngIf="editTest" [src]="previewUrl ?? defaultImg" alt="Image Preview">
 
                       </div>
                       <input
@@ -160,28 +160,29 @@
                         </div>
                       </ng-container>
                       <ng-template #data>
-
                         <ejs-grid #grid 
                           class="table-striped"
                           [dataSource]="questions"
                           allowPaging="true" 
                           allowSorting="true"
-                          allowResizing="true"
                           allowSelection="true"
+                          allowTextWrap='true' 
+                          [textWrapSettings]='wrapSettings'
+                          (headerCellInfo)='headerCellInfo($event)'
                           >
                           <e-columns>
-                            <e-column textAlign="left"  minWidth=50 width=70 maxWidth=100 type='checkbox'></e-column>
-                            <e-column textAlign="left" field="serialNumber" headerText="STT">
+                            <e-column width=30 textAlign="left" type='checkbox'></e-column>
+                            <e-column width=55 textAlign="left" field="serialNumber" headerText="STT">
                             </e-column>
-                            <e-column textAlign="left" field="content" headerText="Câu hỏi">
+                            <e-column width=250 textAlign="left" field="content" headerText="Câu hỏi">
                             </e-column>
-                            <e-column textAlign="left" field="difficultyLevel" headerText="Độ khó">
+                            <e-column width=62 field="difficultyLevel" headerText="Độ khó">
                             </e-column>
-                            <e-column textAlign="left" field="loaiCau" headerText="Loại câu hỏi">
+                            <e-column width=100 textAlign="left" field="loaiCau" headerText="Loại câu hỏi">
                             </e-column>
-                            <e-column textAlign="left" field="point" headerText="Điểm">
+                            <e-column width=50 textAlign="left" field="point" headerText="Điểm">
                             </e-column>
-                            <e-column textAlign="left" field="time" headerText="Thời gian">
+                            <e-column width=60 textAlign="left" field="time" headerText="Thời gian">
                             </e-column>
 
                           </e-columns>
