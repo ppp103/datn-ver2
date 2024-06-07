@@ -36,7 +36,7 @@
                     <div class="mb-3">
                       <!-- *ngIf="previewUrl" -->
                       <div class="p-2">
-                        <img *ngIf="!editTest" [src]="previewUrl ?? defaultImg" alt="Image Preview">
+                        <img style="width: 150px;" *ngIf="!editTest" [src]="previewUrl ?? defaultImg" alt="Image Preview">
                         <!-- <img *ngIf="editTest" [src]="previewUrl ?? defaultImg" alt="Image Preview"> -->
 
                       </div>
@@ -57,7 +57,7 @@
                             class="form-control"
                             [(ngModel)]="testCategoryId"
                             >
-                            <option disabled selected hidden>
+                            <option value="" disabled selected>
                               Chọn loại đề thi
                             </option>
                             <option *ngFor="let testCategory of testCategories" [value]="testCategory.id">{{testCategory.testCategoryName}}</option>
@@ -170,18 +170,18 @@
                           allowSelection="true"
                           >
                           <e-columns>
-                            <e-column type='checkbox'></e-column>
-                            <e-column field="serialNumber"  headerText="STT">
+                            <e-column textAlign="left"  minWidth=50 width=70 maxWidth=100 type='checkbox'></e-column>
+                            <e-column textAlign="left" field="serialNumber" headerText="STT">
                             </e-column>
-                            <e-column field="content" headerText="Câu hỏi">
+                            <e-column textAlign="left" field="content" headerText="Câu hỏi">
                             </e-column>
-                            <e-column field="difficultyLevel" headerText="Độ khó">
+                            <e-column textAlign="left" field="difficultyLevel" headerText="Độ khó">
                             </e-column>
-                            <e-column field="loaiCau" headerText="Loại câu hỏi">
+                            <e-column textAlign="left" field="loaiCau" headerText="Loại câu hỏi">
                             </e-column>
-                            <e-column field="point" headerText="Điểm">
+                            <e-column textAlign="left" field="point" headerText="Điểm">
                             </e-column>
-                            <e-column field="time" headerText="Thời gian">
+                            <e-column textAlign="left" field="time" headerText="Thời gian">
                             </e-column>
 
                           </e-columns>
