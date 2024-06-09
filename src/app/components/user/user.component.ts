@@ -11,6 +11,7 @@ export class UserComponent {
   constructor(
     private authService : AuthService
   ){
+    this.authService.returnSignIn();    
     this.user = this.authService.getUserDataFromLocal();
   }
   toggleMenu(){

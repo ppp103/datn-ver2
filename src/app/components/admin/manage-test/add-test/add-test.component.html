@@ -292,10 +292,18 @@
             </div>
             <div class="w-full flex justify-end px-3">
               <button (click)="onSubmit()"
-                      class="bg-blue-200 py-2 shadow-md hover:bg-blue-300 text-blue-600 border border-gray-400 transition duration-200 ease-in-out text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
-                    >
-                      <span><i class="fa mr-1"></i>Tạo bài test</span>
-                    </button>
+                class="bg-blue-200 py-2 shadow-md hover:bg-blue-300 text-blue-600 border border-gray-400 transition duration-200 ease-in-out text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
+              >
+                <span><i class="fa mr-1"></i>
+                  <span *ngIf="!editTest">
+                    Tạo bài test
+                  </span>
+                  <span *ngIf="editTest">
+                    Sửa bài test
+                  </span>
+                  
+                </span>
+              </button>
             </div>
           </div>
         </div>

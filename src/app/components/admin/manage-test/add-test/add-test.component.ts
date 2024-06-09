@@ -12,6 +12,7 @@ import { PracticeTestService } from '../../../../services/practice-test/practice
 import { TestCategoryService } from '../../../../services/test-category/test-category.service';
 import { GridComponent, TextWrapSettingsModel } from '@syncfusion/ej2-angular-grids';
 import { Tooltip } from '@syncfusion/ej2-popups'; 
+import { AuthService } from '../../../../services/auth/auth.service';
 @Component({
   selector: 'app-add-test',
   templateUrl: './add-test.component.html',
@@ -28,6 +29,7 @@ export class AddTestComponent implements OnInit {
   totalPoint: any;
   inputModel: any;
   testName: any;
+  testId: any;
   testCategoryId: any;
   testCategories: any;
   formData: any;
@@ -57,7 +59,8 @@ export class AddTestComponent implements OnInit {
     private testService: TestService,
     private router: Router,
     private route: ActivatedRoute,
-    private testCategoryService: TestCategoryService
+    private testCategoryService: TestCategoryService,
+    private authService: AuthService
   ) {
     this.route.params.subscribe((param) => {
       this.questionListSelected.splice(0, this.questionListSelected.length);
@@ -67,6 +70,7 @@ export class AddTestComponent implements OnInit {
 
       const id = param['id'];
       if(id){
+        this.testId = id;
         this.editTest = true;
         this.mapObjToForm(id);
       }
@@ -189,10 +193,23 @@ export class AddTestComponent implements OnInit {
     this.formData.append("NumberOfQuestion",  this.questionListSelected.length);
     this.formData.append("TestCategoryId",   this.testCategoryId);
     this.formData.append("File", this.fileValue);
-    // this.formData.append("Ids", ids);
+
     ids.forEach((id:any) => this.formData.append('Ids', id.toString()));
 
-    this.testService.submitTest(this.formData).subscribe({
+    if(this.editTest){
+      this.formData.append("Id", this.testId);
+      this.testService.updateTest(this.formData).subscribe({
+        next: (res) => console.log(res),
+        error: (error: HttpErrorResponse) => {
+          this.commonService.showeNotiResult('Sửa bài test thất bại', 2000);
+        },
+        complete: async () => {
+          this.commonService.showeNotiResult('Sửa bài test thành công', 2000);
+          this.returnList();
+        },
+      })
+    }else{
+      this.testService.submitTest(this.formData).subscribe({
         next: (res) => console.log(res),
         error: (error: HttpErrorResponse) => {
           this.commonService.showeNotiResult('Thêm bài test thất bại', 2000);
@@ -202,6 +219,8 @@ export class AddTestComponent implements OnInit {
           this.returnList();
         },
       })
+    }
+
   }
 
   validate() {

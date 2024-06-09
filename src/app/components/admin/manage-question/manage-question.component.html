@@ -17,13 +17,22 @@
                 <h3 class="font-semibold text-2xl text-gray-800">
                   Danh sách câu hỏi
                 </h3>
-                <button *ngIf="!isDetailPage"
-                  class="btn btn-primary"
-                  (click)="openAddForm(null, 'add')"
-                >
-                  <i class="fas fa-plus-square"></i>
-                  Thêm mới
-                </button>
+                <div>
+                  <button *ngIf="!isDetailPage"
+                    class="btn btn-primary"
+                    (click)="exportExcel()"
+                  >
+                  <i class="fas fa-file-export"></i>
+                    Kết xuất
+                  </button>
+                  <button *ngIf="!isDetailPage"
+                    class="btn btn-primary ml-2"
+                    (click)="openAddForm(null, 'add')"
+                  >
+                    <i class="fas fa-plus-square"></i>
+                    Thêm mới
+                  </button>
+                </div>
               </div>
             </div>
             <form [formGroup]="formSearch">

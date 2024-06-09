@@ -52,6 +52,10 @@ export class ManageQuestionComponent implements OnInit {
 
   }
 
+  export(){
+
+  }
+
   goBack() {
     this.location.back();
   }
@@ -140,7 +144,6 @@ export class ManageQuestionComponent implements OnInit {
 
   // Hàm lấy ra đối tượng khi người dùng click vào một trong 3 nút xóa, chi tiết, sửa
   async getItemByEvent(id: any, mode = 'edit') {
-    console.log(id);
     this.selectedItem = await firstValueFrom(
       this.questionService.getQuestionById(id)
     );
@@ -175,6 +178,22 @@ export class ManageQuestionComponent implements OnInit {
     }
   }
 
+  exportExcel(){
+    this.questionService.downloadQuestionExcelFile({...this.formSearch.value}).subscribe(blob => {
+      if (blob.size === 0) {
+        return;
+      }
+
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      document.body.appendChild(a);
+      a.download = 'Danh-sach-cau-hoi';
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    });
+  }
   
   async formReset() {
     this.formInit();

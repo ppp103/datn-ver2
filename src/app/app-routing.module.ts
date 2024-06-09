@@ -42,19 +42,19 @@ const routes: Routes = [
   {
     path: 'sign-in',
     component: SignInComponent,
-    canActivate: [IsLoginGuarded],
+    // canActivate: [IsLoginGuarded],
   },
   {
     path: 'sign-up',
     component: SignUpComponent,
-    canActivate: [IsLoginGuarded],
+    // canActivate: [IsLoginGuarded],
 
   },
   
   {
     path: 'forget-password',
     component: ForgetPasswordComponent,
-    canActivate: [IsLoginGuarded],
+    // canActivate: [IsLoginGuarded],
   },
   {
     path: 'admin',
@@ -136,7 +136,7 @@ const routes: Routes = [
   {
     path: 'user',
     component: UserComponent,
-    canActivate: [IsGuarded],
+    // canActivate: [IsLoginGuarded],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {

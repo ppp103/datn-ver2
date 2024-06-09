@@ -60,4 +60,8 @@ export class TestService extends RepositoryEloquentService {
     return this.httpClient.post(this.apiUrl, formData);
   }
 
+  updateTest(formData: FormData): Observable<any> {
+    return this.httpClient.put(this.apiUrl, formData);
+  }
+
 }

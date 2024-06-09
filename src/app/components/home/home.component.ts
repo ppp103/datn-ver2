@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth/auth.service';
 export class HomeComponent implements OnInit{
   isLogined: any;
   user: any;
-  defaultUrl = '/user';
+  defaultUrl = '/sign-in';
 
   constructor(
     private authService: AuthService

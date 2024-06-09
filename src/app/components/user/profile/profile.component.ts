@@ -34,6 +34,14 @@ export class ProfileComponent implements AfterViewInit{
     private commonService: CommonServiceShared
   ){
     this.user = this.authService.getUserDataFromLocal();
+    this.userService.getUserById(this.user.Id).subscribe((res: any) => {
+      // this.user = res;
+      console.log(this.user);
+      if(res.imgLink !== '' && res.imgLink){
+        // this.defaultImg = this.user.ImgLink;
+        this.previewUrl = res.imgLink;
+      }
+    })
     console.log(typeof this.user);
   }
 
@@ -116,38 +124,29 @@ export class ProfileComponent implements AfterViewInit{
   }
 
   saveImg(e: any){
+    console.log(e);
     this.formData = new FormData();
-    this.formData.append("id", this.user.Id);
-    this.formData.append("imgLink", e);
+    this.formData.append("Id", this.user.Id);
+    this.formData.append("File", e);
 
     this.userService.updateAvatarFile(this.formData).subscribe({
-      next: (res) => console.log(res),
-          error: (error: HttpErrorResponse) => {
-            this.commonService.showeNotiResult('Chỉnh sửa ảnh thất bại', 2000);
-
-          },
-          complete: async () => {
-            this.commonService.showeNotiResult('Chỉnh sửa ảnh thành công', 2000);
-            // this.returnList();
-          },
+      next: (res) => {
+        if(res.flag){
+          this.commonService.showeNotiResult(res.message, 2000);
+          this.togglePwd = false;
+          this.toggleAvatar = false;
+          this.toggleEmail = false;
+        }else{
+          this.commonService.showeNotiResult(res.message, 2000);
+        }
+      },
+      error: (error: HttpErrorResponse) => {
+        this.commonService.showeNotiResult('Chỉnh sửa ảnh thất bại', 2000);
+      },
+      complete: () => {
+        // this.commonService.showeNotiResult('Chỉnh sửa ảnh thành công', 2000);
+        // this.returnList();
+      },
     })
-
-    // this.userService.updateAvatarFile({
-    //   id: this.user.Id, 
-    //   imgLink: e.name
-    // }).subscribe({
-    //     next: async (res) => {
-    //       this.commonService.showeNotiResult(res.message, 2000);
-    //       this.email.clearForm();
-    //       this.authService.reloadUserInfo();
-    //       this.user = this.authService.getUserDataFromLocal();
-    //     },
-    //     error: (error: HttpErrorResponse) => {
-    //       this.commonService.showeNotiResult(
-    //         'Lỗi hệ thống! Vui lòng thử lại sau!',
-    //         2000
-    //       );
-    //     },
-    //   })
   }
 } 

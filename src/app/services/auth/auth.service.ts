@@ -83,6 +83,7 @@ export class AuthService extends RepositoryEloquentService {
 
   isLoggedIn(): Observable<boolean> {
     const userLocal = this.getUserDataFromLocal();
+    console.log(userLocal);
     if(userLocal){
       return this.userService.getUserById(userLocal.Id).pipe(
         map(res => {
@@ -92,8 +93,41 @@ export class AuthService extends RepositoryEloquentService {
           return false;
         })
       );
-    } else {
+    } 
+    else {
       return of(false);
+    }
+  }
+
+  isAdmin(){
+    const userLocal = this.getUserDataFromLocal();
+    if(userLocal){
+      return this.userService.getUserById(userLocal.Id).pipe(
+        map(res => {
+          if(res && res.Role) return true
+          else return false 
+        })
+      )
+    }else{
+      return of(false);
+    }
+  }
+
+  returnSignIn(){
+    const userLocal = this.getUserDataFromLocal();
+    if(!userLocal){
+      this.router.navigate(['/sign-in']);
+      this.commonService.showeNotiResult('Bạn phải đăng nhập trước', 2000);
+    }
+  }
+
+  returnUser(){
+    const userLocal = this.getUserDataFromLocal();
+    console.log(userLocal.Role);
+    if(userLocal.Role == 0){
+      // this.router.navigate(['/sign-in']);
+      this.router.navigate(['/user']);
+      this.commonService.showeNotiResult('Bạn không có quyền truy cập', 2000);
     }
   }
 

@@ -221,6 +221,15 @@ export class RepositoryEloquentService extends Subject<DataStateChangeEventArgs>
     });
   }
 
+  public downloadFile(params = {}): Observable<Blob> {
+    try {
+      const queryString = this.convertObjectToQueryString(params);
+      return this.httpClient.get(`${this.apiUrl}?${queryString}`, { headers: this.headers, responseType: 'blob' });
+    } catch (error) {
+      return of(new Blob)
+    }
+  }
+
   /**
    * Get data from server
    * @param state DataStateChangeEventArgs

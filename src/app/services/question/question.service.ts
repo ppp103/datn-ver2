@@ -67,9 +67,16 @@ export class QuestionService extends RepositoryEloquentService {
   }
 
   public getQuestionByTestId(id: number){
-        this.setServiceInfo({
+    this.setServiceInfo({
       apiUrl: `${environment.apiEndPoint}Question/get-questions-by-test-id`,
     });
     return this.getById(id)
+  }
+
+  public downloadQuestionExcelFile(param: any){
+    this.setServiceInfo({
+      apiUrl: `${environment.apiEndPoint}Question/excel`,
+    });
+    return this.downloadFile(param)
   }
 }
