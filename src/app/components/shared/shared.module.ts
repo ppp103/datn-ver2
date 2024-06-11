@@ -19,6 +19,12 @@ import { DebounceDirective } from '../../directives/debounce.directive';
 import { TestResultComponent } from '../user/test-result/test-result.component';
 import { TestQuestionComponent } from '../user/test-question/test-question.component';
 import { NgxSimpleBreadcrumbModule } from 'ngx-simple-breadcrumb';
+import { LoadingComponent } from './loading/loading.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoadingInterceptor } from '../../services/loading/loading.interceptor';
+import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {ThemePalette} from '@angular/material/core';
+
 @NgModule({
   declarations: [
     UpdateAvatarComponent,
@@ -31,6 +37,7 @@ import { NgxSimpleBreadcrumbModule } from 'ngx-simple-breadcrumb';
     DebounceDirective,
     TestResultComponent,
     TestQuestionComponent,
+    LoadingComponent,
   ],
   imports: [
     CommonModule,
@@ -40,7 +47,8 @@ import { NgxSimpleBreadcrumbModule } from 'ngx-simple-breadcrumb';
     MatTooltipModule,
     GridModule,
     MatDialogModule,
-    NgxSimpleBreadcrumbModule
+    NgxSimpleBreadcrumbModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     UpdateAvatarComponent,
@@ -54,7 +62,12 @@ import { NgxSimpleBreadcrumbModule } from 'ngx-simple-breadcrumb';
     DebounceDirective,
     TestResultComponent,
     TestQuestionComponent,
-    NgxSimpleBreadcrumbModule
+    NgxSimpleBreadcrumbModule,
+    LoadingComponent,
+
   ],
+  providers: [
+     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
+  ]
 })
 export class SharedModule {}

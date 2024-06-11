@@ -1,0 +1,9 @@
+<div *ngIf="loadingService.loading$ | async" class="loading-overlay">
+  <!-- <mat-spinner></mat-spinner> -->
+      <mat-progress-spinner
+        class="example-margin"
+        color="primary"
+        mode="indeterminate"
+        value="50">
+    </mat-progress-spinner>
+</div>

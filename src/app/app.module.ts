@@ -13,9 +13,11 @@ import { HomeModule } from './components/home/home.module';
 import { UserModule } from './components/user/user.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { SharedModule } from './components/shared/shared.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HighchartsChartModule } from 'highcharts-angular';
-
+// import { LoadingInterceptor } from './services/loading/loading.interceptor';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+// import { LoadingComponent } from './components/shared/loading/loading.component';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -28,9 +30,11 @@ import { HighchartsChartModule } from 'highcharts-angular';
     UserModule,
     SharedModule,
     HttpClientModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    MatProgressSpinnerModule
   ],
-  providers: [provideClientHydration(), provideAnimationsAsync()],
+  providers: [provideClientHydration(), provideAnimationsAsync(),
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
