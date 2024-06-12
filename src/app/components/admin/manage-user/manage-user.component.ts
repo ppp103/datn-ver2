@@ -114,6 +114,7 @@ export class ManageUserComponent implements OnInit {
       // Nếu người dùng ấn nút xác nhận thì xóa và cập nhật lại data
       result.afterClosed().subscribe(async (res) => {
         if (res === 'confirm') {
+          console.log(this.selectedItem.id);
           // Xóa
           this.userService.deleteUser(this.selectedItem.id).subscribe({
             next: (res: any) => console.log(res),
@@ -145,5 +146,4 @@ export class ManageUserComponent implements OnInit {
       }
     });
   }
-
 }

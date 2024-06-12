@@ -71,7 +71,7 @@
   
                   <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-no-wrap p-4">
 
-                      <span class="w-fit" [ngClass]="topic.id === selectedUpdateId ?  'hidden': 'block'"
+                      <span class="w-fit text-sm" [ngClass]="topic.id === selectedUpdateId ?  'hidden': 'block'"
                       [ngClass]="{'hover:text-green-700' :  !isPartPage, 'cursor-pointer ' : !isPartPage}"
                       [matTooltip]="isPartPage ? '' : 'Xem nội dung'"
                       matTooltipPosition="above"

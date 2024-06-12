@@ -68,7 +68,7 @@ export class UserService extends RepositoryEloquentService {
       apiUrl: `${environment.apiEndPoint}User`,
     });
 
-    return this.deleteItem(id);
+    return this.deleteItem({Id: id});
   }
 
   public updatePassword(param: any){

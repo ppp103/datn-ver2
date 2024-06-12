@@ -9,12 +9,14 @@
         <!--header-->
         <div class="flex items-start justify-between py-4 px-5 border-b border-solid border-gray-300 rounded-t">
           <h3 class="text-2xl font-semibold mb-0">Đổi mật khẩu</h3>
-          <button [mat-dialog-close]
-            class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none">
-              <span
-                class="bg-transparent text-gray-700 opacity-5 h-3 w-3 text-base block outline-none focus:outline-none">
-              <i class="fas fa-close"></i>
-              </span>
+          <div>
+
+          </div>
+          <button
+            class="p-1 ml-auto border-0 text-black text-3xl font-semibold"
+            (click)="closeModal()"
+          >
+            <i class="fas fa-times"></i>
           </button>
         </div>
         <!--body-->

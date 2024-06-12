@@ -69,7 +69,7 @@ export class AuthService extends RepositoryEloquentService {
       },
       error: (error: HttpErrorResponse) => {
         console.log(error);
-        this.commonService.showeNotiResult('Đăng ký thất bại! Vui lòng thử lại sau', 2000);
+        this.commonService.showeNotiResult(error.error.message, 2000);
       },
       complete: () => {
         this.commonService.showeNotiResult('Đăng ký thành công', 2000);
