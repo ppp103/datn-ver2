@@ -24,6 +24,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingInterceptor } from '../../services/loading/loading.interceptor';
 import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {ThemePalette} from '@angular/material/core';
+import { UpdatePasswordAdminComponent } from './update-profile/update-password-admin/update-password-admin.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import {ThemePalette} from '@angular/material/core';
     TestResultComponent,
     TestQuestionComponent,
     LoadingComponent,
+    UpdatePasswordAdminComponent,
   ],
   imports: [
     CommonModule,
@@ -64,6 +66,7 @@ import {ThemePalette} from '@angular/material/core';
     TestQuestionComponent,
     NgxSimpleBreadcrumbModule,
     LoadingComponent,
+    UpdatePasswordAdminComponent,
 
   ],
   providers: [

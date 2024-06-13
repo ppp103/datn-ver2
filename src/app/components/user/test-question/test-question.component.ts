@@ -130,7 +130,9 @@ export class TestQuestionComponent {
     console.log(this.answerSheets);
     // Check xem tất cả các đáp án đã được trả lời
     const hasEmptyOption = this.answerSheets.some((answer : any) => answer.chosenOption == '')
+    // const hasEmptyOption = this.questions.some((question : any) => question.isAnswered == false)
 
+    console.log(hasEmptyOption);
     if(hasEmptyOption) {
       this.commonService.showeNotiResult('Vui lòng trả lời hết tất cả các câu hỏi', 2000);
       return;
@@ -139,7 +141,11 @@ export class TestQuestionComponent {
   }
 
   getAnswerSheets(){
+      // Reset lại answerSheet sau khi nhấn nộp bài 1 lần
+      this.answerSheets = [];
+
       this.questions.forEach((question : any) => {
+      console.log(question, 'quessstion');
       let chosenOption = '';
       question.choices.forEach((choice : any) => {
         if(choice.isSelected){
@@ -155,8 +161,6 @@ export class TestQuestionComponent {
   }
 
   addPracticeTest(){
-    // time: tính remaining time
-    // userId + createdBy: tạm fix cứng 
     console.log(this.counter);
     this.inputModel = {
       time: this.totalTime - this.counter,

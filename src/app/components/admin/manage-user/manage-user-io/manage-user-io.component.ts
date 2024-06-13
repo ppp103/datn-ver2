@@ -31,9 +31,8 @@ export class ManageUserIoComponent {
   }
 
   updatePassword(event: any){
-    this.userService.updatePassword(
+    this.userService.updatePasswordAdmin(
       { id: this.user.Id, 
-        oldPassword: event.currentPassword, 
         newPassword: event.newPassword
       }).subscribe({
         next: (res) => {

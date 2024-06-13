@@ -78,6 +78,13 @@ export class UserService extends RepositoryEloquentService {
 
     return this.updateItem(param);
   }
+  public updatePasswordAdmin(param: any){
+    this.setServiceInfo({
+      apiUrl: `${environment.apiEndPoint}User/update-password-admin`,
+    });
+
+    return this.updateItem(param);
+  }
 
   public updateAvatar(param: any){
     this.setServiceInfo({

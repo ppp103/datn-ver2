@@ -54,16 +54,6 @@
                           >
                             Chủ đề <span class="mandatory">(*)</span>
                           </label>
-                          <!-- <select
-                            class="form-control"
-                            formControlName="ChuDeId"
-                            placeholder="Chọn chủ đề"
-                          >
-                            <option value="" disabled selected hidden>
-                              Chọn loại chủ đề
-                            </option>
-                            <option value="1">1</option>
-                          </select> -->
                           <ejs-dropdowntree 
                             #dropdownTree 
                             id="form1" 
@@ -178,11 +168,6 @@
                                         class="radio-btn"
                                         style="width: 180px"
                                       >
-                                        <!-- <input class="form-control" type="text" placeholder="test" 
-                                        [(ngModel)]="test" 
-                                        [ngModelOptions]="{standalone: true}"
-                                        >
-                                        {{test}} -->
                                         <input
                                           id="mc-{{ i }}"
                                           type="radio"
@@ -291,31 +276,6 @@
                                 ></textarea>
                               </div>
                             </div>
-                            <!-- <div class="flex">
-                              <div class="radio-type flex-1">
-                                <div class="radio-btn">
-                                  <input
-                                    type="radio"
-                                    id="T"
-                                    name="choices"
-                                    value="True"
-                                  />
-                                  <label for="T">True</label>
-                                </div>
-                              </div>
-
-                              <div class="radio-type flex-1">
-                                <div class="radio-btn">
-                                  <input
-                                    type="radio"
-                                    id="False"
-                                    name="choices"
-                                    value="F"
-                                  />
-                                  <label for="False">False</label>
-                                </div>
-                              </div>
-                            </div> -->
                           </ng-container>
                         </div>
                       </div>
@@ -354,4 +314,3 @@
     </div>
   </div>
 </form>
-<!-- <div *ngIf="showModal" class="fixed inset-0 z-40 bg-smoke-light"></div> -->

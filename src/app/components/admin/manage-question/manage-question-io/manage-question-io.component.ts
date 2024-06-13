@@ -3,7 +3,6 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
-  Validators,
 } from '@angular/forms';
 import { QuestionService } from '../../../../services/question/question.service';
 import {
@@ -15,8 +14,6 @@ import { Choice } from '../../../../models/choice';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonServiceShared } from '../../../../services/base/common-service.service';
 import { QuestionCategoryService } from '../../../../services/question-category/question-category.service';
-import { closeFilterDialog } from '@syncfusion/ej2-angular-grids';
-import { QTYPE } from '../../../../enum/enum';
 import { TopicService } from '../../../../services/topics/topic.service';
 import { DropDownTreeComponent } from '@syncfusion/ej2-angular-dropdowns';
 @Component({
@@ -52,7 +49,8 @@ export class ManageQuestionIoComponent {
     Option3: '',
     Option4: '',
     difficultyLevel: '',
-
+    duplicate: '',
+    hasContent: '',
   };
   questionCategories: any;
   topics: any;
@@ -174,7 +172,7 @@ export class ManageQuestionIoComponent {
   }
 
   addMCAnswer() {
-    this.validate();
+    // this.validate();
     if (this.multipleChoice.length >= 4) {
       return;
     }
@@ -186,7 +184,7 @@ export class ManageQuestionIoComponent {
     );
   }
 
-  validate(): boolean {
+validate(): boolean {
     let isValid = true;
     const formValue = this.createForm.value;
 
@@ -201,52 +199,55 @@ export class ManageQuestionIoComponent {
         ) !== index
     );
 
+    // Validate ChuDeId
     if (!formValue.ChuDeId) {
       this.formErrors.ChuDeId = 'Vui lòng chọn chủ đề';
       isValid = false;
     } else {
       this.formErrors.ChuDeId = '';
-      isValid = true;
     }
 
+    // Validate DifficultyLevel
     if (!formValue.DifficultyLevel) {
       this.formErrors.difficultyLevel = 'Vui lòng chọn độ khó';
       isValid = false;
     } else {
       this.formErrors.difficultyLevel = '';
-      isValid = true;
     }
 
+    // Validate Content
     if (!formValue.Content) {
       this.formErrors.Content = 'Nội dung câu hỏi không được để trống';
       isValid = false;
     } else {
       this.formErrors.Content = '';
-      isValid = true;
     }
 
+    // Validate Empty Text Choice
     if (hasEmptyTextChoice) {
       this.commonService.showeNotiResult(
         'Vui lòng điền đầy đủ các đáp án',
         2000
       );
+      this.formErrors.hasContent = 'Vui lòng điền đầy đủ các đáp án';
       isValid = false;
     } else {
-      isValid = true;
+      this.formErrors.hasContent = '';
     }
 
-    if (hasDuplicates) {
+    // Validate Duplicates (only if there are no empty choices)
+    if (!hasEmptyTextChoice && hasDuplicates) {
       this.commonService.showeNotiResult(
         'Các đáp án không được trùng nhau',
         2000
       );
+      this.formErrors.hasContent = 'Các đáp án không được trùng nhau';
       isValid = false;
-    } else {
-      isValid = true;
     }
 
     return isValid;
   }
+
 
   removeMCChoice(i: number) {
     this.multipleChoice.splice(i, 1);
@@ -264,7 +265,9 @@ export class ManageQuestionIoComponent {
         this.createForm.value.correctOption = choice.choiceText;
       }
     });
+    console.log(this.validate());
     if (!this.validate()) return;
+    console.log('validated');
     if (this.editMode) {
       this.inputModel = this.createForm.value;
       this.inputModel.id = this.data.item.id;
