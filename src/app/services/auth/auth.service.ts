@@ -104,7 +104,7 @@ export class AuthService extends RepositoryEloquentService {
     if(userLocal){
       return this.userService.getUserById(userLocal.Id).pipe(
         map(res => {
-          if(res && res.Role) return true
+          if(res && res.role) return true
           else return false 
         })
       )
@@ -123,11 +123,26 @@ export class AuthService extends RepositoryEloquentService {
 
   returnUser(){
     const userLocal = this.getUserDataFromLocal();
-    console.log(userLocal.Role);
     if(userLocal.Role == 0){
       // this.router.navigate(['/sign-in']);
       this.router.navigate(['/user']);
       this.commonService.showeNotiResult('Bạn không có quyền truy cập', 2000);
+    }
+  }
+
+  returnHome(){
+    const userLocal = this.getUserDataFromLocal();
+    if(userLocal){
+      if(userLocal.Role == 0){
+        // this.router.navigate(['/sign-in']);
+        this.router.navigate(['/user']);
+        this.commonService.showeNotiResult('Bạn đã có tài khoản', 2000);
+      }else{
+        this.router.navigate(['/admin']);
+        this.commonService.showeNotiResult('Bạn đã có tài khoản', 2000);
+      }
+    }else{
+      return;
     }
   }
 

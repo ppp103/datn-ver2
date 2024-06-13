@@ -30,6 +30,7 @@ export class SignInComponent implements OnInit{
   }
 
   ngOnInit(){
+    this.authService.returnHome();
     this.formInit()
     this.setValidation();
   }

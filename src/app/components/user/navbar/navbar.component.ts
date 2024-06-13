@@ -9,9 +9,14 @@ import { AuthService } from '../../../services/auth/auth.service';
 })
 export class NavbarComponent {
   user: any;
+  isAdmin: any;
   constructor(
     private authService : AuthService
   ){
     this.user = this.authService.getUserDataFromLocal();
+    this.authService.isAdmin().subscribe((res: any) => {
+      console.log(res);
+      this.isAdmin = res;
+    });
   }
 }

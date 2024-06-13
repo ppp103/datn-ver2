@@ -39,6 +39,7 @@ export class SignUpComponent {
   ) { }
 
     async ngOnInit() {
+      this.authenService.returnHome();
     this.formInit();
     this.setValidation();
   }
@@ -80,12 +81,21 @@ export class SignUpComponent {
 
   register() {
     // validate
-    this.logAllValidationErrorMessages();
+    if(!this.registerForm.valid){
+      this.logAllValidationErrorMessages();
+      return;
+    }else{
+      this.formErrors.userName = '';
+      this.formErrors.confirmPassword = '';
+      this.formErrors.email = '';
+      this.formErrors.password = '';
 
-    // check mật khẩu trùng nhau
-    this.passMatch = this.registerForm.value.password == this.registerForm.value.confirmPassword ? true : false;
-    
-    this.authenService.register(this.registerForm.value);
+      // check mật khẩu trùng nhau
+      this.passMatch = this.registerForm.value.password == this.registerForm.value.confirmPassword ? true : false;
+      
+      this.authenService.register(this.registerForm.value);
+    }
+
   }
 
   togglePassword() {
