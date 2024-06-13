@@ -8,6 +8,10 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 export class ResultCircleComponent implements OnInit, OnChanges {
   @Input() current!: number;
   @Input() max!: number;
+
+  newCurrent!: any;
+  newMax = 10;
+
   colors: any = {
     color: '',
     background: '',
@@ -31,5 +35,7 @@ export class ResultCircleComponent implements OnInit, OnChanges {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.newCurrent = (this.current / this.newMax).toFixed(2); 
+  }
 }
