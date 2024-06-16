@@ -110,4 +110,12 @@ export class UserService extends RepositoryEloquentService {
 
     return this.updateItem(param);
   }
+
+  public forgetPassword(param: any){
+    this.setServiceInfo({
+      apiUrl: `${environment.apiEndPoint}User/forget-password`,
+    });
+
+    return this.addItem(param);
+  }
 }
