@@ -40,8 +40,6 @@ export class QuestionDetailComponent implements OnInit {
         });
       }
     }
-
-    console.log(this.multipleChoice);
   }
 
   onSaveAndClose() {}

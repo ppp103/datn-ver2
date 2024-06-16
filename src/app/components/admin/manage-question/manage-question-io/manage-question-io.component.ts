@@ -168,7 +168,6 @@ export class ManageQuestionIoComponent {
   changeChoiceMC(i: number) {
     this.multipleChoice.map((item) => (item.isCorrected = 0));
     this.multipleChoice[i].isCorrected = 1;
-    console.log('123');
   }
 
   addMCAnswer() {
@@ -267,7 +266,6 @@ validate(): boolean {
     });
     console.log(this.validate());
     if (!this.validate()) return;
-    console.log('validated');
     if (this.editMode) {
       this.inputModel = this.createForm.value;
       this.inputModel.id = this.data.item.id;
