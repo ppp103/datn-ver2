@@ -23,6 +23,7 @@ export class ReportComponent implements OnInit{
   totalLastestTests: any;
   currentDate = new Date();
   pagging: any;
+  time: any = 30;
 
   constructor(
     private chartService : ChartService,
@@ -33,12 +34,18 @@ export class ReportComponent implements OnInit{
   }
   async ngOnInit() {
     this.user = this.authService.getUserDataFromLocal();
-    this.getStatisticByUser(7);
+    this.getStatisticByUser(this.time);
 
     // const resPracticeTest: any = await this.praticeTestService.getPracticeTestByTypeId({id: this.user.Id, type: Constant.PracticeTestType.UserId})
     // this.totalLastestTests = resPracticeTest.paging.otalItems;
     // this.lastestTests = resPracticeTest.items;
     this.loadData();
+  }
+
+  onTimeChange(e: any){
+    // console.log(e.target.value);
+    this.time = e.target.value;
+    this.getStatisticByUser(this.time)
   }
   
   seriesthongKeKetQuaLuyenThiCaNhanChart = [{
