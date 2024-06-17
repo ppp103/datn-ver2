@@ -203,34 +203,42 @@
               <div
                 class="relative flex flex-col w-full px-4 max-w-full flex-grow leading-8 mb-3"
               >
+              <div class="flex justify-between items-baseline">
                 <p
                   class="mx-3 my-3 text-gray-600 text-md text-blue-700 text-xl font-semibold"
                 >
                   Câu hỏi đã chọn
                 </p>
+                <div>
+                  <button class="btn btn-primary" (click)="shuffleList()">Trộn câu hỏi</button>
+                </div>
+              </div>
                 <div
                   class="flex justify-between my-4 px-2 text-gray-800 font-bold"
                 >
                   <div class="w-1/3">
-                    <span class="mx-1">Số câu đã chọn:</span>
+                    <span>Số câu đã chọn:</span>
                     <span class="mx-1 text-blue-700">
                       {{ questionListSelected.length }}
                     </span>
                   </div>
                   <div class="w-1/3">
-                    <span class="mx-1">Thời gian ước tính:</span>
+                    <span>Thời gian ước tính:</span>
                     <span class="mx-1 text-blue-700">
                       {{ totalTime }} phút
                     </span>
                   </div>
                   <div class="w-1/3">
-                    <span class="mx-1">Tổng điểm:</span>
+                    <span>Tổng điểm:</span>
                     <span class="mx-1 text-blue-700">
                       {{ totalPoint }} 
                     </span>
                   </div>
-                </div>
 
+                </div>
+                <div class="w-100 mb-2">
+                    <span class="text-red-700" *ngIf="!validScore">Số điểm không được lớn hơn 150</span>
+                  </div>
                 <div cdkDropList class="example-list"
                 (cdkDropListDropped)="drop($event)"
                 >

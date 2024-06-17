@@ -23,7 +23,7 @@
   </div>
   <h2 class="m-0"><i class="fa fa-line-chart mr-2"></i>Thống kê kết quả luyện thi</h2>
 </div>
-<div class="statistic flex justify-between mb-4">
+<div *ngIf="reports" class="statistic flex justify-between mb-4">
   <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg hover:shadow-2xl">
       <div class="flex-auto p-4 w-full card-width">
         <div class="flex flex-wrap">
@@ -44,7 +44,7 @@
         </div>
     </div>
   </div>
-    <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg hover:shadow-2xl">
+  <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg hover:shadow-2xl">
       <div class="flex-auto p-4 w-full card-width">
         <div class="flex flex-wrap">
           <div class="relative w-full pr-4 max-w-full flex-grow flex-1 p-0 py-2">
@@ -67,7 +67,7 @@
         </div>
     </div>
   </div>
-    <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg hover:shadow-2xl">
+  <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg hover:shadow-2xl">
       <div class="flex-auto p-4 w-full card-width">
         <div class="flex flex-wrap">
           <div class="relative w-full pr-4 max-w-full flex-grow flex-1 p-0 py-2">
@@ -204,7 +204,7 @@
     <div class="flex justify-between items-center mb-3 px-2">
       <div class="current-exam lg:text-2xl font-semibold text-gray-800">
         <div class="font-semibold text-2xl mb-4">
-          Danh sách bài luyện:
+          Danh sách bài luyện (<span>{{totalLastestTests}}</span>):
           <!-- <span class="mx-2">({{listComplete.length}})</span> -->
           <!-- <span class="mx-1">({{lastestTests.length}})</span> -->
         </div>

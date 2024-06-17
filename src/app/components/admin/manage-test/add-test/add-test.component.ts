@@ -37,7 +37,9 @@ export class AddTestComponent implements OnInit {
   defaultImg = 'https://localhost:7253/images/tests/avatar-default.png'
   previewUrl: string | ArrayBuffer | null = null;
   public wrapSettings?: TextWrapSettingsModel;
-  
+  maxTotalPoint: any = 150;
+  validScore: any = true;
+
   formErrors = {
     testName: '',
     testCategory: '',
@@ -167,8 +169,15 @@ export class AddTestComponent implements OnInit {
       selectedQuestion.forEach((question:any) => {
         this.questionListSelected.push(question);
       })
+
+      // Sắp xếp câu hỏi theo độ khó
+      this.questionListSelected.sort((a: any, b: any) => a.difficultyLevel - b.difficultyLevel)
+
       this.totalTime = this.getTotalTime();
       this.totalPoint = this.getTotalPoint();
+      if(this.totalPoint > this.maxTotalPoint){
+        this.validScore = false;
+      }
       this.commonService.showeNotiResult('Thêm câu hỏi thành công', 1000)
       this.loadData();
     }
@@ -184,6 +193,11 @@ export class AddTestComponent implements OnInit {
 
   onSubmit() {
     this.validate();
+    if(!this.validScore) {
+      this.commonService.showeNotiResult(`Số điểm không được quá ${this.maxTotalPoint}`, 2000)
+      return
+    }
+
     const ids = this.questionListSelected.map((item:any) => item.id);
     this.formData = new FormData();
 
@@ -250,6 +264,21 @@ export class AddTestComponent implements OnInit {
       };
       reader.readAsDataURL(this.fileValue);
     }
+  }
+
+  shuffleList(){
+    this.questionListSelected = this.shuffle(this.questionListSelected)
+    this.questionListSelected.sort((a: any, b: any) => a.difficultyLevel - b.difficultyLevel)
+
+  }
+
+  // Hàm trộn danh sách
+  shuffle(array: any[]): any[] {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
   }
 }
 

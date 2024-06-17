@@ -81,9 +81,10 @@ export class ReportComponent implements OnInit{
 
     this.praticeTestService.subscribe((res: any) => {
       this.pagging = res;
+      console.log(res);
+      this.totalLastestTests = res.pagging.totalItems
       if (res.result) {
         this.lastestTests = res.result;
-        this.totalLastestTests = res.result.paging.totalItems
       }
     });
   }

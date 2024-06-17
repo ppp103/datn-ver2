@@ -33,24 +33,8 @@ export class ForgetPasswordComponent implements OnInit{
       email: ['', Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]
     });
   }
-            //   next: (res) => console.log(res),
-            // error: (error: HttpErrorResponse) => {
-            //   console.log(error);
-            //   this.commonService.showeNotiResult(error.error.DevMessage, 2000);
-            // },
-            // complete: async () => {
-            //   this.commonService.showeNotiResult('Xoá thành công', 2000);
-            //   // Update data
-            //   await this.loadData();
-            // },
+
   onSubmitEmail() {
-    console.log('send email');
-    // this.userService.forgetPassword({email: this.email?.value}).subscribe((res: any) => { 
-    //   this.commonService.showeNotiResult(res.message, 2000)
-    //   if(res.flag){
-    //     this.router.navigate([`/sign-in`]);
-    //   }
-    // })
     let result: any;
     this.userService.forgetPassword({email: this.email?.value}).subscribe({
         next: (res) => {
@@ -66,12 +50,6 @@ export class ForgetPasswordComponent implements OnInit{
             2000
           );
         },
-        // complete: () => {
-        //   this.commonService.showeNotiResult(result.message, 2000);
-        //   if(result.flag){
-        //     this.router.navigate([`/sign-in`]);
-        //   }
-        // }
       }
     )
   }
