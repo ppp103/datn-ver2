@@ -23,7 +23,7 @@ export class TestResultComponent implements OnInit {
     
   }
 
-    ngOnInit(): void {
+  ngOnInit(): void {
     let choiceId = 0;
 
     this.route.params.subscribe(params => {
@@ -50,7 +50,7 @@ export class TestResultComponent implements OnInit {
             }
           }
         });
-      this.testService.getTestById(this.practiceTest.testId).subscribe({
+    this.testService.getTestById(this.practiceTest.testId).subscribe({
       next: res => {
         console.log(res);
         this.exam = res;
@@ -60,7 +60,7 @@ export class TestResultComponent implements OnInit {
     });
   }
 
-    scrollToQuestion(questionNumber: number){
+  scrollToQuestion(questionNumber: number){
     const questionId = 'question-' + questionNumber;
     const questionElement = this.el.nativeElement.querySelector('#' + questionId);
     if (questionElement) {

@@ -28,6 +28,7 @@ import { IsGuarded } from './services/auth/auth-guard';
 import { SignUpComponent } from './components/home/sign-up/sign-up.component';
 import { IsLoginGuarded } from './services/auth/login-guard';
 import { PreviewTestComponent } from './components/admin/manage-test/preview-test/preview-test.component';
+import { TestResultPreviewComponent } from './components/admin/test-result-preview/test-result-preview.component';
 
 const routes: Routes = [
   {
@@ -99,6 +100,11 @@ const routes: Routes = [
       {
         path: 'tests/:id/preview',
         component: PreviewTestComponent,
+        data: { breadcrumb: 'Mô phỏng' },
+      },
+      {
+        path: 'tests/:id/preview/result',
+        component: TestResultPreviewComponent,
         data: { breadcrumb: 'Mô phỏng' },
       },
       {

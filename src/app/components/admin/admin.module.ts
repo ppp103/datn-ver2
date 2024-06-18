@@ -37,7 +37,8 @@ import { QuestionsBySubjectComponent } from './manage-subject/questions-by-subje
 import { PreviewTestComponent } from './manage-test/preview-test/preview-test.component';
 import { ManageUserIoComponent } from './manage-user/manage-user-io/manage-user-io.component';
 import { EditTestComponent } from './manage-test/edit-test/edit-test.component';
-import { PageService, SortService, FilterService, GroupService } from '@syncfusion/ej2-angular-grids'
+import { PageService, SortService, FilterService, GroupService } from '@syncfusion/ej2-angular-grids';
+import { TestResultPreviewComponent } from './test-result-preview/test-result-preview.component'
 @NgModule({
   declarations: [
     AdminDashboardComponent,
@@ -67,6 +68,7 @@ import { PageService, SortService, FilterService, GroupService } from '@syncfusi
     PreviewTestComponent,
     ManageUserIoComponent,
     EditTestComponent,
+    TestResultPreviewComponent,
     // TestResultComponent
     // LineChartComponent,
   ],

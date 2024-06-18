@@ -7,6 +7,7 @@ import { PracticeTestService } from '../../../services/practice-test/practice-te
 import { error } from 'console';
 import { CommonServiceShared } from '../../../services/base/common-service.service';
 import { AuthService } from '../../../services/auth/auth.service';
+import { SharedDataService } from '../../../services/shared-data/shared-data.service';
 
 @Component({
   selector: 'app-test-question',
@@ -35,7 +36,8 @@ export class TestQuestionComponent {
     private route : ActivatedRoute,
     private el: ElementRef,
     private commonService: CommonServiceShared,
-    private authService: AuthService
+    private authService: AuthService,
+    private sharedDataService: SharedDataService
   ) {
     this.user = this.authService.getUserDataFromLocal();
   }
@@ -137,7 +139,36 @@ export class TestQuestionComponent {
       this.commonService.showeNotiResult('Vui lòng trả lời hết tất cả các câu hỏi', 2000);
       return;
     }
-    this.addPracticeTest();
+    console.log(this.isStimulate);
+    if(!this.isStimulate){
+      this.addPracticeTest();
+    }else{
+      this.addStimulationPracticeTest();
+    }
+  }
+
+  addStimulationPracticeTest(){
+    this.inputModel = {
+      time: this.totalTime - this.counter,
+      userId: this.user.Id,
+      testId: this.exam.id,
+      createdBy: this.user.Name,
+      answerSheets: this.answerSheets
+    }
+    
+    this.practiceTestService.addStimulationTest(this.inputModel).subscribe({
+      next: (res) =>{
+        // this.router.navigate([`user/test/${res.id}/result`]);
+        console.log(res);
+        this.sharedDataService.setData(res)
+        console.log(this.sharedDataService.getData());
+        this.router.navigate([`admin/tests/${this.id}/preview/result`]);
+
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
   }
 
   getAnswerSheets(){
@@ -161,7 +192,6 @@ export class TestQuestionComponent {
   }
 
   addPracticeTest(){
-    console.log(this.counter);
     this.inputModel = {
       time: this.totalTime - this.counter,
       userId: this.user.Id,

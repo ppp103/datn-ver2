@@ -28,6 +28,15 @@ export class PracticeTestService extends RepositoryEloquentService {
       return this.addItem(param)
   }
 
+  public addStimulationTest(param: any){
+    this.setServiceInfo({
+        apiUrl: `${environment.apiEndPoint}PracticeTest/create-stimulation`,
+      });
+
+      return this.addItem(param)
+  }
+
+
   public getPracticeTestById(id : any){
         this.setServiceInfo({
         apiUrl: `${environment.apiEndPoint}PracticeTest`,

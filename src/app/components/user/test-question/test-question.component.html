@@ -66,7 +66,10 @@
       <span *ngIf="!isStimulate" class="font-bold text-xl">{{ counter | formatTime }}</span>
     </div>
 
-    <div *ngIf="!isStimulate">
+    <!-- <div *ngIf="!isStimulate">
+      <button class="btn btn-primary" (click)="showModal()">Nộp bài</button>
+    </div> -->
+    <div>
       <button class="btn btn-primary" (click)="showModal()">Nộp bài</button>
     </div>
   </div>
@@ -91,7 +94,7 @@
 
 <div *ngIf="toggleModal" class="fixed inset-0 z-40 bg-smoke-light"></div>
 <div
-  *ngIf="toggleModal && !isStimulate"
+  *ngIf="toggleModal"
   class="fixed inset-0 overflow-auto z-50 outline-none focus:outline-none justify-center flex"
 >
   <div class="relative w-4/5 my-5 mx-auto max-w-2xl" style="margin-top: 2.5rem">
