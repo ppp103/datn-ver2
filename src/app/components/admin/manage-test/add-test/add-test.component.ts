@@ -163,6 +163,14 @@ export class AddTestComponent implements OnInit {
     }, 0);
   }
 
+  updateValidScore(){
+    if(this.totalPoint > this.maxTotalPoint){
+      this.validScore = false;
+    }else{
+      this.validScore = true;
+    }
+  }
+
   addSelectedQuestion(){
     const selectedQuestion = this.grid.getSelectedRecords();
     if(selectedQuestion.length > 0){
@@ -175,9 +183,7 @@ export class AddTestComponent implements OnInit {
 
       this.totalTime = this.getTotalTime();
       this.totalPoint = this.getTotalPoint();
-      if(this.totalPoint > this.maxTotalPoint){
-        this.validScore = false;
-      }
+      this.updateValidScore();
       this.commonService.showeNotiResult('Thêm câu hỏi thành công', 1000)
       this.loadData();
     }
@@ -188,6 +194,7 @@ export class AddTestComponent implements OnInit {
     this.questionListSelected.splice(index, 1);
     this.totalTime = this.getTotalTime();
     this.totalPoint = this.getTotalPoint();
+    this.updateValidScore();
     this.loadData();
   }
 
